@@ -9,6 +9,4 @@ minimumReleaseAge: 1440
 
 allowBuilds:
   esbuild: true
-  netlify-cli: true
   sharp: true
-  unix-dgram: true
