@@ -1,6 +1,8 @@
 .git/
 node_modules/
 dist/
+deployment/functions/
+deployment/site/
 coverage/
 .netlify/
 pnpm-lock.yaml

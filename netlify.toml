@@ -1,11 +1,11 @@
 [build]
-  command = "pnpm --filter @myfit/web build"
-  publish = "apps/web/dist"
-  functions = "netlify/functions"
+  base = "deployment"
+  command = "npm run build"
+  publish = "site"
+  functions = "functions"
 
 [build.environment]
   NODE_VERSION = "24.18.0"
-  PNPM_VERSION = "11.14.0"
 
 [functions]
   node_bundler = "esbuild"

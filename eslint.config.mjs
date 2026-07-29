@@ -4,7 +4,15 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
-    ignores: ["**/node_modules/**", "**/dist/**", "**/coverage/**", ".netlify/**", "samples/**"],
+    ignores: [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/coverage/**",
+      ".netlify/**",
+      "deployment/functions/**",
+      "deployment/site/**",
+      "samples/**",
+    ],
   },
   eslint.configs.recommended,
   ...tseslint.configs.strict,
