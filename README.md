@@ -16,6 +16,16 @@ The MVP includes:
 Raw intake photos in `samples/` are local-only. The approved presentation media under
 `apps/web/public/media/` is intentionally public.
 
+## Live MVP
+
+- Gallery: <https://myfit-wardrobe.netlify.app>
+- Public JSON: <https://myfit-wardrobe.netlify.app/api/catalog>
+- ChatGPT MCP endpoint: <https://myfit-wardrobe.netlify.app/mcp>
+
+To use the wardrobe from ChatGPT, enable Developer mode, create a custom app/connector, and use the
+MCP endpoint above as its server URL. The server exposes read-only search, fetch, garment, outfit,
+and owner-profile tools.
+
 ## Run it
 
 Prerequisites are Node.js 24.18.0 and pnpm 11.14.0.
@@ -30,7 +40,7 @@ during development.
 
 ## Public interfaces
 
-Once deployed:
+The live deployment supports:
 
 - `GET /api/catalog` returns the complete public catalog.
 - `GET /api/profile` returns public fit and style context.
