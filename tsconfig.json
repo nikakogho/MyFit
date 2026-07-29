@@ -1,0 +1,35 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/domain"
+    },
+    {
+      "path": "./packages/contracts"
+    },
+    {
+      "path": "./packages/application"
+    },
+    {
+      "path": "./packages/persistence"
+    },
+    {
+      "path": "./packages/assets"
+    },
+    {
+      "path": "./apps/server"
+    },
+    {
+      "path": "./apps/web"
+    },
+    {
+      "path": "./tools/operator"
+    },
+    {
+      "path": "./tools/sample-import"
+    },
+    {
+      "path": "./tools/export"
+    }
+  ]
+}

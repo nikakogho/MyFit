@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-29T12:30:00.000Z",
+  "profile": {
+    "displayName": "Wardrobe owner",
+    "wardrobeName": "MyFit wardrobe",
+    "genderContext": "menswear",
+    "locationContext": "London, UK",
+    "typicalClothingSize": "L",
+    "shoeSize": "EU 44",
+    "heightCmApprox": 180,
+    "fitPreferences": [
+      "Regular fits with comfortable movement",
+      "Sleeves should finish cleanly at the wrist",
+      "Layering should stay visually light rather than bulky"
+    ],
+    "styleDirection": [
+      "Quiet, considered casualwear",
+      "Muted foundations with one energetic accent",
+      "Practical outfits with interesting material or construction"
+    ],
+    "publicNotice": "This wardrobe and its presentation photos are intentionally public so an AI stylist can use them."
+  },
+  "garments": [
+    {
+      "id": "cp-company-nycra-r-jacket",
+      "name": "Nycra-R lightweight jacket",
+      "brand": "C.P. Company",
+      "category": "outerwear",
+      "subcategory": "lightweight shirt-jacket",
+      "colors": ["brown", "grey", "olive"],
+      "colorDescription": "Muted brown-grey with a slight olive undertone",
+      "materials": ["ECONYL regenerated nylon"],
+      "silhouette": "Regular, lightweight shirt-jacket silhouette with a curved hem",
+      "fit": "Regular fit; approximately mid-hip on the owner",
+      "warmth": "light",
+      "seasons": ["spring", "summer", "autumn"],
+      "occasions": ["everyday", "casual", "travel", "smart casual"],
+      "stylingNotes": [
+        "Works best as a light outer layer over a T-shirt or thin knit",
+        "Avoid relying on it for warmth",
+        "The muted tone pairs easily with cream, navy, washed black, and stone"
+      ],
+      "searchTerms": ["overshirt", "shirt-jacket", "lightweight jacket", "brown jacket"],
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/cp-company-jacket-front.jpg",
+          "alt": "C.P. Company brown-grey lightweight jacket laid flat, front view",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/cp-company-jacket-back.jpg",
+          "alt": "C.P. Company brown-grey lightweight jacket laid flat, back view",
+          "role": "back",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-07-29T12:15:00.000Z"
+    },
+    {
+      "id": "hermes-colorblock-sneakers",
+      "name": "Blue, white, and orange sneakers",
+      "brand": "Hermès",
+      "category": "footwear",
+      "subcategory": "low-top sneakers",
+      "colors": ["blue", "white", "orange"],
+      "colorDescription": "Deep navy body with pale overlays, white details, and orange accents",
+      "materials": [
+        "Textile or knit upper (inferred)",
+        "Suede-like overlays (inferred)",
+        "Rubber-like sole (inferred)"
+      ],
+      "silhouette": "Chunky, sporty low-top sneaker with a sculpted ridged sole",
+      "fit": null,
+      "warmth": null,
+      "seasons": ["spring", "summer", "autumn"],
+      "occasions": ["everyday", "casual", "travel"],
+      "stylingNotes": [
+        "Use as the energetic element in an otherwise restrained outfit",
+        "The navy connects naturally to dark denim or navy trousers",
+        "White or ecru elsewhere in the outfit helps the pale overlays feel intentional"
+      ],
+      "searchTerms": ["trainers", "chunky sneakers", "sport sneakers", "navy shoes"],
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/hermes-sneakers-front.jpg",
+          "alt": "Blue, white, and orange Hermès sneakers worn with light trousers, front view",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/hermes-sneakers-side.jpg",
+          "alt": "Blue, white, and orange Hermès sneakers worn with light trousers, side detail",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-07-29T12:16:00.000Z"
+    }
+  ],
+  "outfits": [
+    {
+      "id": "soft-utility-color-pop",
+      "title": "Soft utility, colour pop",
+      "garmentIds": ["cp-company-nycra-r-jacket", "hermes-colorblock-sneakers"],
+      "rationale": "The quiet brown-grey jacket gives the outfit a calm utility base while the sneakers add controlled colour and visual weight. Keep the pieces between them simple so the two distinctive items do not compete.",
+      "missingPieces": [
+        "Plain ecru or off-white T-shirt",
+        "Relaxed navy trousers or clean dark denim",
+        "Optional simple silver watch"
+      ],
+      "occasions": ["weekend", "casual lunch", "travel", "creative office"],
+      "seasons": ["spring", "summer", "autumn"],
+      "tags": ["casual", "layered", "muted-base", "colour-accent"]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+.git/
+node_modules/
+dist/
+coverage/
+.netlify/
+pnpm-lock.yaml
+samples/

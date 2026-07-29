@@ -1,0 +1,26 @@
+node_modules/
+dist/
+coverage/
+test-results/
+playwright-report/
+.turbo/
+.netlify/
+*.tsbuildinfo
+pnpm-debug.log*
+
+.env
+.env.*
+!.env.example
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+.idea/
+.vscode/
+
+# Raw intake stays local. Only explicitly approved presentation media belongs in apps/web/public.
+samples/
+content/private/
+operator-manifest.json
+.tmp-myfit-*.png

@@ -1,0 +1,569 @@
+{
+  "documentType": "myfit-example-record-bundle",
+  "environment": "fixture-only",
+  "schemaVersion": 1,
+  "generatedForDesignDate": "2026-07-29",
+  "warning": "These records reference repository fixtures. They are not production rows and do not authorize an automatic upload or publication.",
+  "ownerProfile": {
+    "id": "11111111-1111-4111-8111-111111111111",
+    "schemaVersion": 1,
+    "revision": 1,
+    "genderContext": "male",
+    "ageRange": "20s",
+    "heightCmApprox": 180,
+    "weightKgVisualizationApprox": 80,
+    "shoeSizeSystem": "EU",
+    "shoeSizeApprox": 44,
+    "typicalClothingSize": "L",
+    "privateNotes": [],
+    "createdAt": "2026-07-29T12:00:00Z",
+    "updatedAt": "2026-07-29T12:00:00Z"
+  },
+  "garments": [
+    {
+      "exampleStatus": "approvedCanonicalPrivateWithPublicationPlan",
+      "record": {
+        "id": "22222222-2222-4222-8222-222222222222",
+        "ownerId": "11111111-1111-4111-8111-111111111111",
+        "schemaVersion": 1,
+        "revision": 1,
+        "displayName": "C.P. Company Nycra-R lightweight jacket",
+        "brand": "C.P. Company",
+        "userCategory": "jacket",
+        "systemCategory": "lightweight shirt-jacket",
+        "alternativeTerms": ["overshirt", "shirt-jacket", "lightweight jacket"],
+        "reachable": true,
+        "colorDescription": "Muted brown-grey with a slight olive undertone",
+        "colorFamilies": ["brown", "grey", "olive"],
+        "patternDescription": "Solid",
+        "materials": [
+          {
+            "name": "ECONYL regenerated nylon",
+            "component": "main fabric",
+            "percentage": null,
+            "qualifier": "manufacturer-listed"
+          }
+        ],
+        "constructionDetails": [
+          "Nycra-R fabric",
+          "Button front",
+          "Point collar",
+          "Two flap chest pockets",
+          "Curved hem",
+          "Garment dyed",
+          "Packable",
+          "Multifabric dyed",
+          "Multifilament construction"
+        ],
+        "visibleDetails": ["Long sleeves", "Two symmetrical flap chest pockets"],
+        "silhouette": "Regular, lightweight shirt-jacket silhouette",
+        "fitOnOwner": "Regular fit",
+        "lengthOnOwner": "Approximately mid-hip",
+        "thermalWeight": "lightweight",
+        "weatherCharacteristics": ["Thin", "Not very warm", "Stretch fabric"],
+        "layeringRole": "Light outer layer over a thin shirt or T-shirt",
+        "labelledSize": null,
+        "ownerNotes": [
+          "The owner would not prefer wearing it in direct sun.",
+          "The sleeves appear approximately correct in length.",
+          "The worn unbuttoned front photograph is the closest fixture color reference, although the real garment is somewhat more brown-grey."
+        ],
+        "categoryAttributes": {
+          "kind": "outerwear",
+          "version": 1,
+          "collar": "point collar",
+          "closure": ["button front"],
+          "hem": "curved",
+          "sleeveConstruction": null,
+          "pockets": ["two flap chest pockets"],
+          "insulation": "none",
+          "layeringRole": "light outer layer"
+        },
+        "provenance": {
+          "/materials/0/name": {
+            "sourceKind": "manufacturer_claim",
+            "status": "confirmed",
+            "confidence": "high",
+            "sourceReference": "Facts supplied in the product brief"
+          },
+          "/constructionDetails/0": {
+            "sourceKind": "user_provided",
+            "status": "confirmed",
+            "confidence": "high",
+            "sourceReference": "Facts supplied in the product brief"
+          },
+          "/labelledSize": {
+            "sourceKind": "user_provided",
+            "status": "unknown",
+            "confidence": "high",
+            "note": "Exact labelled size is unknown. Typical owner size L is not copied here."
+          }
+        },
+        "publishedAt": null,
+        "createdAt": "2026-07-29T12:15:00Z",
+        "updatedAt": "2026-07-29T12:15:00Z"
+      },
+      "assetAssociations": [
+        {
+          "fixtureAssetId": "61000000-0000-4100-8100-000000000002",
+          "role": "aloneFront",
+          "position": 0,
+          "isPrimary": true
+        },
+        {
+          "fixtureAssetId": "61000000-0000-4100-8100-000000000006",
+          "role": "aloneBack",
+          "position": 1,
+          "isPrimary": false
+        },
+        {
+          "fixtureAssetId": "61000000-0000-4100-8100-000000000003",
+          "role": "wornFront",
+          "position": 2,
+          "isPrimary": false
+        },
+        {
+          "fixtureAssetId": "61000000-0000-4100-8100-000000000004",
+          "role": "wornFront",
+          "position": 3,
+          "isPrimary": false
+        },
+        {
+          "fixtureAssetId": "61000000-0000-4100-8100-000000000005",
+          "role": "wornBack",
+          "position": 4,
+          "isPrimary": false
+        },
+        {
+          "fixtureAssetId": "61000000-0000-4100-8100-000000000001",
+          "role": "wornBack",
+          "position": 5,
+          "isPrimary": false
+        }
+      ],
+      "fixturePublicationPlan": {
+        "publicMetadata": true,
+        "publicPresentationCandidates": [
+          {
+            "sourceFixtureAssetId": "61000000-0000-4100-8100-000000000002",
+            "role": "catalog",
+            "transformationProfile": "catalog-v1",
+            "reason": "Flat front view avoids the face and most home context."
+          },
+          {
+            "sourceFixtureAssetId": "61000000-0000-4100-8100-000000000006",
+            "role": "aloneBack",
+            "transformationProfile": "catalog-v1",
+            "reason": "Flat back documentary view."
+          }
+        ],
+        "privateOnlyByDefault": [
+          "61000000-0000-4100-8100-000000000001",
+          "61000000-0000-4100-8100-000000000003",
+          "61000000-0000-4100-8100-000000000004",
+          "61000000-0000-4100-8100-000000000005"
+        ],
+        "privacyReason": "Worn jacket fixtures show a face and/or home interior and need separate explicit approval or privacy cropping."
+      }
+    },
+    {
+      "exampleStatus": "approvedCanonicalPrivateWithPublicationPlan",
+      "record": {
+        "id": "33333333-3333-4333-8333-333333333333",
+        "ownerId": "11111111-1111-4111-8111-111111111111",
+        "schemaVersion": 1,
+        "revision": 1,
+        "displayName": "Hermès blue, white, and orange sneakers",
+        "brand": "Hermès",
+        "userCategory": "sneakers",
+        "systemCategory": "low-top sneakers",
+        "alternativeTerms": ["trainers", "sport sneakers", "chunky sneakers"],
+        "reachable": true,
+        "colorDescription": "Navy or deep blue body with white overlays and orange accents",
+        "colorFamilies": ["blue", "white", "orange"],
+        "patternDescription": "Color-blocked panel construction",
+        "materials": [
+          {
+            "name": "textile or knit",
+            "component": "upper",
+            "percentage": null,
+            "qualifier": "visually inferred"
+          },
+          {
+            "name": "suede-like material",
+            "component": "overlays",
+            "percentage": null,
+            "qualifier": "visually inferred"
+          },
+          {
+            "name": "rubber-like material",
+            "component": "sole",
+            "percentage": null,
+            "qualifier": "visually inferred"
+          }
+        ],
+        "constructionDetails": [
+          "Low-top construction",
+          "White laces",
+          "Orange lace-loop details",
+          "Contrasting orange collar trim",
+          "Thick sculpted ridged sole",
+          "White overlays around the toe, sides, and heel"
+        ],
+        "visibleDetails": [
+          "Chunky sporty proportions",
+          "Mixed-panel upper",
+          "Shoes are photographed being worn"
+        ],
+        "silhouette": "Visually chunky and sporty low-top sneaker",
+        "fitOnOwner": null,
+        "lengthOnOwner": null,
+        "thermalWeight": null,
+        "weatherCharacteristics": [],
+        "layeringRole": null,
+        "labelledSize": null,
+        "ownerNotes": [],
+        "categoryAttributes": {
+          "kind": "footwear",
+          "version": 1,
+          "shoeType": "sneaker",
+          "toeShape": null,
+          "soleShape": "thick sculpted ridged sole",
+          "closure": ["laces"],
+          "upperConstruction": "mixed textile-like and pale overlay panel construction",
+          "height": "low-top",
+          "labelledSize": null
+        },
+        "provenance": {
+          "/materials/0/name": {
+            "sourceKind": "model_inference",
+            "status": "inferred",
+            "confidence": "medium",
+            "note": "The upper appears textile or knit in the photographs; composition is not verified."
+          },
+          "/materials/1/name": {
+            "sourceKind": "model_inference",
+            "status": "inferred",
+            "confidence": "low",
+            "note": "The pale overlays appear suede-like; composition is not verified."
+          },
+          "/materials/2/name": {
+            "sourceKind": "model_inference",
+            "status": "inferred",
+            "confidence": "medium",
+            "note": "The sole appears rubber-like; composition is not verified."
+          },
+          "/displayName": {
+            "sourceKind": "user_provided",
+            "status": "confirmed",
+            "confidence": "high",
+            "note": "Exact Hermès product model is unknown and intentionally omitted."
+          },
+          "/labelledSize": {
+            "sourceKind": "user_provided",
+            "status": "unknown",
+            "confidence": "high",
+            "note": "Owner shoe size EU 44 belongs to the owner profile and is not evidence of this pair's labelled size."
+          }
+        },
+        "publishedAt": null,
+        "createdAt": "2026-07-29T12:16:00Z",
+        "updatedAt": "2026-07-29T12:16:00Z"
+      },
+      "assetAssociations": [
+        {
+          "fixtureAssetId": "62000000-0000-4200-8200-000000000001",
+          "role": "wornFront",
+          "position": 0,
+          "isPrimary": true
+        },
+        {
+          "fixtureAssetId": "62000000-0000-4200-8200-000000000002",
+          "role": "wornSide",
+          "position": 1,
+          "isPrimary": false
+        },
+        {
+          "fixtureAssetId": "62000000-0000-4200-8200-000000000003",
+          "role": "wornSide",
+          "position": 2,
+          "isPrimary": false
+        }
+      ],
+      "fixturePublicationPlan": {
+        "publicMetadata": true,
+        "publicPresentationCandidates": [
+          {
+            "sourceFixtureAssetId": "62000000-0000-4200-8200-000000000001",
+            "role": "catalog",
+            "transformationProfile": "catalog-v1",
+            "reason": "Clear worn close-up showing overall proportions and trouser interaction."
+          },
+          {
+            "sourceFixtureAssetId": "62000000-0000-4200-8200-000000000002",
+            "role": "detail",
+            "transformationProfile": "catalog-v1",
+            "reason": "Alternative close-up showing side construction."
+          }
+        ],
+        "privacyAcknowledgements": [
+          "Lower legs and worn context are visible.",
+          "No exact model or material claim is introduced by publication."
+        ]
+      }
+    }
+  ],
+  "draftExtraction": {
+    "id": "44444444-4444-4444-8444-444444444444",
+    "ownerId": "11111111-1111-4111-8111-111111111111",
+    "schemaVersion": 1,
+    "revision": 2,
+    "status": "draft",
+    "proposedRecord": {
+      "displayName": "Hermès blue, white, and orange sneakers",
+      "brand": "Hermès",
+      "userCategory": "sneakers",
+      "systemCategory": "low-top sneakers",
+      "alternativeTerms": ["trainers", "chunky sneakers"],
+      "reachable": true,
+      "colorDescription": "Deep blue with white overlays and orange accents",
+      "colorFamilies": ["blue", "white", "orange"],
+      "patternDescription": "Color-blocked",
+      "materials": [
+        {
+          "name": "textile or knit",
+          "component": "upper",
+          "percentage": null,
+          "qualifier": "visually inferred"
+        },
+        {
+          "name": "suede-like material",
+          "component": "overlays",
+          "percentage": null,
+          "qualifier": "visually inferred"
+        },
+        {
+          "name": "rubber-like material",
+          "component": "sole",
+          "percentage": null,
+          "qualifier": "visually inferred"
+        }
+      ],
+      "constructionDetails": [
+        "Low-top",
+        "White laces",
+        "Orange lace loops",
+        "Orange collar trim",
+        "Thick sculpted ridged sole",
+        "White toe, side, and heel overlays"
+      ],
+      "visibleDetails": ["Photographed being worn"],
+      "silhouette": "Chunky and sporty",
+      "fitOnOwner": null,
+      "lengthOnOwner": null,
+      "thermalWeight": null,
+      "weatherCharacteristics": [],
+      "layeringRole": null,
+      "labelledSize": null,
+      "ownerNotes": [],
+      "categoryAttributes": {
+        "kind": "footwear",
+        "version": 1,
+        "shoeType": "sneaker",
+        "toeShape": null,
+        "soleShape": "thick sculpted ridged sole",
+        "closure": ["laces"],
+        "upperConstruction": "mixed-panel construction",
+        "height": "low-top",
+        "labelledSize": null
+      }
+    },
+    "provenance": {
+      "/brand": {
+        "sourceKind": "user_provided",
+        "status": "confirmed",
+        "confidence": "high"
+      },
+      "/materials/0/name": {
+        "sourceKind": "model_inference",
+        "status": "inferred",
+        "confidence": "medium",
+        "sourceAssetId": "62000000-0000-4200-8200-000000000001"
+      },
+      "/materials/1/name": {
+        "sourceKind": "model_inference",
+        "status": "inferred",
+        "confidence": "low",
+        "sourceAssetId": "62000000-0000-4200-8200-000000000002"
+      },
+      "/materials/2/name": {
+        "sourceKind": "model_inference",
+        "status": "inferred",
+        "confidence": "medium",
+        "sourceAssetId": "62000000-0000-4200-8200-000000000003"
+      },
+      "/labelledSize": {
+        "sourceKind": "user_provided",
+        "status": "unknown",
+        "confidence": "high"
+      }
+    },
+    "missingRecommendedAssetRoles": ["aloneFront", "aloneBack", "labelMaterial"],
+    "sourceSummary": "Three worn close-up fixture photographs were inspected. Exact product model, labelled size, and composition remain unknown.",
+    "approvedGarmentId": null,
+    "createdAt": "2026-07-29T11:45:00Z",
+    "updatedAt": "2026-07-29T11:50:00Z",
+    "decidedAt": null
+  },
+  "savedOutfit": {
+    "exampleStatus": "illustrativeSavedOutfit",
+    "id": "55555555-5555-4555-8555-555555555555",
+    "ownerId": "11111111-1111-4111-8111-111111111111",
+    "schemaVersion": 1,
+    "revision": 1,
+    "title": "Illustrative jacket and sneaker pairing",
+    "originalRequest": "Show an outfit direction using both sample items.",
+    "rationale": "The muted lightweight jacket and brighter chunky sneakers can act as the two anchors. This fixture is intentionally not a complete outfit because no top or trousers are present in the sample repository.",
+    "notes": [
+      "Illustrative fixture only.",
+      "Runtime styling should choose the missing top and trousers from the actual reachable wardrobe rather than persist invented garments."
+    ],
+    "tags": ["illustrative", "lightweight-layer", "chunky-sneakers"],
+    "items": [
+      {
+        "garmentId": "22222222-2222-4222-8222-222222222222",
+        "position": 0,
+        "role": "outerLayer"
+      },
+      {
+        "garmentId": "33333333-3333-4333-8333-333333333333",
+        "position": 1,
+        "role": "footwear"
+      }
+    ],
+    "assets": [],
+    "publishedAt": null,
+    "archivedAt": null,
+    "createdAt": "2026-07-29T12:20:00Z",
+    "updatedAt": "2026-07-29T12:20:00Z"
+  },
+  "fixtureAssets": [
+    {
+      "id": "61000000-0000-4100-8100-000000000001",
+      "fixtureUri": "fixture://samples/jacket/083D795E-3C40-4D89-8ED2-2F603018C5F6.jpeg",
+      "sha256": "1b545518f3c169a9ecf7f9bb21009998a9c16812a4ed76acc8dc88be547c2773",
+      "byteSize": 522480,
+      "width": 1152,
+      "height": 1536,
+      "mimeType": "image/jpeg",
+      "assetClass": "source",
+      "visibility": "private",
+      "observedView": "Worn rear mirror view",
+      "privacyFlags": ["face_or_head_visible", "home_interior_visible"]
+    },
+    {
+      "id": "61000000-0000-4100-8100-000000000002",
+      "fixtureUri": "fixture://samples/jacket/156EF2DB-7FAA-4FDA-B7FD-79EE5601C991.jpeg",
+      "sha256": "824ac1627345b9ecc1fcce76a4adf12e152d4b9a2ed2de46903bd7437ec4f3c7",
+      "byteSize": 673839,
+      "width": 1152,
+      "height": 1536,
+      "mimeType": "image/jpeg",
+      "assetClass": "source",
+      "visibility": "private",
+      "observedView": "Garment alone, front",
+      "privacyFlags": []
+    },
+    {
+      "id": "61000000-0000-4100-8100-000000000003",
+      "fixtureUri": "fixture://samples/jacket/35741C91-B636-4A70-801F-28A888D105CA.jpeg",
+      "sha256": "b0965b5ac40113256d86bf62e59cdada69f53a9a75dab32261ce8271796ad563",
+      "byteSize": 291310,
+      "width": 1152,
+      "height": 1536,
+      "mimeType": "image/jpeg",
+      "assetClass": "source",
+      "visibility": "private",
+      "observedView": "Worn front, unbuttoned",
+      "privacyFlags": ["face_visible", "home_interior_visible"]
+    },
+    {
+      "id": "61000000-0000-4100-8100-000000000004",
+      "fixtureUri": "fixture://samples/jacket/3A137D8D-D85A-440B-9869-00BD4543F98C.jpeg",
+      "sha256": "b706cf486c59ae508e08e811599670fd3f771825ce505914da20c8d27130073b",
+      "byteSize": 400395,
+      "width": 1152,
+      "height": 1536,
+      "mimeType": "image/jpeg",
+      "assetClass": "source",
+      "visibility": "private",
+      "observedView": "Worn front, buttoned",
+      "privacyFlags": ["face_visible", "home_interior_visible"]
+    },
+    {
+      "id": "61000000-0000-4100-8100-000000000005",
+      "fixtureUri": "fixture://samples/jacket/402B8A33-B894-4C63-AE80-6701363C2349.jpeg",
+      "sha256": "70aa5d70aad31ddbf4ff7a7b3808fddd4a66d9c73c0e6c035c0d6a5d20c72496",
+      "byteSize": 758587,
+      "width": 1152,
+      "height": 1536,
+      "mimeType": "image/jpeg",
+      "assetClass": "source",
+      "visibility": "private",
+      "observedView": "Worn rear mirror view",
+      "privacyFlags": ["face_or_head_visible", "home_interior_visible"]
+    },
+    {
+      "id": "61000000-0000-4100-8100-000000000006",
+      "fixtureUri": "fixture://samples/jacket/D17FBD8C-1FA2-47D9-B4F7-53996ECCA939.jpeg",
+      "sha256": "e56b4300ec608781976593ea2c557a65c76cd797396ba708fd95ab6c8807c88d",
+      "byteSize": 568677,
+      "width": 1152,
+      "height": 1536,
+      "mimeType": "image/jpeg",
+      "assetClass": "source",
+      "visibility": "private",
+      "observedView": "Garment alone, back",
+      "privacyFlags": []
+    },
+    {
+      "id": "62000000-0000-4200-8200-000000000001",
+      "fixtureUri": "fixture://samples/shoe/4C937D36-0A54-4554-A35F-95C6D76949AE.jpeg",
+      "sha256": "58260f801b327d39c36155b44d605d364a2b37c33dc954a468e9df07634b339d",
+      "byteSize": 641908,
+      "width": 1152,
+      "height": 1536,
+      "mimeType": "image/jpeg",
+      "assetClass": "source",
+      "visibility": "private",
+      "observedView": "Worn close-up, overall pair",
+      "privacyFlags": ["lower_legs_visible"]
+    },
+    {
+      "id": "62000000-0000-4200-8200-000000000002",
+      "fixtureUri": "fixture://samples/shoe/85D63F5A-6A25-4E2B-8256-71758AE0654B.jpeg",
+      "sha256": "e47a98230915ad06a2019778c6e20f59853264fd1b5474a7decb2989c720dfcf",
+      "byteSize": 580116,
+      "width": 1152,
+      "height": 1536,
+      "mimeType": "image/jpeg",
+      "assetClass": "source",
+      "visibility": "private",
+      "observedView": "Worn close-up, side angle",
+      "privacyFlags": ["lower_legs_visible"]
+    },
+    {
+      "id": "62000000-0000-4200-8200-000000000003",
+      "fixtureUri": "fixture://samples/shoe/B2F3EFFE-7DA7-4EF8-90B3-4C977E3AEB31.jpeg",
+      "sha256": "0f1963b4d5450fa0aaa153089566443c25d6c5a8007133b2cd0ecbb025801229",
+      "byteSize": 506191,
+      "width": 1152,
+      "height": 1536,
+      "mimeType": "image/jpeg",
+      "assetClass": "source",
+      "visibility": "private",
+      "observedView": "Worn close-up, alternate side angle",
+      "privacyFlags": ["lower_legs_visible"]
+    }
+  ]
+}

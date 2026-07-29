@@ -1,0 +1,42 @@
+{
+  "name": "myfit",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Publicly readable, AI-accessible personal wardrobe system.",
+  "type": "module",
+  "packageManager": "pnpm@11.14.0",
+  "engines": {
+    "node": "24.18.0",
+    "pnpm": "11.14.0"
+  },
+  "scripts": {
+    "build": "pnpm --recursive --if-present run build",
+    "check:secrets": "node scripts/check-secrets.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . --max-warnings=0",
+    "dev": "pnpm --filter @myfit/web dev",
+    "publish:content": "pnpm --filter @myfit/domain build && pnpm --filter @myfit/contracts build && pnpm --filter @myfit/operator build && node tools/operator/dist/index.js",
+    "test": "pnpm run build && pnpm run test:unit && pnpm run test:packages",
+    "test:e2e": "playwright test --config=e2e/playwright.config.ts",
+    "test:packages": "pnpm --recursive --if-present run test",
+    "test:unit": "vitest run",
+    "typecheck": "pnpm --recursive --if-present run typecheck",
+    "validate": "pnpm run build && pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run validate:json && pnpm run validate:architecture && pnpm run check:secrets",
+    "validate:architecture": "node scripts/validate-architecture.mjs",
+    "validate:json": "node scripts/validate-json.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@netlify/functions": "5.3.0",
+    "@playwright/test": "1.62.0",
+    "@types/node": "24.13.3",
+    "eslint": "10.8.0",
+    "globals": "17.8.0",
+    "netlify-cli": "26.2.0",
+    "prettier": "3.9.6",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.65.0",
+    "vitest": "4.0.18"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "@myfit/operator",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "publish": "node dist/index.js",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@myfit/contracts": "workspace:*"
+  }
+}
