@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-29T12:30:00.000Z",
+  "updatedAt": "2026-07-30T14:40:04.000Z",
   "profile": {
     "displayName": "Wardrobe owner",
     "wardrobeName": "MyFit wardrobe",
@@ -103,6 +103,205 @@
         }
       ],
       "addedAt": "2026-07-29T12:16:00.000Z"
+    },
+    {
+      "id": "distressed-black-zip-high-tops",
+      "name": "Distressed black zip high-tops",
+      "brand": null,
+      "category": "footwear",
+      "subcategory": "high-top sneakers",
+      "colors": ["black", "charcoal"],
+      "colorDescription": "Washed black and charcoal with a deliberately distressed finish",
+      "materials": [
+        "Distressed leather-like upper (inferred)",
+        "Textile collar panels (inferred)",
+        "Rubber-like sole (inferred)"
+      ],
+      "silhouette": "Slim high-top sneaker with a padded ribbed collar, layered lacing, and twin side zips",
+      "fit": null,
+      "warmth": null,
+      "seasons": ["spring", "autumn", "winter"],
+      "occasions": ["everyday", "casual", "evening", "travel"],
+      "stylingNotes": [
+        "Works as a darker, more directional alternative to a plain black sneaker",
+        "Pair with washed black denim, charcoal trousers, or muted cargo trousers",
+        "Keep the rest of the outfit relatively clean so the zips and distressed texture remain intentional"
+      ],
+      "searchTerms": [
+        "black high tops",
+        "zip sneakers",
+        "distressed sneakers",
+        "tactical sneakers",
+        "dark shoes"
+      ],
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/black-distressed-high-top-front.jpg",
+          "alt": "Distressed black high-top sneaker with twin side zips, three-quarter front view",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/black-distressed-high-top-side.jpg",
+          "alt": "Distressed black high-top sneaker showing its side profile and zips",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-07-30T14:40:00.000Z"
+    },
+    {
+      "id": "charcoal-brogue-hybrid-shoes",
+      "name": "Charcoal brogue hybrid shoes",
+      "brand": null,
+      "category": "footwear",
+      "subcategory": "brogue-inspired hybrid shoes",
+      "colors": ["charcoal", "grey", "green"],
+      "colorDescription": "Very dark charcoal with a subtle grey-green cast, contrast stitching, and burgundy lining",
+      "materials": [
+        "Nubuck or suede-like upper (inferred)",
+        "Leather-like burgundy lining (inferred)",
+        "Rubber lug sole (inferred)"
+      ],
+      "silhouette": "Low-profile lace-up combining brogue perforations and paneling with a rugged sneaker-like lug sole",
+      "fit": null,
+      "warmth": null,
+      "seasons": ["spring", "autumn", "winter"],
+      "occasions": ["everyday", "smart casual", "casual office", "evening"],
+      "stylingNotes": [
+        "Useful when an outfit needs more structure than a sneaker but less formality than a dress shoe",
+        "Pairs naturally with charcoal, olive, navy, brown, and dark denim",
+        "The rugged sole works best with trousers that have enough visual weight rather than very fine tailoring"
+      ],
+      "searchTerms": [
+        "brogues",
+        "hybrid shoes",
+        "smart casual shoes",
+        "charcoal shoes",
+        "grey green shoes",
+        "lug sole shoes"
+      ],
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/charcoal-brogue-sneaker-top.jpg",
+          "alt": "Charcoal grey-green brogue-inspired hybrid shoe viewed from above",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/charcoal-brogue-sneaker-side.jpg",
+          "alt": "Charcoal brogue-inspired hybrid shoe showing paneling and a black lug sole",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-07-30T14:40:01.000Z"
+    },
+    {
+      "id": "hermes-grey-paneled-sneakers",
+      "name": "Grey paneled sneakers",
+      "brand": "Hermès",
+      "category": "footwear",
+      "subcategory": "low-top sneakers",
+      "colors": ["grey", "white", "black"],
+      "colorDescription": "Soft mid-grey with darker suede-like overlays, white laces, black heel accents, and an off-white segmented sole",
+      "materials": [
+        "Smooth leather-like panels (inferred)",
+        "Suede-like overlays (inferred)",
+        "Rubber-like segmented sole (inferred)"
+      ],
+      "silhouette": "Substantial low-top sneaker with layered panels and a deeply segmented sole",
+      "fit": null,
+      "warmth": null,
+      "seasons": ["spring", "summer", "autumn"],
+      "occasions": ["everyday", "casual", "travel"],
+      "stylingNotes": [
+        "A neutral statement sneaker that works with both light and dark trousers",
+        "The off-white sole looks especially coherent with ecru, stone, or light-grey pieces",
+        "Use the grey upper to soften all-black outfits without introducing a strong colour accent"
+      ],
+      "searchTerms": [
+        "Hermes sneakers",
+        "grey sneakers",
+        "gray trainers",
+        "chunky sneakers",
+        "neutral shoes",
+        "segmented sole"
+      ],
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/hermes-grey-sneakers-pair.jpg",
+          "alt": "Pair of grey Hermès low-top sneakers with white laces and segmented soles",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/hermes-grey-sneaker-front.jpg",
+          "alt": "Grey Hermès sneaker showing its layered front panels and white lacing",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-07-30T14:40:02.000Z"
+    },
+    {
+      "id": "hermes-cream-brown-paneled-sneakers",
+      "name": "Cream and brown paneled sneakers",
+      "brand": "Hermès",
+      "category": "footwear",
+      "subcategory": "low-top sneakers",
+      "colors": ["cream", "brown", "black", "white"],
+      "colorDescription": "Cream woven-texture body with warm brown panels, black accents, and a translucent off-white segmented sole",
+      "materials": [
+        "Woven textile upper (inferred)",
+        "Smooth leather-like panels (inferred)",
+        "Rubber-like segmented sole (inferred)"
+      ],
+      "silhouette": "Streamlined low-top sneaker with an elongated toe, bold contrast panels, and a chunky segmented sole",
+      "fit": null,
+      "warmth": null,
+      "seasons": ["spring", "summer", "autumn"],
+      "occasions": ["everyday", "casual", "travel", "weekend"],
+      "stylingNotes": [
+        "The cream and warm brown palette works naturally with ecru, tan, olive, navy, and washed denim",
+        "Treat the black accents as a bridge to darker trousers or outerwear",
+        "Best used as the focal point of a relaxed outfit with otherwise simple shapes"
+      ],
+      "searchTerms": [
+        "Hermes sneakers",
+        "cream sneakers",
+        "white brown trainers",
+        "brown panel sneakers",
+        "neutral statement shoes",
+        "segmented sole"
+      ],
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/hermes-cream-brown-sneaker-front.jpg",
+          "alt": "Cream and brown Hermès low-top sneaker viewed from the front",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/hermes-cream-brown-sneaker-side.jpg",
+          "alt": "Cream and brown Hermès sneaker showing its side paneling and segmented sole",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-07-30T14:40:03.000Z"
     }
   ],
   "outfits": [

@@ -21,6 +21,7 @@ Desktop.ini
 
 # Raw intake stays local. Only explicitly approved presentation media belongs in apps/web/public.
 samples/
+uploads/
 content/private/
 operator-manifest.json
 .tmp-myfit-*.png
