@@ -26,7 +26,7 @@ const catalog: Catalog = {
       id: "brown-jacket",
       name: "Brown jacket",
       brand: "Test",
-      category: "outerwear",
+      category: "footwear",
       subcategory: "shirt-jacket",
       colors: ["brown"],
       colorDescription: "Brown",
@@ -70,10 +70,11 @@ describe("MCP server", () => {
     const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
     await Promise.all([server.connect(serverTransport), client.connect(clientTransport)]);
 
-    expect(client.getInstructions()).toContain("display those URLs directly");
+    expect(client.getInstructions()).toContain("call render_footwear_comparison");
 
     const tools = await client.listTools();
     expect(tools.tools.map(({ name }) => name)).toContain("search");
+    expect(tools.tools.map(({ name }) => name)).toContain("render_footwear_comparison");
     const result = await client.callTool({ name: "search", arguments: { query: "brown" } });
     expect(result.structuredContent).toMatchObject({
       results: [{ id: "brown-jacket" }],
@@ -81,7 +82,7 @@ describe("MCP server", () => {
 
     const garmentResult = await client.callTool({
       name: "search_garments",
-      arguments: { category: "outerwear" },
+      arguments: { category: "footwear" },
     });
     expect(garmentResult.structuredContent).toMatchObject({
       garments: [
@@ -91,6 +92,55 @@ describe("MCP server", () => {
         },
       ],
       count: 1,
+    });
+
+    const comparisonResult = await client.callTool({
+      name: "render_footwear_comparison",
+      arguments: {
+        trouserName: "black cargo trousers",
+        trouserDescription: "Black straight-leg cargo trousers with utility pockets",
+        trouserStyle: "cargo",
+        rankedFootwear: [
+          {
+            garmentId: "brown-jacket",
+            score: 90,
+            rationale: "Test rationale",
+          },
+        ],
+      },
+    });
+    expect(comparisonResult.structuredContent).toMatchObject({
+      trouserStyle: "cargo",
+      rankedFootwear: [
+        {
+          rank: 1,
+          score: 90,
+          garment: {
+            id: "brown-jacket",
+            images: [{ src: "https://example.com/media/test.jpg" }],
+          },
+        },
+      ],
+    });
+
+    const resources = await client.listResources();
+    expect(resources.resources).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ uri: "ui://myfit/footwear-comparison-v1.html" }),
+      ]),
+    );
+    const resource = await client.readResource({
+      uri: "ui://myfit/footwear-comparison-v1.html",
+    });
+    expect(resource.contents[0]).toMatchObject({
+      mimeType: "text/html;profile=mcp-app",
+      _meta: {
+        ui: {
+          csp: {
+            resourceDomains: ["https://example.com"],
+          },
+        },
+      },
     });
 
     await client.close();

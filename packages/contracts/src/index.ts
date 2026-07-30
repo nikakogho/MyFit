@@ -74,6 +74,40 @@ export const garmentListSchema = z.object({
   count: z.number().int().nonnegative(),
 });
 
+export const footwearComparisonInputSchema = z.object({
+  trouserName: z.string().min(1).max(120),
+  trouserDescription: z.string().min(1).max(500),
+  trouserStyle: z
+    .enum(["cargo", "straight", "wide-leg", "tailored", "slim", "other"])
+    .default("other"),
+  rankedFootwear: z
+    .array(
+      z.object({
+        garmentId: z.string().min(1),
+        score: z.number().int().min(0).max(100),
+        rationale: z.string().min(1).max(500),
+        stylingTip: z.string().min(1).max(300).optional(),
+      }),
+    )
+    .min(1)
+    .max(8),
+});
+
+export const footwearComparisonOutputSchema = z.object({
+  trouserName: z.string(),
+  trouserDescription: z.string(),
+  trouserStyle: z.enum(["cargo", "straight", "wide-leg", "tailored", "slim", "other"]),
+  rankedFootwear: z.array(
+    z.object({
+      rank: z.number().int().positive(),
+      score: z.number().int().min(0).max(100),
+      rationale: z.string(),
+      stylingTip: z.string().nullable(),
+      garment: publicGarmentSchema,
+    }),
+  ),
+});
+
 export const outfitListSchema = z.object({
   outfits: z.array(outfitSchema),
   count: z.number().int().nonnegative(),

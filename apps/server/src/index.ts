@@ -10,6 +10,8 @@ import {
 import {
   fetchInputSchema,
   fetchOutputSchema,
+  footwearComparisonInputSchema,
+  footwearComparisonOutputSchema,
   garmentFilterSchema,
   garmentListSchema,
   outfitFilterSchema,
@@ -22,12 +24,16 @@ import {
   type Outfit,
 } from "@myfit/contracts";
 
+import { footwearComparisonWidgetHtml } from "./footwear-comparison-widget.js";
+
 const readOnlyAnnotations = {
   readOnlyHint: true,
   destructiveHint: false,
   idempotentHint: true,
   openWorldHint: false,
 } as const;
+
+const footwearComparisonResourceUri = "ui://myfit/footwear-comparison-v1.html";
 
 function json(data: unknown, init: ResponseInit = {}): Response {
   const headers = new Headers(init.headers);
@@ -144,11 +150,43 @@ export function createPublicApiHandler(catalog: Catalog) {
 
 export function createMcpServer(catalog: Catalog, baseUrl: string): McpServer {
   const server = new McpServer(
-    { name: "myfit-wardrobe", version: "1.0.1" },
+    { name: "myfit-wardrobe", version: "1.1.0" },
     {
       instructions:
-        "Use MyFit as the read-only source of the owner's wardrobe. Garment image src values are absolute public URLs: display those URLs directly and do not download, proxy, or re-host them in a code or visualization sandbox. Never imply that an uncatalogued item is owned. For an uncatalogued comparison item, use a text description or ChatGPT's native web/image search separately.",
+        "Use MyFit as the read-only source of the owner's wardrobe. Never imply that an uncatalogued item is owned. When the user asks to visualize or compare footwear with trousers, first search garments, rank the exact garment ids, then call render_footwear_comparison. Do not create a separate code visualization or fetch a remote trouser image; the MyFit widget renders a network-free generic trouser reference.",
     },
+  );
+  const publicOrigin = new URL(baseUrl).origin;
+
+  server.registerResource(
+    "MyFit footwear comparison",
+    footwearComparisonResourceUri,
+    {},
+    async () => ({
+      contents: [
+        {
+          uri: footwearComparisonResourceUri,
+          mimeType: "text/html;profile=mcp-app",
+          text: footwearComparisonWidgetHtml,
+          _meta: {
+            ui: {
+              prefersBorder: true,
+              csp: {
+                connectDomains: [],
+                resourceDomains: [publicOrigin],
+              },
+            },
+            "openai/widgetDescription":
+              "Interactive MyFit comparison showing a network-free trouser reference and ranked photos of footwear the owner actually owns.",
+            "openai/widgetPrefersBorder": true,
+            "openai/widgetCSP": {
+              connect_domains: [],
+              resource_domains: [publicOrigin],
+            },
+          },
+        },
+      ],
+    }),
   );
 
   server.registerTool(
@@ -271,6 +309,79 @@ export function createMcpServer(catalog: Catalog, baseUrl: string): McpServer {
       return {
         structuredContent: output,
         content: [{ type: "text", text: JSON.stringify(output) }],
+      };
+    },
+  );
+
+  server.registerTool(
+    "render_footwear_comparison",
+    {
+      title: "Visualize a footwear comparison",
+      description:
+        "Use this when the user asks to visualize or compare owned footwear with trousers. First call search_garments, rank the exact footwear ids, then pass the ranking here. The widget draws its own generic trouser reference, so do not search for or pass a remote trouser image.",
+      inputSchema: footwearComparisonInputSchema,
+      outputSchema: footwearComparisonOutputSchema,
+      annotations: readOnlyAnnotations,
+      _meta: {
+        ui: { resourceUri: footwearComparisonResourceUri },
+        "openai/outputTemplate": footwearComparisonResourceUri,
+        "openai/toolInvocation/invoking": "Building the wardrobe comparison…",
+        "openai/toolInvocation/invoked": "Wardrobe comparison ready.",
+      },
+    },
+    ({ trouserName, trouserDescription, trouserStyle, rankedFootwear }) => {
+      const seen = new Set<string>();
+      const resolved = [];
+
+      for (const [index, item] of rankedFootwear.entries()) {
+        const garment = getGarment(catalog, item.garmentId);
+        if (!garment || garment.category !== "footwear") {
+          return {
+            isError: true,
+            content: [
+              {
+                type: "text",
+                text: `No available footwear record exists for id "${item.garmentId}".`,
+              },
+            ],
+          };
+        }
+        if (seen.has(garment.id)) {
+          return {
+            isError: true,
+            content: [
+              {
+                type: "text",
+                text: `Footwear id "${garment.id}" appears more than once in the ranking.`,
+              },
+            ],
+          };
+        }
+        seen.add(garment.id);
+        resolved.push({
+          rank: index + 1,
+          score: item.score,
+          rationale: item.rationale,
+          stylingTip: item.stylingTip ?? null,
+          garment: garmentWithPublicImages(garment, baseUrl),
+        });
+      }
+
+      const output = {
+        trouserName,
+        trouserDescription,
+        trouserStyle,
+        rankedFootwear: resolved,
+      };
+
+      return {
+        structuredContent: output,
+        content: [
+          {
+            type: "text",
+            text: `Rendered ${resolved.length} owned footwear options for ${trouserName}. The top match is ${resolved[0]?.garment.name}.`,
+          },
+        ],
       };
     },
   );
