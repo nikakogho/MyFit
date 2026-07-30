@@ -70,11 +70,27 @@ describe("MCP server", () => {
     const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
     await Promise.all([server.connect(serverTransport), client.connect(clientTransport)]);
 
+    expect(client.getInstructions()).toContain("display those URLs directly");
+
     const tools = await client.listTools();
     expect(tools.tools.map(({ name }) => name)).toContain("search");
     const result = await client.callTool({ name: "search", arguments: { query: "brown" } });
     expect(result.structuredContent).toMatchObject({
       results: [{ id: "brown-jacket" }],
+    });
+
+    const garmentResult = await client.callTool({
+      name: "search_garments",
+      arguments: { category: "outerwear" },
+    });
+    expect(garmentResult.structuredContent).toMatchObject({
+      garments: [
+        {
+          id: "brown-jacket",
+          images: [{ src: "https://example.com/media/test.jpg" }],
+        },
+      ],
+      count: 1,
     });
 
     await client.close();

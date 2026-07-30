@@ -66,6 +66,16 @@ function canonicalUrl(baseUrl: string, kind: "garments" | "outfits", id: string)
   return new URL(`/${kind}/${id}`, baseUrl).toString();
 }
 
+function garmentWithPublicImages(garment: Garment, baseUrl: string) {
+  return {
+    ...garment,
+    images: garment.images.map((image) => ({
+      ...image,
+      src: new URL(image.src, baseUrl).toString(),
+    })),
+  };
+}
+
 function routePath(request: Request): string {
   const pathname = new URL(request.url).pathname;
   return pathname
@@ -133,7 +143,13 @@ export function createPublicApiHandler(catalog: Catalog) {
 }
 
 export function createMcpServer(catalog: Catalog, baseUrl: string): McpServer {
-  const server = new McpServer({ name: "myfit-wardrobe", version: "1.0.0" });
+  const server = new McpServer(
+    { name: "myfit-wardrobe", version: "1.0.1" },
+    {
+      instructions:
+        "Use MyFit as the read-only source of the owner's wardrobe. Garment image src values are absolute public URLs: display those URLs directly and do not download, proxy, or re-host them in a code or visualization sandbox. Never imply that an uncatalogued item is owned. For an uncatalogued comparison item, use a text description or ChatGPT's native web/image search separately.",
+    },
+  );
 
   server.registerTool(
     "search",
@@ -190,11 +206,7 @@ export function createMcpServer(catalog: Catalog, baseUrl: string): McpServer {
           url: canonicalUrl(baseUrl, "garments", garment.id),
           metadata: {
             kind: "garment",
-            ...garment,
-            images: garment.images.map((image) => ({
-              ...image,
-              src: new URL(image.src, baseUrl).toString(),
-            })),
+            ...garmentWithPublicImages(garment, baseUrl),
           },
         };
         return {
@@ -233,7 +245,9 @@ export function createMcpServer(catalog: Catalog, baseUrl: string): McpServer {
       annotations: readOnlyAnnotations,
     },
     (filter) => {
-      const garments = searchGarments(catalog, filter);
+      const garments = searchGarments(catalog, filter).map((garment) =>
+        garmentWithPublicImages(garment, baseUrl),
+      );
       const output = { garments, count: garments.length };
       return {
         structuredContent: output,

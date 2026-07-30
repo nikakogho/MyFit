@@ -1,4 +1,10 @@
-import { catalogSchema, garmentSchema, outfitSchema, profileSchema } from "@myfit/domain";
+import {
+  catalogSchema,
+  garmentSchema,
+  imageSchema,
+  outfitSchema,
+  profileSchema,
+} from "@myfit/domain";
 import { z } from "zod";
 
 export {
@@ -55,8 +61,16 @@ export const fetchOutputSchema = z.object({
   metadata: z.record(z.string(), z.unknown()),
 });
 
+export const publicImageSchema = imageSchema.extend({
+  src: z.string().url(),
+});
+
+export const publicGarmentSchema = garmentSchema.extend({
+  images: z.array(publicImageSchema).min(1),
+});
+
 export const garmentListSchema = z.object({
-  garments: z.array(garmentSchema),
+  garments: z.array(publicGarmentSchema),
   count: z.number().int().nonnegative(),
 });
 
