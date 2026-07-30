@@ -150,7 +150,7 @@ function Home({ catalog }: { catalog: Catalog }) {
             {jacket ? <img className="hero-jacket" src={jacket.src} alt={jacket.alt} /> : null}
             {sneaker ? <img className="hero-sneaker" src={sneaker.src} alt={sneaker.alt} /> : null}
             <div className="context-note">
-              <b>02</b>
+              <b>{String(catalog.garments.length).padStart(2, "0")}</b>
               <span>Pieces indexed with fit, colour &amp; styling context</span>
             </div>
           </div>
