@@ -8,10 +8,10 @@ The MVP includes:
 - a responsive public gallery with wardrobe search, item details, one saved outfit direction, and a
   public fit profile;
 - a public JSON API;
-- a read-only MCP server with `search`, `fetch`, `search_garments`, `search_outfits`, and
-  `get_owner_profile`;
+- a read-only MCP server with search/fetch, garment/outfit/profile tools, and a reliable footwear
+  comparison widget;
 - a guarded Codex-only publishing command for adding approved public content;
-- two real garments and four presentation photos.
+- six real garments, including five footwear options, and twelve presentation photos.
 
 Raw intake photos in `samples/` are local-only. The approved presentation media under
 `apps/web/public/media/` is intentionally public.
@@ -65,6 +65,17 @@ pnpm.cmd publish:content -- --manifest=C:\path\to\reviewed-manifest.json --ack-p
 The command validates the complete catalog, stages approved files, and then updates
 `content/wardrobe.json` and `apps/web/public/media/`. Codex can run validation and deploy the result
 afterward. It will refuse to run without the public acknowledgement.
+
+Before publishing, run the non-mutating preflight:
+
+```powershell
+pnpm.cmd publish:content -- --manifest=C:\path\to\reviewed-manifest.json --dry-run
+```
+
+The preflight rejects duplicate image bytes, filename/ID collisions, overwrites, unsupported or
+mislabeled image files, incorrect dimensions, unreferenced new assets, and missing catalogue
+images. Batch intake behavior and the minimal follow-up question rules are documented in
+[`docs/INGESTION_WORKFLOW.md`](docs/INGESTION_WORKFLOW.md).
 
 ## Validate
 
