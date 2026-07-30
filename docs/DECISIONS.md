@@ -184,3 +184,30 @@
 **Rationale:** Every alternative adds scope or a security boundary without being necessary for MVP.
 
 **Consequences:** New garments cannot be ingested away from a Codex-capable machine during MVP.
+
+## ADR-014 — One-call deterministic footwear advice
+
+**Status:** Accepted
+
+**Decision:** Expose `advise_footwear` as the default tool for matching owned footwear to trousers.
+It ranks the current public footwear catalogue from additive machine-readable `styleProfile`
+traits, returns one compact catalogue image per pair, and attaches the existing comparison widget
+in the same tool result. The legacy model-ranked render tool remains available for exceptional
+custom rankings.
+
+**Context:** The original comparison required a serial `search_garments` call, a model reasoning
+turn, and then `render_footwear_comparison`. The response bodies were small enough that network
+transfer was not the dominant delay; the avoidable model/tool round-trip was.
+
+**Alternatives considered:** Add another hosted language-model API; keep model-only ranking and
+compact its JSON; precompute every possible outfit combination.
+
+**Rationale:** A small transparent style heuristic is effectively instantaneous, costs nothing per
+request, and remains explainable. ChatGPT still handles the conversation and may generate an
+optional full-look image separately.
+
+**Consequences:** Match scores are relative styling guidance, not objective truth. New footwear
+should include a reviewed `styleProfile`; older records remain compatible through conservative
+fallback inference. Ranking behavior is covered by deterministic tests and should evolve from
+owner feedback rather than hidden model changes. This decision supersedes ADR-009's fixed MVP tool
+count without changing the public read-only boundary.

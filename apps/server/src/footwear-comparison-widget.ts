@@ -341,11 +341,14 @@ export const footwearComparisonWidgetHtml = `
         return element;
       }
 
-      function imageElement(src, alt, className) {
+      function imageElement(src, alt, className, eager) {
         const image = document.createElement("img");
         image.src = src;
         image.alt = alt;
         image.className = className || "";
+        image.loading = eager ? "eager" : "lazy";
+        image.decoding = "async";
+        if (eager) image.fetchPriority = "high";
         image.referrerPolicy = "no-referrer";
         image.addEventListener("error", () => {
           image.style.display = "none";
@@ -353,6 +356,10 @@ export const footwearComparisonWidgetHtml = `
           if (fallback) fallback.style.display = "grid";
         });
         return image;
+      }
+
+      function entryImage(entry) {
+        return entry.garment.image || entry.garment.images?.[0];
       }
 
       function trouserSvg(style) {
@@ -377,9 +384,9 @@ export const footwearComparisonWidgetHtml = `
 
         const media = document.createElement("div");
         media.className = "winner-media";
-        const image = entry.garment.images[0];
+        const image = entryImage(entry);
         media.append(
-          imageElement(image.src, image.alt),
+          imageElement(image.src, image.alt, "", true),
           textElement("div", "image-fallback", entry.garment.name),
           textElement("span", "badge", entry.score + " / 100"),
         );
@@ -416,7 +423,11 @@ export const footwearComparisonWidgetHtml = `
         selectedIndex = Math.min(selectedIndex, data.rankedFootwear.length - 1);
         const selected = data.rankedFootwear[selectedIndex];
 
-        const eyebrow = textElement("p", "eyebrow", "MyFit wardrobe comparison");
+        const eyebrow = textElement(
+          "p",
+          "eyebrow",
+          data.recommendationSummary ? "MyFit instant footwear advice" : "MyFit wardrobe comparison",
+        );
         const title = textElement("h1", "", "What works with " + data.trouserName + "?");
 
         const hero = document.createElement("div");
@@ -449,7 +460,7 @@ export const footwearComparisonWidgetHtml = `
           card.type = "button";
           card.className = "shoe-card" + (index === selectedIndex ? " active" : "");
           card.setAttribute("aria-label", "Show rank " + entry.rank + ": " + entry.garment.name);
-          const cardImage = entry.garment.images[0];
+          const cardImage = entryImage(entry);
           const copy = document.createElement("div");
           copy.className = "card-copy";
           const topLine = document.createElement("div");
@@ -462,7 +473,7 @@ export const footwearComparisonWidgetHtml = `
             topLine,
             textElement("div", "card-brand", entry.garment.brand || "Brand not recorded"),
           );
-          card.append(imageElement(cardImage.src, cardImage.alt), copy);
+          card.append(imageElement(cardImage.src, cardImage.alt, "", false), copy);
           card.addEventListener("click", () => {
             selectedIndex = index;
             render(currentData);

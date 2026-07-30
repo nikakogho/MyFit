@@ -13,6 +13,26 @@ export const imageSchema = z.object({
   height: z.number().int().positive(),
 });
 
+export const styleTagSchema = z.enum([
+  "directional",
+  "heritage",
+  "minimal",
+  "refined",
+  "relaxed",
+  "rugged",
+  "sporty",
+  "techwear",
+  "utility",
+]);
+
+export const styleProfileSchema = z.object({
+  formality: z.enum(["casual", "smart-casual", "formal"]),
+  visualWeight: z.enum(["light", "medium", "substantial"]),
+  statementLevel: z.enum(["quiet", "balanced", "bold"]),
+  palette: z.enum(["cool", "neutral", "warm", "mixed"]),
+  styleTags: z.array(styleTagSchema).min(1),
+});
+
 export const garmentSchema = z.object({
   id: slug,
   name: z.string().min(1),
@@ -29,6 +49,7 @@ export const garmentSchema = z.object({
   occasions: z.array(z.string().min(1)).min(1),
   stylingNotes: z.array(z.string().min(1)),
   searchTerms: z.array(z.string().min(1)),
+  styleProfile: styleProfileSchema.optional(),
   status: z.literal("available"),
   images: z.array(imageSchema).min(1),
   addedAt: z.iso.datetime(),
@@ -85,6 +106,8 @@ export type Catalog = z.infer<typeof catalogSchema>;
 export type Garment = z.infer<typeof garmentSchema>;
 export type Outfit = z.infer<typeof outfitSchema>;
 export type Profile = z.infer<typeof profileSchema>;
+export type StyleProfile = z.infer<typeof styleProfileSchema>;
+export type StyleTag = z.infer<typeof styleTagSchema>;
 
 export function parseCatalog(input: unknown): Catalog {
   return catalogSchema.parse(input);

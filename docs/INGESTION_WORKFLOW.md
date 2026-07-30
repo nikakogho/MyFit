@@ -32,6 +32,8 @@ without asking:
 - likely material families, explicitly suffixed with `(inferred)` when not confirmed by a label;
 - likely seasons and occasions;
 - search terms, styling notes, and outfit compatibility;
+- a compact `styleProfile` covering formality, visual weight, statement level, palette, and useful
+  style tags for deterministic advice;
 - a descriptive public name when the exact commercial model is unknown;
 - public alt text and which image is the strongest catalogue view.
 

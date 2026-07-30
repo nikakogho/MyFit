@@ -8,8 +8,8 @@ The MVP includes:
 - a responsive public gallery with wardrobe search, item details, one saved outfit direction, and a
   public fit profile;
 - a public JSON API;
-- a read-only MCP server with search/fetch, garment/outfit/profile tools, and a reliable footwear
-  comparison widget;
+- a read-only MCP server with search/fetch, garment/outfit/profile tools, a one-call deterministic
+  footwear adviser, and a reliable comparison widget;
 - a guarded Codex-only publishing command for adding approved public content;
 - six real garments, including five footwear options, and twelve presentation photos.
 
@@ -24,7 +24,8 @@ Raw intake photos in `samples/` are local-only. The approved presentation media 
 
 To use the wardrobe from ChatGPT, enable Developer mode, create a custom app/connector, and use the
 MCP endpoint above as its server URL. The server exposes read-only search, fetch, garment, outfit,
-and owner-profile tools.
+owner-profile, and footwear-advice tools. `advise_footwear` ranks every owned pair and returns the
+completed comparison in one call, so normal advice does not require a search-then-render sequence.
 
 ## Run it
 

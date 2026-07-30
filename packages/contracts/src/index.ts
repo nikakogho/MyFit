@@ -4,6 +4,7 @@ import {
   imageSchema,
   outfitSchema,
   profileSchema,
+  styleProfileSchema,
 } from "@myfit/domain";
 import { z } from "zod";
 
@@ -14,10 +15,14 @@ export {
   outfitSchema,
   parseCatalog,
   profileSchema,
+  styleProfileSchema,
+  styleTagSchema,
   type Catalog,
   type Garment,
   type Outfit,
   type Profile,
+  type StyleProfile,
+  type StyleTag,
 } from "@myfit/domain";
 
 export const searchInputSchema = z.object({
@@ -104,6 +109,45 @@ export const footwearComparisonOutputSchema = z.object({
       rationale: z.string(),
       stylingTip: z.string().nullable(),
       garment: publicGarmentSchema,
+    }),
+  ),
+});
+
+export const footwearAdviceInputSchema = z.object({
+  trouserName: z.string().min(1).max(120),
+  trouserDescription: z.string().min(1).max(500),
+  trouserStyle: z
+    .enum(["cargo", "straight", "wide-leg", "tailored", "slim", "other"])
+    .default("other"),
+  trouserColors: z.array(z.string().min(1).max(40)).max(4).optional(),
+  occasion: z.string().min(1).max(80).optional(),
+  season: z.enum(["spring", "summer", "autumn", "winter"]).optional(),
+  desiredMood: z.string().min(1).max(160).optional(),
+  preferredContrast: z.enum(["low", "balanced", "high"]).default("balanced"),
+});
+
+export const adviceFootwearGarmentSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  brand: z.string().nullable(),
+  colors: z.array(z.string()),
+  silhouette: z.string(),
+  image: publicImageSchema,
+  styleProfile: styleProfileSchema,
+});
+
+export const footwearAdviceOutputSchema = z.object({
+  trouserName: z.string(),
+  trouserDescription: z.string(),
+  trouserStyle: z.enum(["cargo", "straight", "wide-leg", "tailored", "slim", "other"]),
+  recommendationSummary: z.string(),
+  rankedFootwear: z.array(
+    z.object({
+      rank: z.number().int().positive(),
+      score: z.number().int().min(0).max(100),
+      rationale: z.string(),
+      stylingTip: z.string(),
+      garment: adviceFootwearGarmentSchema,
     }),
   ),
 });

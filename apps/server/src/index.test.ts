@@ -70,10 +70,11 @@ describe("MCP server", () => {
     const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
     await Promise.all([server.connect(serverTransport), client.connect(clientTransport)]);
 
-    expect(client.getInstructions()).toContain("call render_footwear_comparison");
+    expect(client.getInstructions()).toContain("call advise_footwear directly");
 
     const tools = await client.listTools();
     expect(tools.tools.map(({ name }) => name)).toContain("search");
+    expect(tools.tools.map(({ name }) => name)).toContain("advise_footwear");
     expect(tools.tools.map(({ name }) => name)).toContain("render_footwear_comparison");
     const result = await client.callTool({ name: "search", arguments: { query: "brown" } });
     expect(result.structuredContent).toMatchObject({
@@ -123,14 +124,46 @@ describe("MCP server", () => {
       ],
     });
 
+    const adviceResult = await client.callTool({
+      name: "advise_footwear",
+      arguments: {
+        trouserName: "black cargo trousers",
+        trouserDescription: "Black utility trousers",
+        trouserStyle: "cargo",
+        trouserColors: ["black"],
+      },
+    });
+    expect(adviceResult.content).toEqual([
+      expect.objectContaining({
+        type: "text",
+        text: expect.stringContaining("Best match: Brown jacket"),
+      }),
+    ]);
+    expect(adviceResult.structuredContent).toMatchObject({
+      trouserName: "black cargo trousers",
+      recommendationSummary: expect.stringContaining("Best match"),
+      rankedFootwear: [
+        {
+          rank: 1,
+          garment: {
+            id: "brown-jacket",
+            image: { src: "https://example.com/media/test.jpg" },
+            styleProfile: {
+              formality: "casual",
+            },
+          },
+        },
+      ],
+    });
+
     const resources = await client.listResources();
     expect(resources.resources).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ uri: "ui://myfit/footwear-comparison-v1.html" }),
+        expect.objectContaining({ uri: "ui://myfit/footwear-comparison-v2.html" }),
       ]),
     );
     const resource = await client.readResource({
-      uri: "ui://myfit/footwear-comparison-v1.html",
+      uri: "ui://myfit/footwear-comparison-v2.html",
     });
     expect(resource.contents[0]).toMatchObject({
       mimeType: "text/html;profile=mcp-app",

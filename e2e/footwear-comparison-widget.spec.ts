@@ -12,6 +12,8 @@ const comparison = {
   trouserName: "black cargo trousers",
   trouserDescription: "Black straight-leg cargo trousers with utility pockets",
   trouserStyle: "cargo",
+  recommendationSummary:
+    "Best match: Distressed black zip high-tops. Runner-up: Grey paneled sneakers.",
   rankedFootwear: [
     {
       rank: 1,
@@ -22,7 +24,7 @@ const comparison = {
         id: "black-high-tops",
         name: "Distressed black zip high-tops",
         brand: null,
-        images: [{ src: shoeImage, alt: "Black high-top sneaker" }],
+        image: { src: shoeImage, alt: "Black high-top sneaker" },
       },
     },
     {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-30T14:40:04.000Z",
+  "updatedAt": "2026-07-30T16:21:46.000Z",
   "profile": {
     "displayName": "Wardrobe owner",
     "wardrobeName": "MyFit wardrobe",
@@ -42,6 +42,13 @@
         "The muted tone pairs easily with cream, navy, washed black, and stone"
       ],
       "searchTerms": ["overshirt", "shirt-jacket", "lightweight jacket", "brown jacket"],
+      "styleProfile": {
+        "formality": "smart-casual",
+        "visualWeight": "light",
+        "statementLevel": "quiet",
+        "palette": "mixed",
+        "styleTags": ["minimal", "utility", "refined"]
+      },
       "status": "available",
       "images": [
         {
@@ -85,6 +92,13 @@
         "White or ecru elsewhere in the outfit helps the pale overlays feel intentional"
       ],
       "searchTerms": ["trainers", "chunky sneakers", "sport sneakers", "navy shoes"],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "substantial",
+        "statementLevel": "bold",
+        "palette": "mixed",
+        "styleTags": ["sporty"]
+      },
       "status": "available",
       "images": [
         {
@@ -134,6 +148,13 @@
         "tactical sneakers",
         "dark shoes"
       ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "substantial",
+        "statementLevel": "bold",
+        "palette": "neutral",
+        "styleTags": ["techwear", "directional", "rugged", "utility"]
+      },
       "status": "available",
       "images": [
         {
@@ -184,6 +205,13 @@
         "grey green shoes",
         "lug sole shoes"
       ],
+      "styleProfile": {
+        "formality": "smart-casual",
+        "visualWeight": "substantial",
+        "statementLevel": "balanced",
+        "palette": "neutral",
+        "styleTags": ["heritage", "rugged", "refined"]
+      },
       "status": "available",
       "images": [
         {
@@ -234,6 +262,13 @@
         "neutral shoes",
         "segmented sole"
       ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "substantial",
+        "statementLevel": "balanced",
+        "palette": "cool",
+        "styleTags": ["sporty", "minimal"]
+      },
       "status": "available",
       "images": [
         {
@@ -284,6 +319,13 @@
         "neutral statement shoes",
         "segmented sole"
       ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "substantial",
+        "statementLevel": "bold",
+        "palette": "warm",
+        "styleTags": ["sporty", "relaxed"]
+      },
       "status": "available",
       "images": [
         {
