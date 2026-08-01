@@ -6,6 +6,7 @@ const categories = [
   { value: "all", label: "all" },
   { value: "outerwear", label: "outerwear" },
   { value: "tops", label: "shirts" },
+  { value: "bottoms", label: "trousers" },
   { value: "footwear", label: "footwear" },
 ] as const;
 

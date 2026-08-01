@@ -13,6 +13,11 @@ test("browses and filters the public wardrobe", async ({ page }) => {
   await expect(page.locator('a[href^="/garments/"]')).toHaveCount(6);
   await expect(page.getByText("Teenage Mutant Ninja Turtles graphic T-shirt")).toBeVisible();
   await expect(page.getByText("Nycra-R lightweight jacket")).toBeHidden();
+  await page.getByRole("button", { name: "trousers", exact: true }).click();
+  await expect(page.locator('a[href^="/garments/"]')).toHaveCount(2);
+  await expect(page.getByText("Blacksquad black utility cargo trousers")).toBeVisible();
+  await expect(page.getByText("Dark navy tactical cargo trousers")).toBeVisible();
+  await expect(page.getByText("Teenage Mutant Ninja Turtles graphic T-shirt")).toBeHidden();
   await page.getByRole("button", { name: "all", exact: true }).click();
   await page.getByRole("searchbox", { name: "Search wardrobe" }).fill("sneakers");
   await expect(page.getByText("Blue, white, and orange sneakers")).toBeVisible();
