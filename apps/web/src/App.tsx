@@ -2,7 +2,12 @@ import { useMemo, useState } from "react";
 import { Link, Navigate, Route, Routes, useParams } from "react-router-dom";
 import type { Catalog, Garment, Outfit } from "@myfit/contracts";
 
-const categories = ["all", "outerwear", "footwear"] as const;
+const categories = [
+  { value: "all", label: "all" },
+  { value: "outerwear", label: "outerwear" },
+  { value: "tops", label: "shirts" },
+  { value: "footwear", label: "footwear" },
+] as const;
 
 function Brand() {
   return (
@@ -104,7 +109,7 @@ function OutfitFeature({ outfit, catalog }: { outfit: Outfit; catalog: Catalog }
 }
 
 function Home({ catalog }: { catalog: Catalog }) {
-  const [category, setCategory] = useState<(typeof categories)[number]>("all");
+  const [category, setCategory] = useState<(typeof categories)[number]["value"]>("all");
   const [query, setQuery] = useState("");
   const garments = useMemo(
     () =>
@@ -187,12 +192,12 @@ function Home({ catalog }: { catalog: Catalog }) {
           <div className="filter-row" aria-label="Filter by category">
             {categories.map((item) => (
               <button
-                className={item === category ? "active" : ""}
+                className={item.value === category ? "active" : ""}
                 type="button"
-                key={item}
-                onClick={() => setCategory(item)}
+                key={item.value}
+                onClick={() => setCategory(item.value)}
               >
-                {item}
+                {item.label}
               </button>
             ))}
           </div>
