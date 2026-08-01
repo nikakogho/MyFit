@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-01T13:30:00.000Z",
+  "updatedAt": "2026-08-01T15:39:05.393Z",
   "profile": {
     "displayName": "Wardrobe owner",
     "wardrobeName": "MyFit wardrobe",
@@ -170,6 +170,13 @@
           "role": "detail",
           "width": 1152,
           "height": 1536
+        },
+        {
+          "src": "/media/black-distressed-high-top-rear.jpg",
+          "alt": "Distressed black zip high-top sneaker from the rear showing the padded collar and heel construction",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
         }
       ],
       "addedAt": "2026-07-30T14:40:00.000Z"
@@ -227,6 +234,13 @@
           "role": "detail",
           "width": 1152,
           "height": 1536
+        },
+        {
+          "src": "/media/charcoal-brogue-sneaker-rear.jpg",
+          "alt": "Charcoal brogue hybrid shoe from a rear three-quarter angle showing the heel, red lining, and side panels",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
         }
       ],
       "addedAt": "2026-07-30T14:40:01.000Z"
@@ -281,6 +295,13 @@
         {
           "src": "/media/hermes-grey-sneaker-front.jpg",
           "alt": "Grey Hermès sneaker showing its layered front panels and white lacing",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/hermes-grey-sneaker-side.jpg",
+          "alt": "Grey paneled Hermès sneaker side and heel view showing the pull tab and ridged sole profile",
           "role": "detail",
           "width": 1152,
           "height": 1536
