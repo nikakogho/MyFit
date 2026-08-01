@@ -46,7 +46,7 @@ function GarmentCard({ garment, index }: { garment: Garment; index: number }) {
   return (
     <Link className="garment-card" to={`/garments/${garment.id}`}>
       <div className="card-image">
-        <span className="item-number">0{index + 1}</span>
+        <span className="item-number">{String(index + 1).padStart(2, "0")}</span>
         <img src={image.src} alt={image.alt} width={image.width} height={image.height} />
         <span className="view-item">View item ↗</span>
       </div>

@@ -6,6 +6,9 @@ test("browses and filters the public wardrobe", async ({ page }) => {
   await expect(page.getByLabel("Wardrobe highlights").getByText("13")).toBeVisible();
   await expect(page.getByText("Nycra-R lightweight jacket")).toBeVisible();
   await expect(page.locator('a[href^="/garments/"]')).toHaveCount(13);
+  await expect(page.locator(".item-number")).toHaveText(
+    Array.from({ length: 13 }, (_, index) => String(index + 1).padStart(2, "0")),
+  );
   await page.getByRole("searchbox", { name: "Search wardrobe" }).fill("sneakers");
   await expect(page.getByText("Blue, white, and orange sneakers")).toBeVisible();
   await expect(page.getByText("Grey paneled sneakers")).toBeVisible();
