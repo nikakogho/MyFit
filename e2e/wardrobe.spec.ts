@@ -3,14 +3,14 @@ import { expect, test } from "@playwright/test";
 test("browses and filters the public wardrobe", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { name: /Dress with/ })).toBeVisible();
-  await expect(page.getByLabel("Wardrobe highlights").getByText("13")).toBeVisible();
+  await expect(page.getByLabel("Wardrobe highlights").getByText("21")).toBeVisible();
   await expect(page.getByText("Nycra-R lightweight jacket")).toBeVisible();
-  await expect(page.locator('a[href^="/garments/"]')).toHaveCount(13);
+  await expect(page.locator('a[href^="/garments/"]')).toHaveCount(21);
   await expect(page.locator(".item-number")).toHaveText(
-    Array.from({ length: 13 }, (_, index) => String(index + 1).padStart(2, "0")),
+    Array.from({ length: 21 }, (_, index) => String(index + 1).padStart(2, "0")),
   );
   await page.getByRole("button", { name: "shirts", exact: true }).click();
-  await expect(page.locator('a[href^="/garments/"]')).toHaveCount(3);
+  await expect(page.locator('a[href^="/garments/"]')).toHaveCount(6);
   await expect(page.getByText("Teenage Mutant Ninja Turtles graphic T-shirt")).toBeVisible();
   await expect(page.getByText("Nycra-R lightweight jacket")).toBeHidden();
   await page.getByRole("button", { name: "all", exact: true }).click();
@@ -33,6 +33,14 @@ test("opens a garment with styling context", async ({ page }) => {
 
 test("shows every published angle in multi-photo garment galleries", async ({ page }) => {
   const galleries = [
+    ["black-modular-pocket-hoodie", 6],
+    ["black-hooded-technical-coat", 3],
+    ["blacksquad-black-utility-cargo-trousers", 2],
+    ["dark-navy-tactical-cargo-trousers", 2],
+    ["grey-distressed-hooded-coat", 5],
+    ["white-skull-collage-long-sleeve-tshirt", 7],
+    ["black-utility-pocket-tshirt", 3],
+    ["white-snap-collar-high-neck-top", 3],
     ["distressed-black-zip-high-tops", 3],
     ["charcoal-brogue-hybrid-shoes", 3],
     ["hermes-grey-paneled-sneakers", 4],

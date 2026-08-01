@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-01T15:51:52.928Z",
+  "updatedAt": "2026-08-01T18:03:37.997Z",
   "profile": {
     "displayName": "Wardrobe owner",
     "wardrobeName": "MyFit wardrobe",
@@ -786,6 +786,528 @@
         }
       ],
       "addedAt": "2026-08-01T12:50:06.000Z"
+    },
+    {
+      "id": "black-modular-pocket-hoodie",
+      "name": "Black modular pocket hoodie",
+      "brand": null,
+      "category": "outerwear",
+      "subcategory": "structured hooded pullover",
+      "colors": ["black"],
+      "colorDescription": "Deep matte black with low-contrast paneling and silver zip hardware",
+      "materials": [
+        "Heavyweight cotton-blend sweatshirt fabric (inferred)",
+        "Synthetic utility pocket panels (inferred)"
+      ],
+      "silhouette": "Relaxed longline hooded pullover with a high funnel hood, broad shoulders, stacked front utility pockets, horizontal zip accents, and an extended hip-length hem",
+      "fit": "Relaxed to oversized fit; approximately hip length on the owner",
+      "warmth": "warm",
+      "seasons": ["spring", "autumn", "winter"],
+      "occasions": ["everyday", "casual", "travel", "evening"],
+      "stylingNotes": [
+        "Treat the stacked pockets and zip lines as the main technical detail and keep the layer underneath simple",
+        "Works naturally with cargo trousers, straight black trousers, and substantial high-top footwear",
+        "A narrow or clean trouser hem will prevent the longline top and pocket volume from overwhelming the outfit"
+      ],
+      "searchTerms": [
+        "black techwear hoodie",
+        "modular pocket hoodie",
+        "longline pullover",
+        "black utility hoodie"
+      ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "substantial",
+        "statementLevel": "balanced",
+        "palette": "neutral",
+        "styleTags": ["techwear", "utility", "relaxed"]
+      },
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/black-modular-pocket-hoodie-front.jpg",
+          "alt": "Black modular pocket hoodie worn from the front, showing its stacked utility pockets and horizontal zips",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/black-modular-pocket-hoodie-full-outfit.jpg",
+          "alt": "Black modular pocket hoodie worn in a full dark technical outfit",
+          "role": "worn",
+          "width": 1152,
+          "height": 2837
+        },
+        {
+          "src": "/media/black-modular-pocket-hoodie-three-quarter.jpg",
+          "alt": "Black modular pocket hoodie worn from a three-quarter angle with the high hood and longline hem visible",
+          "role": "worn",
+          "width": 1152,
+          "height": 2410
+        },
+        {
+          "src": "/media/black-modular-pocket-hoodie-worn-front.jpg",
+          "alt": "Black modular pocket hoodie worn from the front in a second full-length outfit view",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/black-modular-pocket-hoodie-worn-relaxed.jpg",
+          "alt": "Black modular pocket hoodie worn in a relaxed front stance showing its volume and pocket placement",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/black-modular-pocket-hoodie-worn-side.jpg",
+          "alt": "Black modular pocket hoodie worn from the side showing the raised hood and projecting utility pockets",
+          "role": "worn",
+          "width": 371,
+          "height": 883
+        }
+      ],
+      "addedAt": "2026-08-01T18:03:37.997Z"
+    },
+    {
+      "id": "black-hooded-technical-coat",
+      "name": "Black hooded technical coat",
+      "brand": null,
+      "category": "outerwear",
+      "subcategory": "long hooded technical coat",
+      "colors": ["black"],
+      "colorDescription": "Tonal black with a clean low-sheen finish and a small red utility accent",
+      "materials": ["Lightweight woven synthetic shell fabric (inferred)"],
+      "silhouette": "Relaxed mid-thigh hooded coat with a straight body, open layered front, long sleeves, and low-profile utility pockets",
+      "fit": "Regular to relaxed fit; approximately mid-thigh on the owner",
+      "warmth": "light",
+      "seasons": ["spring", "summer", "autumn"],
+      "occasions": ["everyday", "casual", "travel", "rain", "evening"],
+      "stylingNotes": [
+        "Use as a light longline shell over compact black or charcoal layers",
+        "The quiet surface can support more detailed cargo trousers or statement footwear",
+        "Keep the lower silhouette relatively narrow or straight to preserve the coat's vertical line"
+      ],
+      "searchTerms": [
+        "black techwear coat",
+        "black hooded coat",
+        "long technical jacket",
+        "lightweight black parka"
+      ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "medium",
+        "statementLevel": "quiet",
+        "palette": "neutral",
+        "styleTags": ["techwear", "minimal", "utility"]
+      },
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/black-hooded-tech-coat-worn-open.jpg",
+          "alt": "Black hooded technical coat worn open from the front, showing its mid-thigh length and layered construction",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/black-hooded-tech-coat-worn-hood-up.jpg",
+          "alt": "Black hooded technical coat worn open with the hood up",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/black-hooded-tech-coat-laid-interior.jpg",
+          "alt": "Black hooded technical coat laid open to show its interior, hood, and pocket construction",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-08-01T18:03:37.997Z"
+    },
+    {
+      "id": "blacksquad-black-utility-cargo-trousers",
+      "name": "Blacksquad black utility cargo trousers",
+      "brand": "Blacksquad",
+      "category": "bottoms",
+      "subcategory": "strapped cargo trousers",
+      "colors": ["black", "white"],
+      "colorDescription": "Near-black with small white branding, pale piping, and tonal webbing hardware",
+      "materials": [
+        "Cotton-blend twill (inferred)",
+        "Synthetic webbing straps and metal hardware (inferred)"
+      ],
+      "silhouette": "Relaxed straight-to-tapered cargo silhouette with articulated knees, layered thigh pockets, hanging straps, piping, and multiple utility attachments",
+      "fit": "Relaxed fit through the leg with a slightly narrowed hem",
+      "warmth": "medium",
+      "seasons": ["spring", "autumn", "winter"],
+      "occasions": ["casual", "evening", "festival", "travel"],
+      "stylingNotes": [
+        "These are a statement bottom, so use a relatively quiet top unless intentionally building a full technical look",
+        "High-tops or substantial segmented soles will balance the pocket and strap volume",
+        "Black, charcoal, grey, and restrained white accents will keep the many construction details coherent"
+      ],
+      "searchTerms": [
+        "Blacksquad trousers",
+        "black cargo pants",
+        "techwear trousers",
+        "strapped utility pants"
+      ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "substantial",
+        "statementLevel": "bold",
+        "palette": "neutral",
+        "styleTags": ["techwear", "utility", "directional"]
+      },
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/blacksquad-black-cargo-trousers-worn-front.jpg",
+          "alt": "Blacksquad black utility cargo trousers worn from the front, showing their thigh pockets, straps, and white branding",
+          "role": "catalog",
+          "width": 489,
+          "height": 1396
+        },
+        {
+          "src": "/media/blacksquad-black-cargo-trousers-worn-detail.jpg",
+          "alt": "Blacksquad black utility cargo trousers worn in a closer front view showing the articulated pockets and piping",
+          "role": "worn",
+          "width": 887,
+          "height": 1982
+        }
+      ],
+      "addedAt": "2026-08-01T18:03:37.997Z"
+    },
+    {
+      "id": "dark-navy-tactical-cargo-trousers",
+      "name": "Dark navy tactical cargo trousers",
+      "brand": null,
+      "category": "bottoms",
+      "subcategory": "tactical cargo trousers",
+      "colors": ["navy", "black"],
+      "colorDescription": "Very dark navy with near-black shadows and tonal utility stitching",
+      "materials": ["Structured cotton twill-like fabric (inferred)"],
+      "silhouette": "Regular straight cargo silhouette with articulated leg panels, substantial thigh pockets, and a clean full-length hem",
+      "fit": "Regular to relaxed straight fit",
+      "warmth": "medium",
+      "seasons": ["spring", "autumn", "winter"],
+      "occasions": ["everyday", "casual", "travel", "workwear"],
+      "stylingNotes": [
+        "Use the near-black navy as a softer base than pure black while retaining a technical character",
+        "Pairs especially well with black, charcoal, grey, cream, and muted olive tops",
+        "Choose medium or substantial footwear so the cargo pockets do not visually outweigh the shoes"
+      ],
+      "searchTerms": [
+        "navy cargo trousers",
+        "dark blue tactical pants",
+        "utility trousers",
+        "straight cargo pants"
+      ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "medium",
+        "statementLevel": "balanced",
+        "palette": "cool",
+        "styleTags": ["utility", "techwear", "rugged"]
+      },
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/navy-tactical-cargo-trousers-front.jpg",
+          "alt": "Dark navy tactical cargo trousers laid flat from the front, showing their straight legs and articulated pockets",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/navy-tactical-cargo-trousers-back.jpg",
+          "alt": "Dark navy tactical cargo trousers laid flat from the back, showing their rear pocket and leg construction",
+          "role": "back",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-08-01T18:03:37.997Z"
+    },
+    {
+      "id": "grey-distressed-hooded-coat",
+      "name": "Grey distressed hooded coat",
+      "brand": null,
+      "category": "outerwear",
+      "subcategory": "distressed asymmetric hooded coat",
+      "colors": ["grey", "charcoal"],
+      "colorDescription": "Weathered medium grey with charcoal shadows, washed seams, and raw pale edge highlights",
+      "materials": ["Textured woven cotton-like fabric (inferred)"],
+      "silhouette": "Close longline mid-thigh coat with an integrated hood, asymmetric front layers, button fastening, offset chest utility pocket, and deliberately frayed edges",
+      "fit": "Close regular fit through the body; approximately mid-thigh on the owner",
+      "warmth": "medium",
+      "seasons": ["spring", "autumn", "winter"],
+      "occasions": ["casual", "evening", "creative", "festival"],
+      "stylingNotes": [
+        "Let the distressed edges and asymmetric front be the outfit's main directional element",
+        "Black or charcoal trousers will create a long uninterrupted line, while cream can emphasize the raw edge treatment",
+        "Works best with structured footwear rather than very clean lightweight trainers"
+      ],
+      "searchTerms": [
+        "grey techwear coat",
+        "distressed hooded jacket",
+        "asymmetric grey coat",
+        "raw edge long jacket"
+      ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "medium",
+        "statementLevel": "bold",
+        "palette": "neutral",
+        "styleTags": ["directional", "techwear", "rugged"]
+      },
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/grey-distressed-hooded-coat-worn-open.jpg",
+          "alt": "Grey distressed hooded coat worn open with the hood down, showing its long asymmetric front and utility pocket",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/grey-distressed-hooded-coat-worn-layered.jpg",
+          "alt": "Grey distressed hooded coat worn open in a layered outfit with the hood up",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/grey-distressed-hooded-coat-worn-hood-open.jpg",
+          "alt": "Grey distressed hooded coat worn open with the hood up",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/grey-distressed-hooded-coat-worn-hood-closed.jpg",
+          "alt": "Grey distressed hooded coat worn buttoned with the hood up",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/grey-distressed-hooded-coat-worn-full.jpg",
+          "alt": "Grey distressed hooded coat worn from the front in a full-length view with the hood down",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-08-01T18:03:37.997Z"
+    },
+    {
+      "id": "white-skull-collage-long-sleeve-tshirt",
+      "name": "White skull-collage graphic long-sleeve T-shirt",
+      "brand": null,
+      "category": "tops",
+      "subcategory": "graphic long-sleeve T-shirt",
+      "colors": ["off-white", "black"],
+      "colorDescription": "Washed off-white with dense black collage graphics across the front, back, and sleeves",
+      "materials": ["Lightweight cotton jersey-like fabric (inferred)"],
+      "silhouette": "Regular to relaxed crew-neck long-sleeve T-shirt with a straight body, full printed sleeves, patch-like graphics, and large front and back artwork",
+      "fit": "Regular to relaxed fit on the owner",
+      "warmth": "light",
+      "seasons": ["spring", "summer", "autumn", "winter"],
+      "occasions": ["everyday", "casual", "evening", "layering"],
+      "stylingNotes": [
+        "Treat the all-over black artwork as the statement and keep trousers relatively plain",
+        "Works especially well with washed black, charcoal, dark navy, or distressed denim",
+        "Layer under open black outerwear when you want the central chest print to remain visible"
+      ],
+      "searchTerms": [
+        "white skull shirt",
+        "graphic long sleeve T-shirt",
+        "black and white collage top",
+        "Royalty graphic shirt"
+      ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "medium",
+        "statementLevel": "bold",
+        "palette": "neutral",
+        "styleTags": ["directional", "relaxed", "rugged"]
+      },
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/white-skull-graphic-long-sleeve-worn-front.jpg",
+          "alt": "White skull-collage graphic long-sleeve T-shirt worn from the front, showing its central artwork and printed sleeves",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/white-skull-graphic-long-sleeve-front.jpg",
+          "alt": "White skull-collage long-sleeve T-shirt laid flat from the front showing the full print arrangement",
+          "role": "front",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/white-skull-graphic-long-sleeve-back.jpg",
+          "alt": "White skull-collage long-sleeve T-shirt laid flat from the back showing its large skeleton graphic",
+          "role": "back",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/white-skull-graphic-long-sleeve-print-detail.jpg",
+          "alt": "White skull-collage long-sleeve T-shirt close view showing the front face graphic, text, and sleeve prints",
+          "role": "detail",
+          "width": 1152,
+          "height": 1391
+        },
+        {
+          "src": "/media/white-skull-graphic-long-sleeve-layered-1.jpg",
+          "alt": "White skull-collage long-sleeve T-shirt worn beneath an open black coat in a layered outfit",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/white-skull-graphic-long-sleeve-layered-2.jpg",
+          "alt": "White skull-collage long-sleeve T-shirt shown in a second full layered outfit view",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/white-skull-graphic-long-sleeve-layered-3.jpg",
+          "alt": "White skull-collage long-sleeve T-shirt shown in a close layered outfit view beneath black outerwear",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-08-01T18:03:37.997Z"
+    },
+    {
+      "id": "black-utility-pocket-tshirt",
+      "name": "Black utility-pocket T-shirt",
+      "brand": null,
+      "category": "tops",
+      "subcategory": "utility pocket T-shirt",
+      "colors": ["black"],
+      "colorDescription": "Tonal black with small pale text, a low-sheen pocket panel, dark buttons, and metal D-ring hardware",
+      "materials": [
+        "Cotton jersey-like body fabric (inferred)",
+        "Lightweight synthetic utility pocket panel (inferred)"
+      ],
+      "silhouette": "Relaxed short-sleeve crew-neck T-shirt with an asymmetric oversized utility pocket, flap and button details, D-rings, and small text at the lower front",
+      "fit": "Relaxed fit on the owner",
+      "warmth": "very-light",
+      "seasons": ["spring", "summer", "autumn", "winter"],
+      "occasions": ["everyday", "casual", "evening", "layering"],
+      "stylingNotes": [
+        "Use as a quiet technical top when trousers or footwear already carry strong details",
+        "The asymmetric pocket works well with plain black, charcoal, olive, or dark navy bottoms",
+        "Keep an outer layer open if you want the pocket panel and D-rings to remain visible"
+      ],
+      "searchTerms": [
+        "black utility T-shirt",
+        "pocket techwear tee",
+        "black D-ring shirt",
+        "asymmetric pocket top"
+      ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "medium",
+        "statementLevel": "balanced",
+        "palette": "neutral",
+        "styleTags": ["utility", "techwear", "directional"]
+      },
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/black-utility-pocket-tshirt-front.jpg",
+          "alt": "Black utility-pocket T-shirt laid flat from the front showing its asymmetric flap pocket, text, buttons, and D-ring",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/black-utility-pocket-tshirt-back.jpg",
+          "alt": "Black utility-pocket T-shirt laid flat from the back showing the large rear panel and D-ring",
+          "role": "back",
+          "width": 1152,
+          "height": 864
+        },
+        {
+          "src": "/media/black-utility-pocket-tshirt-worn.jpg",
+          "alt": "Black utility-pocket T-shirt worn from the front showing its relaxed fit and low-contrast waist detail",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-08-01T18:03:37.997Z"
+    },
+    {
+      "id": "white-snap-collar-high-neck-top",
+      "name": "White snap-collar high-neck top",
+      "brand": null,
+      "category": "tops",
+      "subcategory": "high-neck long-sleeve top",
+      "colors": ["white", "off-white"],
+      "colorDescription": "Clean soft white with subtle tonal seams and silver collar snaps",
+      "materials": ["Smooth cotton-blend jersey fabric (inferred)"],
+      "silhouette": "Clean regular long-sleeve top with a tall sculpted funnel collar, metal snap details at the neck, straight sleeves, and a lightly extended body",
+      "fit": "Regular fit on the owner",
+      "warmth": "light",
+      "seasons": ["spring", "autumn", "winter"],
+      "occasions": ["everyday", "casual", "travel", "layering"],
+      "stylingNotes": [
+        "Use as a bright clean layer beneath black, charcoal, grey, brown, or navy outerwear",
+        "The sculpted collar can replace a scarf-like visual accent without adding heavy bulk",
+        "Works especially well when the rest of the outfit contains strong pockets, straps, or graphics"
+      ],
+      "searchTerms": [
+        "white high neck top",
+        "funnel collar shirt",
+        "white snap collar long sleeve",
+        "minimal white layer"
+      ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "light",
+        "statementLevel": "quiet",
+        "palette": "neutral",
+        "styleTags": ["minimal", "refined", "sporty"]
+      },
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/white-high-neck-top-worn-front.jpg",
+          "alt": "White snap-collar high-neck top worn from the front, showing its clean body and tall funnel collar",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/white-high-neck-top-collar-detail.jpg",
+          "alt": "White high-neck top close view showing the sculpted funnel collar and silver snap details",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/white-high-neck-top-worn-three-quarter.jpg",
+          "alt": "White snap-collar high-neck top worn from a three-quarter angle showing its regular fit and extended collar",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-08-01T18:03:37.997Z"
     }
   ],
   "outfits": [
