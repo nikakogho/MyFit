@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate, Route, Routes, useParams } from "react-router-dom";
 import type { Catalog, Garment, Outfit } from "@myfit/contracts";
 
@@ -42,6 +42,132 @@ function Footer() {
       <a href="/api/catalog">Public JSON</a>
       <a href="/mcp">MCP endpoint</a>
     </footer>
+  );
+}
+
+function ImageLightbox({
+  garmentName,
+  images,
+  index,
+  onChange,
+  onClose,
+}: {
+  garmentName: string;
+  images: Garment["images"];
+  index: number;
+  onChange: (index: number) => void;
+  onClose: () => void;
+}) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const touchStartX = useRef<number | null>(null);
+  const image = images[index];
+  const imageCount = images.length;
+  const move = (direction: -1 | 1) => {
+    onChange((index + direction + imageCount) % imageCount);
+  };
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        onChange((index - 1 + imageCount) % imageCount);
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        onChange((index + 1) % imageCount);
+      } else if (event.key === "Tab") {
+        const controls = Array.from(
+          dialogRef.current?.querySelectorAll<HTMLButtonElement>("button") ?? [],
+        );
+        const firstControl = controls[0];
+        const lastControl = controls.at(-1);
+        if (event.shiftKey && document.activeElement === firstControl) {
+          event.preventDefault();
+          lastControl?.focus();
+        } else if (!event.shiftKey && document.activeElement === lastControl) {
+          event.preventDefault();
+          firstControl?.focus();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [imageCount, index, onChange, onClose]);
+
+  if (!image) return null;
+
+  return (
+    <div
+      className="image-lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${garmentName} photo viewer`}
+      ref={dialogRef}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+      onTouchStart={(event) => {
+        touchStartX.current = event.changedTouches[0]?.clientX ?? null;
+      }}
+      onTouchEnd={(event) => {
+        const endX = event.changedTouches[0]?.clientX;
+        if (touchStartX.current === null || endX === undefined) return;
+        const distance = endX - touchStartX.current;
+        touchStartX.current = null;
+        if (Math.abs(distance) >= 50) move(distance > 0 ? -1 : 1);
+      }}
+    >
+      <button
+        className="lightbox-close"
+        type="button"
+        aria-label="Close image viewer"
+        onClick={onClose}
+        ref={closeButtonRef}
+      >
+        ×
+      </button>
+      {imageCount > 1 ? (
+        <button
+          className="lightbox-arrow lightbox-previous"
+          type="button"
+          aria-label="Previous image"
+          onClick={() => move(-1)}
+        >
+          ←
+        </button>
+      ) : null}
+      <figure className="lightbox-stage">
+        <img src={image.src} alt={image.alt} width={image.width} height={image.height} />
+        <figcaption aria-live="polite">
+          {String(index + 1).padStart(2, "0")} / {String(imageCount).padStart(2, "0")}
+        </figcaption>
+      </figure>
+      {imageCount > 1 ? (
+        <button
+          className="lightbox-arrow lightbox-next"
+          type="button"
+          aria-label="Next image"
+          onClick={() => move(1)}
+        >
+          →
+        </button>
+      ) : null}
+    </div>
   );
 }
 
@@ -260,56 +386,93 @@ function Home({ catalog }: { catalog: Catalog }) {
 function GarmentDetail({ catalog }: { catalog: Catalog }) {
   const { id } = useParams();
   const garment = catalog.garments.find((item) => item.id === id);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const imageTriggerRef = useRef<HTMLButtonElement | null>(null);
   if (!garment) return <Navigate to="/" replace />;
+
+  const closeLightbox = useCallback(() => {
+    setSelectedImageIndex(null);
+    window.setTimeout(() => imageTriggerRef.current?.focus(), 0);
+  }, []);
+
   return (
-    <main className="detail-page">
-      <Link className="back-link" to="/#wardrobe">
-        ← Back to wardrobe
-      </Link>
-      <div className="detail-layout">
-        <div className="detail-gallery">
-          {garment.images.map((image) => (
-            <img key={image.src} src={image.src} alt={image.alt} />
-          ))}
-        </div>
-        <aside className="detail-copy">
-          <p className="eyebrow">
-            {garment.category} · {garment.subcategory}
-          </p>
-          <h1>{garment.name}</h1>
-          <p className="detail-brand">{garment.brand}</p>
-          <p className="detail-lede">
-            {garment.colorDescription}. {garment.silhouette}.
-          </p>
-          <dl className="detail-list">
-            <div>
-              <dt>Colours</dt>
-              <dd>{garment.colors.join(", ")}</dd>
-            </div>
-            <div>
-              <dt>Materials</dt>
-              <dd>{garment.materials.join(", ")}</dd>
-            </div>
-            <div>
-              <dt>Fit</dt>
-              <dd>{garment.fit ?? "Not recorded yet"}</dd>
-            </div>
-            <div>
-              <dt>Best seasons</dt>
-              <dd>{garment.seasons.join(", ")}</dd>
-            </div>
-          </dl>
-          <div className="styling-box">
-            <p className="eyebrow">Styling notes</p>
-            <ul>
-              {garment.stylingNotes.map((note) => (
-                <li key={note}>{note}</li>
-              ))}
-            </ul>
+    <>
+      <main className="detail-page">
+        <Link className="back-link" to="/#wardrobe">
+          ← Back to wardrobe
+        </Link>
+        <div className="detail-layout">
+          <div className="detail-gallery">
+            {garment.images.map((image, index) => (
+              <button
+                className="gallery-image-button"
+                type="button"
+                key={image.src}
+                aria-label={`Open photo ${index + 1} of ${garment.images.length}`}
+                onClick={(event) => {
+                  imageTriggerRef.current = event.currentTarget;
+                  setSelectedImageIndex(index);
+                }}
+              >
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  width={image.width}
+                  height={image.height}
+                  loading={index > 1 ? "lazy" : "eager"}
+                />
+                <span aria-hidden="true">View larger</span>
+              </button>
+            ))}
           </div>
-        </aside>
-      </div>
-    </main>
+          <aside className="detail-copy">
+            <p className="eyebrow">
+              {garment.category} · {garment.subcategory}
+            </p>
+            <h1>{garment.name}</h1>
+            <p className="detail-brand">{garment.brand}</p>
+            <p className="detail-lede">
+              {garment.colorDescription}. {garment.silhouette}.
+            </p>
+            <dl className="detail-list">
+              <div>
+                <dt>Colours</dt>
+                <dd>{garment.colors.join(", ")}</dd>
+              </div>
+              <div>
+                <dt>Materials</dt>
+                <dd>{garment.materials.join(", ")}</dd>
+              </div>
+              <div>
+                <dt>Fit</dt>
+                <dd>{garment.fit ?? "Not recorded yet"}</dd>
+              </div>
+              <div>
+                <dt>Best seasons</dt>
+                <dd>{garment.seasons.join(", ")}</dd>
+              </div>
+            </dl>
+            <div className="styling-box">
+              <p className="eyebrow">Styling notes</p>
+              <ul>
+                {garment.stylingNotes.map((note) => (
+                  <li key={note}>{note}</li>
+                ))}
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </main>
+      {selectedImageIndex !== null ? (
+        <ImageLightbox
+          garmentName={garment.name}
+          images={garment.images}
+          index={selectedImageIndex}
+          onChange={setSelectedImageIndex}
+          onClose={closeLightbox}
+        />
+      ) : null}
+    </>
   );
 }
 

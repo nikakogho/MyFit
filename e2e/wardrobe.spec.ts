@@ -45,6 +45,29 @@ test("shows every published angle in multi-photo garment galleries", async ({ pa
   }
 });
 
+test("opens garment photos in a wraparound lightbox", async ({ page }) => {
+  await page.goto("/garments/brown-field-jacket");
+  const firstPhoto = page.getByRole("button", { name: "Open photo 1 of 5" });
+  await firstPhoto.click();
+
+  const lightbox = page.getByRole("dialog", { name: "Brown field jacket photo viewer" });
+  await expect(lightbox).toBeVisible();
+  await expect(lightbox.getByText("01 / 05", { exact: true })).toBeVisible();
+
+  await lightbox.getByRole("button", { name: "Previous image" }).click();
+  await expect(lightbox.getByText("05 / 05", { exact: true })).toBeVisible();
+  await lightbox.getByRole("button", { name: "Next image" }).click();
+  await expect(lightbox.getByText("01 / 05", { exact: true })).toBeVisible();
+
+  await page.keyboard.press("ArrowRight");
+  await expect(lightbox.getByText("02 / 05", { exact: true })).toBeVisible();
+  await page.keyboard.press("ArrowLeft");
+  await expect(lightbox.getByText("01 / 05", { exact: true })).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(lightbox).toBeHidden();
+  await expect(firstPhoto).toBeFocused();
+});
+
 test("opens the saved outfit direction", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("heading", { name: "Soft utility, colour pop" }).click();
