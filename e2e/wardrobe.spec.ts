@@ -26,6 +26,20 @@ test("opens a garment with styling context", async ({ page }) => {
   await expect(page.getByText("Styling notes")).toBeVisible();
 });
 
+test("shows every published angle in multi-photo garment galleries", async ({ page }) => {
+  const galleries = [
+    ["brown-field-jacket", 5],
+    ["taupe-lightweight-zip-jacket", 4],
+    ["tmnt-graphic-tshirt", 3],
+    ["black-worldwide-680-rain-parka", 5],
+  ] as const;
+
+  for (const [garmentId, imageCount] of galleries) {
+    await page.goto(`/garments/${garmentId}`);
+    await expect(page.locator(".detail-gallery img")).toHaveCount(imageCount);
+  }
+});
+
 test("opens the saved outfit direction", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("heading", { name: "Soft utility, colour pop" }).click();

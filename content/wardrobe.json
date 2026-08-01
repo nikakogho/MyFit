@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-01T12:53:22.949Z",
+  "updatedAt": "2026-08-01T13:30:00.000Z",
   "profile": {
     "displayName": "Wardrobe owner",
     "wardrobeName": "MyFit wardrobe",
@@ -436,6 +436,27 @@
           "role": "back",
           "width": 1152,
           "height": 1536
+        },
+        {
+          "src": "/media/brown-field-jacket-hanging.jpg",
+          "alt": "Warm brown field jacket hanging to show its drape and rear construction",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/brown-field-jacket-construction-detail.jpg",
+          "alt": "Warm brown field jacket close view showing its fabric, lining, and construction",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/brown-field-jacket-worn.jpg",
+          "alt": "Warm brown field jacket worn buttoned, front mirror view",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
         }
       ],
       "addedAt": "2026-08-01T12:50:01.000Z"
@@ -531,6 +552,20 @@
           "role": "back",
           "width": 1152,
           "height": 1536
+        },
+        {
+          "src": "/media/taupe-lightweight-zip-jacket-inside.jpg",
+          "alt": "Taupe lightweight zip jacket laid open to show its interior and construction",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/taupe-lightweight-zip-jacket-open.jpg",
+          "alt": "Taupe lightweight zip jacket worn open over a black top",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
         }
       ],
       "addedAt": "2026-08-01T12:50:03.000Z"
@@ -582,6 +617,13 @@
           "role": "back",
           "width": 1152,
           "height": 1536
+        },
+        {
+          "src": "/media/tmnt-graphic-tshirt-worn-back.jpg",
+          "alt": "Black Teenage Mutant Ninja Turtles T-shirt worn from the back to show the full graphic",
+          "role": "worn",
+          "width": 452,
+          "height": 946
         }
       ],
       "addedAt": "2026-08-01T12:50:04.000Z"
@@ -690,6 +732,20 @@
           "src": "/media/black-graphic-rain-parka-back.jpg",
           "alt": "Black rain parka laid flat showing its large orange and white back graphic",
           "role": "back",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/black-graphic-rain-parka-pocket-detail.jpg",
+          "alt": "Black rain parka close view showing an outlined utility pocket and snap closure",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/black-graphic-rain-parka-graphic-detail.jpg",
+          "alt": "Black rain parka close view showing the orange graphic, lettering, and lower utility pocket",
+          "role": "detail",
           "width": 1152,
           "height": 1536
         }

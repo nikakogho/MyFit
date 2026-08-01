@@ -8,6 +8,12 @@ authorization to inspect the named local files, prepare all sufficiently documen
 publish the ready subset through the guarded operator workflow, validate it, and commit the ready
 subset. Raw intake files remain local and untouched.
 
+For every ready garment, publish every supplied, non-duplicate photo that clearly belongs to it.
+Choose one strong `catalog` image, but retain the remaining angles, worn views, interior views, and
+construction details as `front`, `back`, `worn`, or `detail` images. Do not silently reduce a garment
+to a curated subset. Exclude a photo only when it is unreadable, an accidental unrelated image, an
+exact duplicate, or would make the public presentation misleading.
+
 Use common sense before asking questions. Infer ordinary visual facts such as category, colour,
 silhouette, likely materials, seasons, occasions, search terms, and styling notes when the images
 support them. Mark uncertain material claims as inferred. `brand`, `fit`, and `warmth` are nullable

@@ -13,7 +13,8 @@ Codex should:
    visual continuity, and garment features.
 3. Compare the proposed garments and source-image hashes with the existing public catalogue.
 4. Classify every proposed garment as `ready` or `blocked`.
-5. Prepare public presentation images and metadata for every ready garment.
+5. Prepare every usable supplied photo and the metadata for every ready garment, selecting one
+   strong catalogue thumbnail without discarding the other angles or worn views.
 6. Run the publication dry-run and resolve code/data errors.
 7. Publish, validate, commit, push, deploy, and live-check the ready subset.
 8. Leave blocked files untouched and ask one grouped follow-up covering only those garments.
@@ -86,6 +87,13 @@ Category heuristics:
 
 A worn photo is helpful but optional. A label photo is optional unless exact brand, model, or
 material attribution is necessary. Do not reflexively request front/back/left/right views.
+
+Once a garment is ready, photo sufficiency is not a reason to discard additional supplied views.
+Publish every non-duplicate photo that clearly belongs to the garment, including alternate angles,
+worn open/closed views, interior construction, graphics, pockets, and other useful details. Exclude
+only unreadable photos, accidental unrelated images, exact duplicates, or images whose publication
+would be misleading. Assign one image the `catalog` role and represent the rest with the most honest
+available roles.
 
 Examples of good targeted requests:
 

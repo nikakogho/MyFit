@@ -11,7 +11,7 @@ The MVP includes:
 - a read-only MCP server with search/fetch, garment/outfit/profile tools, a one-call deterministic
   footwear adviser, and a reliable comparison widget;
 - a guarded Codex-only publishing command for adding approved public content;
-- thirteen real garments, including five footwear options, and twenty-five presentation photos.
+- thirteen real garments, including five footwear options, and thirty-three presentation photos.
 
 Raw intake photos in `samples/` are local-only. The approved presentation media under
 `apps/web/public/media/` is intentionally public.
