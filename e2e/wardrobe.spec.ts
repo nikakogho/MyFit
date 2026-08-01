@@ -35,7 +35,8 @@ test("shows every published angle in multi-photo garment galleries", async ({ pa
   const galleries = [
     ["distressed-black-zip-high-tops", 3],
     ["charcoal-brogue-hybrid-shoes", 3],
-    ["hermes-grey-paneled-sneakers", 3],
+    ["hermes-grey-paneled-sneakers", 4],
+    ["hermes-cream-brown-paneled-sneakers", 3],
     ["brown-field-jacket", 5],
     ["taupe-lightweight-zip-jacket", 4],
     ["tmnt-graphic-tshirt", 3],

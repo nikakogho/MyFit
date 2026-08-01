@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-01T15:39:05.393Z",
+  "updatedAt": "2026-08-01T15:51:52.928Z",
   "profile": {
     "displayName": "Wardrobe owner",
     "wardrobeName": "MyFit wardrobe",
@@ -305,6 +305,13 @@
           "role": "detail",
           "width": 1152,
           "height": 1536
+        },
+        {
+          "src": "/media/hermes-grey-sneaker-outer-profile.jpg",
+          "alt": "Grey paneled Hermès sneaker in full outer-side profile showing the large H sole insert and layered upper",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
         }
       ],
       "addedAt": "2026-07-30T14:40:02.000Z"
@@ -359,6 +366,13 @@
         {
           "src": "/media/hermes-cream-brown-sneaker-side.jpg",
           "alt": "Cream and brown Hermès sneaker showing its side paneling and segmented sole",
+          "role": "detail",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/hermes-cream-brown-sneaker-outer-profile.jpg",
+          "alt": "Cream and brown Hermès sneaker in outer-side profile showing the orange heel insert, leather overlays, and ridged sole",
           "role": "detail",
           "width": 1152,
           "height": 1536
