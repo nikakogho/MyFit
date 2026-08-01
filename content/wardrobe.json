@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-30T16:21:46.000Z",
+  "updatedAt": "2026-08-01T12:53:22.949Z",
   "profile": {
     "displayName": "Wardrobe owner",
     "wardrobeName": "MyFit wardrobe",
@@ -344,6 +344,357 @@
         }
       ],
       "addedAt": "2026-07-30T14:40:03.000Z"
+    },
+    {
+      "id": "black-lightweight-sport-jacket",
+      "name": "Black lightweight sport jacket",
+      "brand": null,
+      "category": "outerwear",
+      "subcategory": "lightweight technical zip jacket",
+      "colors": ["black"],
+      "colorDescription": "Near-black with a clean, low-contrast technical finish",
+      "materials": ["Lightweight synthetic shell fabric (inferred)"],
+      "silhouette": "Clean mid-hip zip jacket with a stand collar, streamlined pockets, and lightly relaxed sleeves",
+      "fit": "Regular to relaxed fit; approximately mid-hip on the owner",
+      "warmth": "light",
+      "seasons": ["spring", "summer", "autumn"],
+      "occasions": ["everyday", "casual", "travel", "active"],
+      "stylingNotes": [
+        "Use as a low-bulk outer layer over T-shirts and lightweight knits",
+        "Works naturally with technical trousers, dark denim, and simple sneakers",
+        "The quiet black finish can balance a louder graphic top or statement footwear"
+      ],
+      "searchTerms": [
+        "black sport jacket",
+        "technical jacket",
+        "lightweight zip jacket",
+        "black shell jacket"
+      ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "light",
+        "statementLevel": "quiet",
+        "palette": "neutral",
+        "styleTags": ["sporty", "minimal", "techwear"]
+      },
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/black-lightweight-sport-jacket-worn.jpg",
+          "alt": "Black lightweight sport jacket worn zipped, front mirror view",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-08-01T12:50:00.000Z"
+    },
+    {
+      "id": "brown-field-jacket",
+      "name": "Brown field jacket",
+      "brand": null,
+      "category": "outerwear",
+      "subcategory": "field-style jacket",
+      "colors": ["brown"],
+      "colorDescription": "Warm medium brown with a softly washed, tonal finish",
+      "materials": ["Cotton canvas-like fabric (inferred)"],
+      "silhouette": "Regular mid-hip field-jacket shape with a point collar, button front, flap chest pockets, and hand pockets",
+      "fit": "Regular fit; approximately mid-hip on the owner",
+      "warmth": "medium",
+      "seasons": ["spring", "autumn", "winter"],
+      "occasions": ["everyday", "casual", "travel", "weekend"],
+      "stylingNotes": [
+        "Pairs especially well with cream, black, olive, indigo denim, and other earthy neutrals",
+        "Use the chest pockets and washed texture to add structure to a plain T-shirt outfit",
+        "Substantial footwear or straight trousers will match its practical visual weight"
+      ],
+      "searchTerms": [
+        "brown field jacket",
+        "brown utility jacket",
+        "brown trucker jacket",
+        "canvas jacket"
+      ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "medium",
+        "statementLevel": "balanced",
+        "palette": "warm",
+        "styleTags": ["heritage", "rugged", "utility"]
+      },
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/brown-field-jacket-front.jpg",
+          "alt": "Warm brown field-style jacket laid flat, front view",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/brown-field-jacket-back.jpg",
+          "alt": "Warm brown field-style jacket laid flat, back view",
+          "role": "back",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-08-01T12:50:01.000Z"
+    },
+    {
+      "id": "black-tonal-graphic-tshirt",
+      "name": "Black tonal graphic T-shirt",
+      "brand": null,
+      "category": "tops",
+      "subcategory": "graphic T-shirt",
+      "colors": ["black", "charcoal"],
+      "colorDescription": "Black with a low-contrast charcoal abstract graphic across the chest",
+      "materials": ["Cotton jersey-like fabric (inferred)"],
+      "silhouette": "Relaxed black T-shirt with wide short sleeves, a straight body, and tonal raw-seam detailing",
+      "fit": "Relaxed fit on the owner",
+      "warmth": "very-light",
+      "seasons": ["spring", "summer", "autumn", "winter"],
+      "occasions": ["everyday", "casual", "evening", "layering"],
+      "stylingNotes": [
+        "A useful dark base layer when the outerwear or footwear should carry the outfit",
+        "The tonal chest graphic adds interest without competing with stronger prints or colours",
+        "Works with washed black, charcoal, brown, olive, and denim bottoms"
+      ],
+      "searchTerms": [
+        "black graphic tee",
+        "tonal T-shirt",
+        "charcoal graphic shirt",
+        "relaxed black tee"
+      ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "light",
+        "statementLevel": "quiet",
+        "palette": "neutral",
+        "styleTags": ["directional", "relaxed", "minimal"]
+      },
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/black-tonal-graphic-tshirt-worn.jpg",
+          "alt": "Relaxed black T-shirt with a tonal charcoal chest graphic, worn front view",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-08-01T12:50:02.000Z"
+    },
+    {
+      "id": "taupe-lightweight-zip-jacket",
+      "name": "Taupe lightweight zip jacket",
+      "brand": null,
+      "category": "outerwear",
+      "subcategory": "lightweight collared zip jacket",
+      "colors": ["taupe", "brown", "grey"],
+      "colorDescription": "Muted light taupe-brown with a grey cast",
+      "materials": ["Lightweight crinkled synthetic fabric (inferred)"],
+      "silhouette": "Regular mid-hip jacket with a point collar, silver two-way front zip, zipped hand pockets, and a softly curved hem",
+      "fit": "Regular to slightly relaxed fit; approximately mid-hip on the owner",
+      "warmth": "light",
+      "seasons": ["spring", "summer", "autumn"],
+      "occasions": ["everyday", "casual", "travel", "smart casual"],
+      "stylingNotes": [
+        "The muted taupe works as a softer alternative to black outerwear",
+        "Pairs cleanly with black, charcoal, cream, navy, washed denim, and olive",
+        "Keep layers underneath light so the jacket retains its clean drape"
+      ],
+      "searchTerms": [
+        "taupe jacket",
+        "light brown jacket",
+        "lightweight zip jacket",
+        "collared technical jacket"
+      ],
+      "styleProfile": {
+        "formality": "smart-casual",
+        "visualWeight": "light",
+        "statementLevel": "quiet",
+        "palette": "neutral",
+        "styleTags": ["minimal", "refined", "utility"]
+      },
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/taupe-lightweight-zip-jacket-worn.jpg",
+          "alt": "Taupe lightweight collared zip jacket worn closed, front mirror view",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/taupe-lightweight-zip-jacket-back.jpg",
+          "alt": "Taupe lightweight collared zip jacket laid flat, back view",
+          "role": "back",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-08-01T12:50:03.000Z"
+    },
+    {
+      "id": "tmnt-graphic-tshirt",
+      "name": "Teenage Mutant Ninja Turtles graphic T-shirt",
+      "brand": null,
+      "category": "tops",
+      "subcategory": "graphic T-shirt",
+      "colors": ["black", "green", "red", "orange", "blue", "purple"],
+      "colorDescription": "Black with a small multicolour chest logo and a large vivid Teenage Mutant Ninja Turtles back graphic",
+      "materials": ["Cotton jersey-like fabric (inferred)"],
+      "silhouette": "Relaxed short-sleeve T-shirt with a restrained front and a large rectangular back print",
+      "fit": "Regular to relaxed fit on the owner",
+      "warmth": "very-light",
+      "seasons": ["spring", "summer", "autumn", "winter"],
+      "occasions": ["everyday", "casual", "weekend", "layering"],
+      "stylingNotes": [
+        "Let the colourful back graphic be the main statement and keep trousers relatively simple",
+        "Black, washed charcoal, dark denim, or olive bottoms will anchor the bright print",
+        "Wear open outerwear if you want the small chest logo visible without obscuring the graphic character"
+      ],
+      "searchTerms": [
+        "TMNT shirt",
+        "Ninja Turtles T-shirt",
+        "black graphic tee",
+        "colourful back print"
+      ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "medium",
+        "statementLevel": "bold",
+        "palette": "mixed",
+        "styleTags": ["relaxed", "directional"]
+      },
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/tmnt-graphic-tshirt-front.jpg",
+          "alt": "Black Teenage Mutant Ninja Turtles T-shirt worn from the front with a small chest logo",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/tmnt-graphic-tshirt-back.jpg",
+          "alt": "Black Teenage Mutant Ninja Turtles T-shirt laid flat showing the large colourful back graphic",
+          "role": "back",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-08-01T12:50:04.000Z"
+    },
+    {
+      "id": "sharingan-rinnegan-eyes-tshirt",
+      "name": "Sharingan and Rinnegan eyes T-shirt",
+      "brand": null,
+      "category": "tops",
+      "subcategory": "embroidered graphic T-shirt",
+      "colors": ["black", "red", "purple"],
+      "colorDescription": "Black with small red Sharingan and purple Rinnegan eye motifs on the chest",
+      "materials": ["Cotton jersey-like fabric (inferred)"],
+      "silhouette": "Regular to relaxed short-sleeve T-shirt with two small contrasting eye motifs across the chest",
+      "fit": "Regular to slightly relaxed fit on the owner",
+      "warmth": "very-light",
+      "seasons": ["spring", "summer", "autumn", "winter"],
+      "occasions": ["everyday", "casual", "weekend", "layering"],
+      "stylingNotes": [
+        "The small red and purple motifs add a controlled accent to an otherwise all-black top",
+        "Easy to layer under black, brown, taupe, or olive outerwear",
+        "Works with either quiet footwear or a shoe that repeats one of the accent colours"
+      ],
+      "searchTerms": [
+        "Sharingan shirt",
+        "Rinnegan shirt",
+        "anime eyes T-shirt",
+        "black embroidered tee"
+      ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "light",
+        "statementLevel": "balanced",
+        "palette": "mixed",
+        "styleTags": ["directional", "minimal"]
+      },
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/anime-eyes-tshirt-front.jpg",
+          "alt": "Black T-shirt laid flat showing red Sharingan and purple Rinnegan eye motifs on the chest",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/anime-eyes-tshirt-worn.jpg",
+          "alt": "Black Sharingan and Rinnegan eyes T-shirt worn from the front",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-08-01T12:50:05.000Z"
+    },
+    {
+      "id": "black-worldwide-680-rain-parka",
+      "name": "Black Worldwide 680 graphic rain parka",
+      "brand": null,
+      "category": "outerwear",
+      "subcategory": "lightweight hooded rain parka",
+      "colors": ["black", "orange", "white"],
+      "colorDescription": "Black with white utility outlines and lettering plus a large orange, white, and black back graphic",
+      "materials": ["Waterproof lightweight synthetic shell fabric"],
+      "silhouette": "Relaxed mid-thigh hooded parka with a covered front closure, elastic cuffs, and large outlined utility pockets",
+      "fit": "Regular to relaxed fit; approximately mid-thigh on the owner",
+      "warmth": "light",
+      "seasons": ["spring", "summer", "autumn"],
+      "occasions": ["everyday", "casual", "rain", "travel", "festival"],
+      "stylingNotes": [
+        "Treat the large orange back graphic and white utility details as the outfit's focal point",
+        "Best with black, charcoal, or washed-grey layers and bottoms for a coherent technical look",
+        "The longer hem works well over slim, straight, or tapered trousers without adding heavy insulation"
+      ],
+      "searchTerms": [
+        "black raincoat",
+        "hooded rain parka",
+        "graphic parka",
+        "Worldwide 680 coat",
+        "black trench raincoat"
+      ],
+      "styleProfile": {
+        "formality": "casual",
+        "visualWeight": "medium",
+        "statementLevel": "bold",
+        "palette": "mixed",
+        "styleTags": ["techwear", "directional", "utility"]
+      },
+      "status": "available",
+      "images": [
+        {
+          "src": "/media/black-graphic-rain-parka-front.jpg",
+          "alt": "Black hooded graphic rain parka worn from the front with the hood down",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/black-graphic-rain-parka-hood.jpg",
+          "alt": "Black graphic rain parka worn from the front with the hood up",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536
+        },
+        {
+          "src": "/media/black-graphic-rain-parka-back.jpg",
+          "alt": "Black rain parka laid flat showing its large orange and white back graphic",
+          "role": "back",
+          "width": 1152,
+          "height": 1536
+        }
+      ],
+      "addedAt": "2026-08-01T12:50:06.000Z"
     }
   ],
   "outfits": [
