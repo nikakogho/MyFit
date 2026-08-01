@@ -584,6 +584,7 @@ footer > a:not(.brand) {
   position: relative;
   display: block;
   min-width: 0;
+  aspect-ratio: 0.76;
   padding: 0;
   border: 0;
   background: none;
@@ -594,7 +595,7 @@ footer > a:not(.brand) {
 .detail-gallery img {
   display: block;
   width: 100%;
-  aspect-ratio: 0.76;
+  height: 100%;
   object-fit: cover;
   transition: transform 220ms ease;
 }

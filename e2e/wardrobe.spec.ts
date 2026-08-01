@@ -45,6 +45,20 @@ test("shows every published angle in multi-photo garment galleries", async ({ pa
   }
 });
 
+test("keeps garment gallery thumbnails in compact cards", async ({ page }) => {
+  await page.goto("/garments/brown-field-jacket");
+
+  const thumbnailRatios = await page.locator(".gallery-image-button").evaluateAll((buttons) =>
+    buttons.map((button) => {
+      const { width, height } = button.getBoundingClientRect();
+      return width / height;
+    }),
+  );
+
+  expect(thumbnailRatios).not.toHaveLength(0);
+  expect(thumbnailRatios.every((ratio) => Math.abs(ratio - 0.76) < 0.02)).toBe(true);
+});
+
 test("opens garment photos in a wraparound lightbox", async ({ page }) => {
   await page.goto("/garments/brown-field-jacket");
   const firstPhoto = page.getByRole("button", { name: "Open photo 1 of 5" });
