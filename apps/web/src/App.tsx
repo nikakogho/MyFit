@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link, Navigate, Route, Routes, useParams } from "react-router-dom";
+import { Link, Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
 import type { Catalog, Garment, Look, Outfit } from "@myfit/contracts";
 
 const categories = [
@@ -45,6 +45,16 @@ function Footer() {
       <a href="/mcp">MCP endpoint</a>
     </footer>
   );
+}
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
 }
 
 function ImageLightbox({
@@ -812,6 +822,7 @@ function OutfitDetail({ catalog }: { catalog: Catalog }) {
 export function App({ catalog }: { catalog: Catalog }) {
   return (
     <div className="app-shell">
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home catalog={catalog} />} />

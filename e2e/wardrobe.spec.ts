@@ -138,6 +138,7 @@ test("filters and opens photo-backed looks by garment combination", async ({ pag
 
   await page.getByRole("heading", { name: "Black modular utility layers" }).click();
   await expect(page).toHaveURL(/\/looks\/black-modular-utility-look$/);
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
   await expect(page.locator(".detail-gallery img")).toHaveCount(5);
   await expect(page.getByText("Visible but not identified")).toBeVisible();
 
