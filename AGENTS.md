@@ -15,11 +15,13 @@ to a curated subset. Exclude a photo only when it is unreadable, an accidental u
 exact duplicate, or would make the public presentation misleading.
 
 Treat deliberately submitted full-outfit photos as photographed `look` evidence in addition to
-ordinary garment imagery. Inventory every visible clothing item. Automatically link only clear
-catalogue matches; ask one grouped confirmation for ambiguous matches. If the user confirms a piece
-is new, ingest it as a garment first and connect its ID to every relevant look image. Garment IDs are
-recorded per photo because layers or shoes can differ across photos. Never guess an exact identity;
-use `unindexedPieces` temporarily or hold the look when that ambiguity would be misleading.
+ordinary garment imagery. Inventory every visible clothing item and propose any likely catalogue
+matches, but do not link any visible piece based on resemblance alone. Before publishing the look,
+obtain the user's explicit confirmation for every proposed garment-to-photo association. Ask these
+confirmations together in one concise message. If the user confirms a piece is new, ingest it as a
+garment first and connect its ID to every relevant look image. Garment IDs are recorded per photo
+because layers or shoes can differ across photos. Never guess an exact identity; use
+`unindexedPieces` temporarily or hold the look when that ambiguity would be misleading.
 
 For the current owner-only phase, outfit photos are intentionally public and published as-is. Face
 and background redaction is a future default-on service feature, not part of current intake.

@@ -131,9 +131,11 @@ may be a saved or AI-assembled idea that has never been photographed.
 For every deliberately submitted full-outfit photo:
 
 1. Inventory every visible clothing item, including footwear and visible outer layers.
-2. Link a piece automatically only when it is a high-confidence match to an existing garment ID.
-3. For each uncertain match, ask one compact confirmation such as, “Is the black jacket in photos
-   2–4 the catalogued X jacket?” Group all such confirmations into one message.
+2. Propose likely catalogue matches, but never convert visual resemblance—even high-confidence
+   resemblance—into a garment ID without asking the user.
+3. Before publication, obtain explicit confirmation for every proposed association, such as, “Are
+   the hoodie, trousers, and shoes in photos 2–4 the catalogued X, Y, and Z items?” Group all
+   confirmations into one concise message.
 4. If the user says it is not an existing garment, ingest it through the normal garment workflow
    first, then attach that new garment ID to each relevant look image.
 5. Never silently guess an exact garment identity. A temporarily unresolved visible piece belongs

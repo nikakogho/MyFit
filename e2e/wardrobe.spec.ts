@@ -129,9 +129,8 @@ test("filters and opens photo-backed looks by garment combination", async ({ pag
 
   const filter = page.getByLabel("Add garment to look filter");
   await filter.selectOption("black-modular-pocket-hoodie");
-  await filter.selectOption("blacksquad-black-utility-cargo-trousers");
   await expect(page.getByRole("heading", { name: "Black modular utility layers" })).toBeVisible();
-  await filter.selectOption("cp-company-nycra-r-jacket");
+  await filter.selectOption("blacksquad-black-utility-cargo-trousers");
   await expect(page.getByText(/No photographed look contains that combination yet/)).toBeVisible();
   await page.getByRole("button", { name: "Clear garments" }).click();
   await expect(page.getByRole("heading", { name: "Black modular utility layers" })).toBeVisible();
@@ -157,4 +156,9 @@ test("links garments back to photographed looks", async ({ page }) => {
     page.getByRole("heading", { name: "Photographed looks with this piece" }),
   ).toBeVisible();
   await expect(page.getByRole("heading", { name: "Black modular utility layers" })).toBeVisible();
+
+  await page.goto("/garments/blacksquad-black-utility-cargo-trousers");
+  await expect(
+    page.getByRole("heading", { name: "Photographed looks with this piece" }),
+  ).toHaveCount(0);
 });
