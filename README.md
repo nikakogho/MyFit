@@ -5,13 +5,15 @@ outfits from clothes the owner actually has.
 
 The MVP includes:
 
-- a responsive public gallery with wardrobe search, item details, one saved outfit direction, and a
-  public fit profile;
+- a responsive public gallery with wardrobe search, photographed looks, combination filtering,
+  item/look details, one saved outfit idea, and a public fit profile;
 - a public JSON API;
-- a read-only MCP server with search/fetch, garment/outfit/profile tools, a one-call deterministic
-  footwear adviser, and a reliable comparison widget;
+- a read-only MCP server with search/fetch, photographed-look search, tiered outfit planning,
+  garment/outfit/profile tools, a one-call deterministic footwear adviser, and a reliable
+  comparison widget;
 - a guarded Codex-only publishing command for adding approved public content;
-- thirteen real garments, including five footwear options, and thirty-three presentation photos.
+- twenty-one real garments, including five footwear options, sixty-nine garment photos, and one
+  five-photo real-life look.
 
 Raw intake photos in `samples/` are local-only. The approved presentation media under
 `apps/web/public/media/` is intentionally public.
@@ -23,9 +25,11 @@ Raw intake photos in `samples/` are local-only. The approved presentation media 
 - ChatGPT MCP endpoint: <https://myfit-wardrobe.netlify.app/mcp>
 
 To use the wardrobe from ChatGPT, enable Developer mode, create a custom app/connector, and use the
-MCP endpoint above as its server URL. The server exposes read-only search, fetch, garment, outfit,
-owner-profile, and footwear-advice tools. `advise_footwear` ranks every owned pair and returns the
-completed comparison in one call, so normal advice does not require a search-then-render sequence.
+MCP endpoint above as its server URL. The server exposes read-only search, fetch, garment, real-look,
+outfit-planning, owner-profile, and footwear-advice tools. `get_outfit_options` searches suitable
+photographed looks first and returns ranked individual garments second. For place/date requests,
+ChatGPT can resolve the forecast and pass that context into this one call. `advise_footwear` remains
+the specialized one-call shoe comparison.
 
 ## Run it
 
@@ -47,6 +51,11 @@ The live deployment supports:
 - `GET /api/profile` returns public fit and style context.
 - `GET /api/garments` supports `query`, `category`, `color`, `season`, and `occasion`.
 - `GET /api/garments/:id` returns one garment.
+- `GET /api/looks` supports `query`, repeatable `garmentId`, `match=contains|exact`, `season`, and
+  `occasion`. Repeated garment IDs use AND semantics within the same photo.
+- `GET /api/looks/:id` returns one photographed look.
+- `GET /api/outfit-options` returns tier 1 photographed looks and tier 2 ranked owned garments for
+  supplied request, date, weather, occasion, mood, and required-garment context.
 - `GET /api/outfits` supports `query`, `season`, and `occasion`.
 - `GET /api/outfits/:id` returns one saved outfit direction.
 - `/mcp` is the Streamable HTTP MCP endpoint to connect from a ChatGPT app.

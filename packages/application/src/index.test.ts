@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { Catalog } from "@myfit/domain";
 
-import { adviseFootwear, searchGarments } from "./index.js";
+import { adviseFootwear, getOutfitOptions, searchGarments, searchLooks } from "./index.js";
 
 const jacket: Catalog["garments"][number] = {
   id: "test-jacket",
@@ -48,6 +48,7 @@ const catalog: Catalog = {
     publicNotice: "Public",
   },
   garments: [jacket],
+  looks: [],
   outfits: [],
 };
 
@@ -55,6 +56,70 @@ describe("searchGarments", () => {
   it("finds alternative terms and structured attributes", () => {
     expect(searchGarments(catalog, { query: "overshirt", color: "brown" })).toEqual([jacket]);
     expect(searchGarments(catalog, { season: "winter" })).toEqual([]);
+  });
+});
+
+describe("photographed looks", () => {
+  const trousers: Catalog["garments"][number] = {
+    ...jacket,
+    id: "test-trousers",
+    name: "Black utility trousers",
+    category: "bottoms",
+    subcategory: "cargo trousers",
+    colors: ["black"],
+    colorDescription: "Black",
+    materials: ["cotton"],
+    silhouette: "straight utility fit",
+    seasons: ["spring", "autumn", "winter"],
+    searchTerms: ["cargo"],
+  };
+  const look: Catalog["looks"][number] = {
+    id: "utility-look",
+    title: "Black utility layers",
+    images: [
+      {
+        src: "/media/look.jpg",
+        alt: "Black utility look",
+        role: "worn",
+        width: 10,
+        height: 20,
+        garmentIds: [jacket.id, trousers.id],
+      },
+    ],
+    unindexedPieces: [],
+    notes: "A practical casual utility combination.",
+    occasions: ["casual day out", "city visit"],
+    seasons: ["spring", "autumn"],
+    tags: ["utility", "layered"],
+    privacyTreatment: "as-is",
+    addedAt: "2026-08-02T12:00:00.000Z",
+  };
+  const lookCatalog: Catalog = { ...catalog, garments: [jacket, trousers], looks: [look] };
+
+  it("uses AND semantics for selected garments and supports exact matching", () => {
+    expect(searchLooks(lookCatalog, { garmentIds: [jacket.id, trousers.id] })).toEqual([look]);
+    expect(searchLooks(lookCatalog, { garmentIds: [jacket.id], match: "exact" })).toEqual([]);
+    expect(searchLooks(lookCatalog, { query: "city visit" })).toEqual([look]);
+  });
+
+  it("returns photographed looks first and ranked owned garments second", () => {
+    const result = getOutfitOptions(lookCatalog, {
+      request: "Suggest an outfit for a city visit tomorrow",
+      requiredGarmentIds: [trousers.id],
+      season: "autumn",
+      occasion: "city visit",
+      temperatureC: 12,
+      precipitationExpected: true,
+    });
+
+    expect(result.photographedLooks[0]).toMatchObject({
+      look: { id: "utility-look" },
+      matchReasons: expect.arrayContaining(["Contains every required garment."]),
+    });
+    expect(result.candidatesByCategory.bottoms[0]).toMatchObject({
+      garment: { id: "test-trousers" },
+      matchReasons: expect.arrayContaining(["Required by the user."]),
+    });
   });
 });
 

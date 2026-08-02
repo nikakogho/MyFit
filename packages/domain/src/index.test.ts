@@ -21,6 +21,7 @@ describe("catalog schema", () => {
           publicNotice: "Public.",
         },
         garments: [],
+        looks: [],
         outfits: [
           {
             id: "look",
@@ -33,6 +34,52 @@ describe("catalog schema", () => {
             tags: ["test"],
           },
         ],
+      }),
+    ).toThrow(/unknown garment/);
+  });
+
+  it("rejects photographed looks that reference missing garments", () => {
+    expect(() =>
+      parseCatalog({
+        schemaVersion: 1,
+        updatedAt: "2026-08-02T12:00:00.000Z",
+        profile: {
+          displayName: "Wardrobe owner",
+          wardrobeName: "Test wardrobe",
+          genderContext: "menswear",
+          locationContext: "London",
+          typicalClothingSize: "L",
+          shoeSize: "EU 44",
+          heightCmApprox: 180,
+          fitPreferences: ["regular"],
+          styleDirection: ["casual"],
+          publicNotice: "Public.",
+        },
+        garments: [],
+        looks: [
+          {
+            id: "worn-look",
+            title: "Worn look",
+            images: [
+              {
+                src: "/media/look.jpg",
+                alt: "A look",
+                role: "worn",
+                width: 10,
+                height: 20,
+                garmentIds: ["missing"],
+              },
+            ],
+            unindexedPieces: [],
+            notes: "Test.",
+            occasions: ["casual"],
+            seasons: ["spring"],
+            tags: ["test"],
+            privacyTreatment: "as-is",
+            addedAt: "2026-08-02T12:00:00.000Z",
+          },
+        ],
+        outfits: [],
       }),
     ).toThrow(/unknown garment/);
   });

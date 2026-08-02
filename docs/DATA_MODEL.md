@@ -211,7 +211,18 @@ Tracks named provider transformations without implying visibility.
 
 Unique `(source_asset_id, name, transformation_spec_hash)`.
 
-### 3.9 `outfits`
+### 3.9 `looks` (current static MVP projection)
+
+The current repository JSON has a top-level `looks` collection for real photographed combinations.
+Each look has an ID, title, notes, occasions, seasons, tags, `unindexedPieces`, a `privacyTreatment`,
+and one or more images. Each image extends the normal public image record with a non-empty
+`garmentIds` array. This per-photo association is deliberate: opened/closed layers and swapped
+footwear can change between images in the same look. All IDs must reference existing garments.
+
+`privacyTreatment="as-is"` is the current owner-only policy. A future multi-user intake surface must
+offer default-on face and background redaction before this becomes a service feature.
+
+### 3.10 `outfits`
 
 | Field                       | Type        | Required | Constraints/meaning                          |
 | --------------------------- | ----------- | -------: | -------------------------------------------- |
@@ -228,7 +239,7 @@ Unique `(source_asset_id, name, transformation_spec_hash)`.
 | `archived_at`               | timestamptz |       no | Archived rows are not public                 |
 | `created_at` / `updated_at` | timestamptz |      yes | Standard timestamps                          |
 
-### 3.10 `outfit_items`
+### 3.11 `outfit_items`
 
 | Field        | Type               | Required | Constraints/meaning       |
 | ------------ | ------------------ | -------: | ------------------------- |
@@ -239,11 +250,11 @@ Unique `(source_asset_id, name, transformation_spec_hash)`.
 
 PK `(outfit_id, garment_id)`. Garment and outfit must share an owner. Public outfit projections include only published garments; publication fails if any member garment is private.
 
-### 3.11 `outfit_assets`
+### 3.12 `outfit_assets`
 
 Association of outfit to asset with `role`, `position`, and optional disclaimer. A generated preview must reference an `asset_class='generated'` asset and must carry the standard inaccuracy disclaimer.
 
-### 3.12 `idempotency_records`
+### 3.13 `idempotency_records`
 
 | Field             | Type        | Required | Constraints/meaning             |
 | ----------------- | ----------- | -------: | ------------------------------- |
@@ -258,7 +269,7 @@ Association of outfit to asset with `role`, `position`, and optional disclaimer.
 
 Unique `(owner_id, operation, idempotency_key)`. Same key/different hash returns a conflict.
 
-### 3.13 `audit_events`
+### 3.14 `audit_events`
 
 Append-only.
 

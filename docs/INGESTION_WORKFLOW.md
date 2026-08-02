@@ -14,7 +14,9 @@ Codex should:
 3. Compare the proposed garments and source-image hashes with the existing public catalogue.
 4. Classify every proposed garment as `ready` or `blocked`.
 5. Prepare every usable supplied photo and the metadata for every ready garment, selecting one
-   strong catalogue thumbnail without discarding the other angles or worn views.
+   strong catalogue thumbnail without discarding the other angles or worn views. When a photo is
+   deliberately a full outfit, also prepare a photographed-look record with the exact garments
+   visible in that individual image.
 6. Run the publication dry-run and resolve code/data errors.
 7. Publish, validate, commit, push, deploy, and live-check the ready subset.
 8. Leave blocked files untouched and ask one grouped follow-up covering only those garments.
@@ -121,7 +123,33 @@ This is a decision bank, not a questionnaire to send verbatim.
 
 If none of these questions is necessary, ask nothing.
 
-## 6. Partial-batch ledger
+## 6. Photographed full-outfit intake
+
+A `look` is factual evidence of a combination worn together. It is distinct from an `outfit`, which
+may be a saved or AI-assembled idea that has never been photographed.
+
+For every deliberately submitted full-outfit photo:
+
+1. Inventory every visible clothing item, including footwear and visible outer layers.
+2. Link a piece automatically only when it is a high-confidence match to an existing garment ID.
+3. For each uncertain match, ask one compact confirmation such as, “Is the black jacket in photos
+   2–4 the catalogued X jacket?” Group all such confirmations into one message.
+4. If the user says it is not an existing garment, ingest it through the normal garment workflow
+   first, then attach that new garment ID to each relevant look image.
+5. Never silently guess an exact garment identity. A temporarily unresolved visible piece belongs
+   in `unindexedPieces`; the look must not imply that the piece is an indexed or owned garment.
+6. Record garment membership per image, not only per look. If a layer is removed or footwear
+   changes between photos, those photos have different `garmentIds` even if they remain one look.
+
+A multi-garment look is ready when every visible piece is either linked to a confirmed catalogued
+garment or honestly recorded as unresolved. If the unresolved identity would materially affect the
+purpose of the look, publish the ready garments and hold the look until the user's grouped answer.
+
+The current private-owner phase publishes submitted look photos as-is, including face and visible
+background. If MyFit becomes a multi-user service, add face/background redaction as a default-on
+upload option before accepting other users; that future policy is not active now.
+
+## 7. Partial-batch ledger
 
 Codex should maintain a concise working ledger:
 
@@ -133,7 +161,7 @@ Codex should maintain a concise working ledger:
 Only ready garments enter the publication manifest. Blocked garments are not represented by
 placeholder records and do not prevent the ready subset from shipping.
 
-## 7. Publication gate
+## 8. Publication gate
 
 Raw intake remains ignored under `uploads/`, `samples/`, or `content/private/`. Only reviewed
 presentation assets are copied to `apps/web/public/media/`.
@@ -147,7 +175,7 @@ pnpm.cmd publish:content -- --manifest=C:\path\to\reviewed-manifest.json --dry-r
 The dry-run must pass before publication. It verifies:
 
 - exact public acknowledgement and complete catalogue schema;
-- unique garment IDs, outfit IDs, and destination filenames;
+- unique garment IDs, photographed-look IDs, outfit IDs, and destination filenames;
 - source files and supported JPEG/PNG/WebP bytes;
 - extension/content agreement and actual pixel dimensions;
 - duplicate image bytes within the batch or against existing public media;

@@ -1,5 +1,31 @@
 # MyFit MCP and HTTP API Contract
 
+## Current static MVP (implemented)
+
+The deployed MVP currently uses repository-owned JSON rather than the future database contract
+below. Its public routes are `/api/catalog`, `/api/profile`, `/api/garments`, `/api/looks`,
+`/api/outfits`, and `/api/outfit-options`, plus corresponding `/:id` routes.
+
+Two records intentionally remain distinct:
+
+- a **look** is photo-backed evidence and stores exact `garmentIds` on every image;
+- an **outfit** is a saved combination idea and must not be described as photographed.
+
+`GET /api/looks` accepts repeatable `garmentId`. `match=contains` (the default) means every requested
+garment must occur in the same photo while allowing additional pieces. `match=exact` requires the
+photo's indexed garment set to be identical. `GET /api/outfit-options` accepts request text plus
+optional required garments, season, occasion, location, date, temperature, precipitation, forecast
+summary, and mood.
+
+The current MCP adds `find_worn_looks` and `get_outfit_options`. The latter is the normal one-call
+tool for “what should I wear?” requests: tier 1 returns ranked photographed looks; tier 2 returns
+ranked individual owned garments by category. ChatGPT should obtain current external context such as
+the requested date's forecast when available, pass it to the tool, prefer a genuinely suitable tier
+1 result, and otherwise assemble and explicitly label an unphotographed tier 2 suggestion.
+
+The remainder of this document is the future authenticated/database design and is not a statement
+that those routes or persistence services are currently deployed.
+
 **Status:** V1 implementation contract  
 **Public base:** `/api/public/v1`  
 **Private operator base:** `/api/operator/v1`  

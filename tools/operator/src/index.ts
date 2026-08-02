@@ -30,6 +30,7 @@ export interface PublicationPreflightReport {
   warnings: string[];
   summary: {
     garments: number;
+    looks: number;
     outfits: number;
     catalogImages: number;
     newAssets: number;
@@ -244,6 +245,9 @@ export async function preflightPublication(
   for (const duplicateId of findDuplicates(manifest.catalog.outfits.map((outfit) => outfit.id))) {
     errors.push(`Outfit id "${duplicateId}" appears more than once in the catalog.`);
   }
+  for (const duplicateId of findDuplicates(manifest.catalog.looks.map((look) => look.id))) {
+    errors.push(`Look id "${duplicateId}" appears more than once in the catalog.`);
+  }
 
   for (const asset of manifest.assets) {
     const normalizedDestination = asset.destinationName.toLocaleLowerCase();
@@ -305,20 +309,36 @@ export async function preflightPublication(
 
   const catalogImageReferences = new Map<
     string,
-    Array<{ garmentId: string; width: number; height: number }>
+    Array<{ ownerLabel: string; width: number; height: number }>
   >();
   for (const garment of manifest.catalog.garments) {
     for (const image of garment.images) {
       const name = basename(image.src).toLocaleLowerCase();
       const references = catalogImageReferences.get(name) ?? [];
-      references.push({ garmentId: garment.id, width: image.width, height: image.height });
+      references.push({
+        ownerLabel: `garment "${garment.id}"`,
+        width: image.width,
+        height: image.height,
+      });
+      catalogImageReferences.set(name, references);
+    }
+  }
+  for (const look of manifest.catalog.looks) {
+    for (const image of look.images) {
+      const name = basename(image.src).toLocaleLowerCase();
+      const references = catalogImageReferences.get(name) ?? [];
+      references.push({
+        ownerLabel: `look "${look.id}"`,
+        width: image.width,
+        height: image.height,
+      });
       catalogImageReferences.set(name, references);
     }
   }
 
   for (const asset of assets) {
     if (!catalogImageReferences.has(asset.destinationName.toLocaleLowerCase())) {
-      errors.push(`New asset "${asset.destinationName}" is not referenced by any catalog garment.`);
+      errors.push(`New asset "${asset.destinationName}" is not referenced by any catalog record.`);
     }
   }
 
@@ -335,7 +355,7 @@ export async function preflightPublication(
     for (const reference of references) {
       if (reference.width !== image.width || reference.height !== image.height) {
         errors.push(
-          `Catalog dimensions for "/media/${name}" on garment "${reference.garmentId}" are ${reference.width}x${reference.height}, but the image is ${image.width}x${image.height}.`,
+          `Catalog dimensions for "/media/${name}" on ${reference.ownerLabel} are ${reference.width}x${reference.height}, but the image is ${image.width}x${image.height}.`,
         );
       }
     }
@@ -352,6 +372,7 @@ export async function preflightPublication(
     warnings,
     summary: {
       garments: manifest.catalog.garments.length,
+      looks: manifest.catalog.looks.length,
       outfits: manifest.catalog.outfits.length,
       catalogImages: [...catalogImageReferences.values()].reduce(
         (total, references) => total + references.length,
@@ -367,7 +388,7 @@ export async function preflightPublication(
 export function formatPreflightReport(report: PublicationPreflightReport): string {
   const lines = [
     `Publication preflight: ${report.canPublish ? "PASS" : "FAIL"}`,
-    `Catalog: ${report.summary.garments} garment(s), ${report.summary.outfits} outfit(s), ${report.summary.catalogImages} image reference(s)`,
+    `Catalog: ${report.summary.garments} garment(s), ${report.summary.looks} photographed look(s), ${report.summary.outfits} outfit idea(s), ${report.summary.catalogImages} image reference(s)`,
     `Assets: ${report.summary.newAssets} new, ${report.summary.existingIdenticalAssets} already public and byte-identical`,
   ];
   for (const asset of report.assets) {

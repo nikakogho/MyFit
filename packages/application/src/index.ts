@@ -1,4 +1,4 @@
-import type { Catalog, Garment, Outfit, StyleProfile, StyleTag } from "@myfit/domain";
+import type { Catalog, Garment, Look, Outfit, StyleProfile, StyleTag } from "@myfit/domain";
 
 export interface GarmentFilter {
   query?: string | undefined;
@@ -12,6 +12,40 @@ export interface OutfitFilter {
   query?: string | undefined;
   season?: Outfit["seasons"][number] | undefined;
   occasion?: string | undefined;
+}
+
+export interface LookFilter {
+  query?: string | undefined;
+  garmentIds?: string[] | undefined;
+  match?: "contains" | "exact" | undefined;
+  season?: Look["seasons"][number] | undefined;
+  occasion?: string | undefined;
+}
+
+export interface OutfitOptionsTarget {
+  request: string;
+  requiredGarmentIds?: string[] | undefined;
+  season?: Garment["seasons"][number] | undefined;
+  occasion?: string | undefined;
+  location?: string | undefined;
+  date?: string | undefined;
+  temperatureC?: number | undefined;
+  precipitationExpected?: boolean | undefined;
+  weatherSummary?: string | undefined;
+  desiredMood?: string | undefined;
+  limitPerCategory?: number | undefined;
+}
+
+export interface RankedLookOption {
+  look: Look;
+  score: number;
+  matchReasons: string[];
+}
+
+export interface RankedGarmentOption {
+  garment: Garment;
+  score: number;
+  matchReasons: string[];
 }
 
 export type TrouserStyle = "cargo" | "straight" | "wide-leg" | "tailored" | "slim" | "other";
@@ -166,6 +200,38 @@ function outfitSearchText(outfit: Outfit): string {
   ].join(" ");
 }
 
+function garmentIdsForLook(look: Look): string[] {
+  return [...new Set(look.images.flatMap((image) => image.garmentIds))];
+}
+
+function lookSearchText(look: Look, catalog: Catalog): string {
+  const garmentNames = garmentIdsForLook(look)
+    .map((id) => catalog.garments.find((garment) => garment.id === id)?.name ?? "")
+    .join(" ");
+  return [
+    look.title,
+    look.notes,
+    look.unindexedPieces.join(" "),
+    look.occasions.join(" "),
+    look.seasons.join(" "),
+    look.tags.join(" "),
+    garmentNames,
+  ].join(" ");
+}
+
+function imageMatchesGarments(
+  imageGarmentIds: string[],
+  requiredGarmentIds: string[],
+  match: "contains" | "exact",
+): boolean {
+  const imageIds = new Set(imageGarmentIds);
+  const containsEveryRequired = requiredGarmentIds.every((id) => imageIds.has(id));
+  return (
+    containsEveryRequired &&
+    (match === "contains" || imageIds.size === new Set(requiredGarmentIds).size)
+  );
+}
+
 export function searchGarments(catalog: Catalog, filter: GarmentFilter = {}): Garment[] {
   return catalog.garments.filter(
     (garment) =>
@@ -188,6 +254,22 @@ export function searchOutfits(catalog: Catalog, filter: OutfitFilter = {}): Outf
   );
 }
 
+export function searchLooks(catalog: Catalog, filter: LookFilter = {}): Look[] {
+  const requiredGarmentIds = filter.garmentIds ?? [];
+  const match = filter.match ?? "contains";
+  return catalog.looks.filter(
+    (look) =>
+      (!filter.season || look.seasons.includes(filter.season)) &&
+      (!filter.occasion ||
+        look.occasions.some((occasion) => includes(occasion, filter.occasion))) &&
+      (requiredGarmentIds.length === 0 ||
+        look.images.some((image) =>
+          imageMatchesGarments(image.garmentIds, requiredGarmentIds, match),
+        )) &&
+      includes(lookSearchText(look, catalog), filter.query),
+  );
+}
+
 export function getGarment(catalog: Catalog, id: string): Garment | undefined {
   return catalog.garments.find((garment) => garment.id === id);
 }
@@ -196,8 +278,200 @@ export function getOutfit(catalog: Catalog, id: string): Outfit | undefined {
   return catalog.outfits.find((outfit) => outfit.id === id);
 }
 
-export function searchEverything(catalog: Catalog, query: string): Array<Garment | Outfit> {
-  return [...searchGarments(catalog, { query }), ...searchOutfits(catalog, { query })];
+export function getLook(catalog: Catalog, id: string): Look | undefined {
+  return catalog.looks.find((look) => look.id === id);
+}
+
+export function searchEverything(catalog: Catalog, query: string): Array<Garment | Look | Outfit> {
+  return [
+    ...searchGarments(catalog, { query }),
+    ...searchLooks(catalog, { query }),
+    ...searchOutfits(catalog, { query }),
+  ];
+}
+
+const contextStopWords = new Set([
+  "about",
+  "anything",
+  "clothes",
+  "could",
+  "from",
+  "have",
+  "outfit",
+  "please",
+  "should",
+  "suggest",
+  "that",
+  "these",
+  "this",
+  "tomorrow",
+  "wear",
+  "what",
+  "with",
+]);
+
+function contextTokens(value: string): string[] {
+  return [
+    ...new Set(
+      value
+        .toLocaleLowerCase()
+        .split(/[^a-z0-9]+/)
+        .filter((token) => token.length >= 3 && !contextStopWords.has(token)),
+    ),
+  ];
+}
+
+function contextOverlap(text: string, target: OutfitOptionsTarget): string[] {
+  const targetText = [
+    target.request,
+    target.occasion ?? "",
+    target.desiredMood ?? "",
+    target.weatherSummary ?? "",
+  ].join(" ");
+  const haystack = text.toLocaleLowerCase();
+  return contextTokens(targetText).filter((token) => haystack.includes(token));
+}
+
+function clampScore(score: number): number {
+  return Math.max(0, Math.min(100, Math.round(score)));
+}
+
+function occasionMatches(occasions: string[], targetOccasion: string): boolean {
+  const normalizedTarget = targetOccasion.toLocaleLowerCase();
+  const targetTokens = contextTokens(targetOccasion);
+  return occasions.some((occasion) => {
+    const normalizedOccasion = occasion.toLocaleLowerCase();
+    return (
+      normalizedOccasion.includes(normalizedTarget) ||
+      normalizedTarget.includes(normalizedOccasion) ||
+      targetTokens.some((token) => normalizedOccasion.includes(token))
+    );
+  });
+}
+
+function rankLook(catalog: Catalog, look: Look, target: OutfitOptionsTarget): RankedLookOption {
+  let score = 45;
+  const matchReasons: string[] = [];
+  const required = target.requiredGarmentIds ?? [];
+  const lookGarmentIds = new Set(garmentIdsForLook(look));
+  if (required.length > 0 && required.every((id) => lookGarmentIds.has(id))) {
+    score += 20;
+    matchReasons.push("Contains every required garment.");
+  }
+  if (target.season) {
+    if (look.seasons.includes(target.season)) {
+      score += 15;
+      matchReasons.push(`Photographed look is tagged for ${target.season}.`);
+    } else {
+      score -= 15;
+    }
+  }
+  if (target.occasion && occasionMatches(look.occasions, target.occasion)) {
+    score += 15;
+    matchReasons.push(`Occasion tags overlap with ${target.occasion}.`);
+  }
+  const overlap = contextOverlap(lookSearchText(look, catalog), target);
+  if (overlap.length > 0) {
+    score += Math.min(15, overlap.length * 4);
+    matchReasons.push(`Context overlap: ${overlap.slice(0, 4).join(", ")}.`);
+  }
+  if (target.precipitationExpected) {
+    const lookText = lookSearchText(look, catalog);
+    if (/\b(?:rain|waterproof|weatherproof|shell|parka|nylon)\b/i.test(lookText)) {
+      score += 8;
+      matchReasons.push("Includes weather-protective characteristics for expected precipitation.");
+    }
+  }
+  if (matchReasons.length === 0) {
+    matchReasons.push("Real photographed combination available for comparison.");
+  }
+  return { look, score: clampScore(score), matchReasons };
+}
+
+const warmthOrder = ["very-light", "light", "medium", "warm"] as const;
+
+function targetOuterwearWarmth(temperatureC: number): (typeof warmthOrder)[number] {
+  if (temperatureC <= 5) return "warm";
+  if (temperatureC <= 12) return "medium";
+  if (temperatureC <= 20) return "light";
+  return "very-light";
+}
+
+function rankGarment(garment: Garment, target: OutfitOptionsTarget): RankedGarmentOption {
+  let score = 45;
+  const matchReasons: string[] = [];
+  if (target.requiredGarmentIds?.includes(garment.id)) {
+    score += 40;
+    matchReasons.push("Required by the user.");
+  }
+  if (target.season) {
+    if (garment.seasons.includes(target.season)) {
+      score += 15;
+      matchReasons.push(`Suitable for ${target.season}.`);
+    } else {
+      score -= 20;
+    }
+  }
+  if (target.occasion && occasionMatches(garment.occasions, target.occasion)) {
+    score += 15;
+    matchReasons.push(`Occasion metadata overlaps with ${target.occasion}.`);
+  }
+  const searchable = garmentSearchText(garment);
+  const overlap = contextOverlap(searchable, target);
+  if (overlap.length > 0) {
+    score += Math.min(12, overlap.length * 3);
+    matchReasons.push(`Context overlap: ${overlap.slice(0, 4).join(", ")}.`);
+  }
+  if (target.precipitationExpected && garment.category === "outerwear") {
+    if (/\b(?:rain|waterproof|weatherproof|shell|parka|nylon)\b/i.test(searchable)) {
+      score += 12;
+      matchReasons.push("Useful weather protection for expected precipitation.");
+    }
+  }
+  if (target.temperatureC !== undefined && garment.category === "outerwear" && garment.warmth) {
+    const targetWarmth = targetOuterwearWarmth(target.temperatureC);
+    const distance = Math.abs(
+      warmthOrder.indexOf(garment.warmth) - warmthOrder.indexOf(targetWarmth),
+    );
+    score += Math.max(-12, 12 - distance * 8);
+    if (distance <= 1) {
+      matchReasons.push(`Warmth is plausible around ${target.temperatureC}°C.`);
+    }
+  }
+  if (matchReasons.length === 0) {
+    matchReasons.push("Available owned garment for ChatGPT to evaluate in the assembled outfit.");
+  }
+  return { garment, score: clampScore(score), matchReasons };
+}
+
+export function getOutfitOptions(catalog: Catalog, target: OutfitOptionsTarget) {
+  const required = target.requiredGarmentIds ?? [];
+  const photographedLooks = catalog.looks
+    .filter(
+      (look) =>
+        required.length === 0 ||
+        look.images.some((image) => imageMatchesGarments(image.garmentIds, required, "contains")),
+    )
+    .map((look) => rankLook(catalog, look, target))
+    .sort((left, right) => right.score - left.score || left.look.id.localeCompare(right.look.id));
+
+  const limit = target.limitPerCategory ?? 5;
+  const categories = ["outerwear", "tops", "bottoms", "footwear", "accessories"] as const;
+  const candidatesByCategory = Object.fromEntries(
+    categories.map((category) => [
+      category,
+      catalog.garments
+        .filter((garment) => garment.category === category)
+        .map((garment) => rankGarment(garment, target))
+        .sort(
+          (left, right) =>
+            right.score - left.score || left.garment.id.localeCompare(right.garment.id),
+        )
+        .slice(0, limit),
+    ]),
+  ) as Record<(typeof categories)[number], RankedGarmentOption[]>;
+
+  return { photographedLooks, candidatesByCategory };
 }
 
 function textForGarment(garment: Garment): string {

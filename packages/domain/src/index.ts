@@ -66,6 +66,23 @@ export const outfitSchema = z.object({
   tags: z.array(z.string().min(1)),
 });
 
+export const lookImageSchema = imageSchema.extend({
+  garmentIds: z.array(slug).min(1),
+});
+
+export const lookSchema = z.object({
+  id: slug,
+  title: z.string().min(1),
+  images: z.array(lookImageSchema).min(1),
+  unindexedPieces: z.array(z.string().min(1)),
+  notes: z.string().min(1),
+  occasions: z.array(z.string().min(1)).min(1),
+  seasons: z.array(z.enum(["spring", "summer", "autumn", "winter"])).min(1),
+  tags: z.array(z.string().min(1)),
+  privacyTreatment: z.enum(["as-is", "face-cropped", "face-and-background-redacted"]),
+  addedAt: z.iso.datetime(),
+});
+
 export const profileSchema = z.object({
   displayName: z.string().min(1),
   wardrobeName: z.string().min(1),
@@ -85,6 +102,7 @@ export const catalogSchema = z
     updatedAt: z.iso.datetime(),
     profile: profileSchema,
     garments: z.array(garmentSchema),
+    looks: z.array(lookSchema),
     outfits: z.array(outfitSchema),
   })
   .superRefine((catalog, context) => {
@@ -100,10 +118,30 @@ export const catalogSchema = z
         }
       }
     }
+    for (const look of catalog.looks) {
+      for (const image of look.images) {
+        for (const garmentId of image.garmentIds) {
+          if (!garmentIds.has(garmentId)) {
+            context.addIssue({
+              code: "custom",
+              message: `Look ${look.id} references unknown garment ${garmentId}`,
+              path: [
+                "looks",
+                catalog.looks.indexOf(look),
+                "images",
+                look.images.indexOf(image),
+                "garmentIds",
+              ],
+            });
+          }
+        }
+      }
+    }
   });
 
 export type Catalog = z.infer<typeof catalogSchema>;
 export type Garment = z.infer<typeof garmentSchema>;
+export type Look = z.infer<typeof lookSchema>;
 export type Outfit = z.infer<typeof outfitSchema>;
 export type Profile = z.infer<typeof profileSchema>;
 export type StyleProfile = z.infer<typeof styleProfileSchema>;

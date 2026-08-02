@@ -1310,6 +1310,63 @@
       "addedAt": "2026-08-01T18:03:37.997Z"
     }
   ],
+  "looks": [
+    {
+      "id": "black-modular-utility-look",
+      "title": "Black modular utility layers",
+      "images": [
+        {
+          "src": "/media/black-modular-pocket-hoodie-front.jpg",
+          "alt": "Black modular pocket hoodie and Blacksquad cargo trousers worn together in a full-length mirror view",
+          "role": "catalog",
+          "width": 1152,
+          "height": 1536,
+          "garmentIds": ["black-modular-pocket-hoodie", "blacksquad-black-utility-cargo-trousers"]
+        },
+        {
+          "src": "/media/black-modular-pocket-hoodie-full-outfit.jpg",
+          "alt": "Long full-body view of the black modular hoodie and Blacksquad utility trousers",
+          "role": "worn",
+          "width": 1152,
+          "height": 2837,
+          "garmentIds": ["black-modular-pocket-hoodie", "blacksquad-black-utility-cargo-trousers"]
+        },
+        {
+          "src": "/media/black-modular-pocket-hoodie-three-quarter.jpg",
+          "alt": "Three-quarter full-body view of the black modular hoodie with strapped Blacksquad cargo trousers",
+          "role": "worn",
+          "width": 1152,
+          "height": 2410,
+          "garmentIds": ["black-modular-pocket-hoodie", "blacksquad-black-utility-cargo-trousers"]
+        },
+        {
+          "src": "/media/black-modular-pocket-hoodie-worn-front.jpg",
+          "alt": "Front mirror view of the black modular hoodie and Blacksquad utility trousers",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536,
+          "garmentIds": ["black-modular-pocket-hoodie", "blacksquad-black-utility-cargo-trousers"]
+        },
+        {
+          "src": "/media/black-modular-pocket-hoodie-worn-relaxed.jpg",
+          "alt": "Relaxed stance wearing the black modular hoodie and Blacksquad utility trousers",
+          "role": "worn",
+          "width": 1152,
+          "height": 1536,
+          "garmentIds": ["black-modular-pocket-hoodie", "blacksquad-black-utility-cargo-trousers"]
+        }
+      ],
+      "unindexedPieces": [
+        "Black high-top footwear visible in the photos; exact catalogued pair not confirmed"
+      ],
+      "notes": "A proven all-black technical combination built around the modular hoodie's long stacked pockets and the Blacksquad trousers' straps and articulated cargo volume. The substantial shapes reinforce each other without relying on colour contrast.",
+      "occasions": ["city day", "casual", "shopping", "creative event"],
+      "seasons": ["spring", "autumn", "winter"],
+      "tags": ["photographed", "all-black", "techwear", "utility", "layered"],
+      "privacyTreatment": "as-is",
+      "addedAt": "2026-08-01T18:03:37.997Z"
+    }
+  ],
   "outfits": [
     {
       "id": "soft-utility-color-pop",

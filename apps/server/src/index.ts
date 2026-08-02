@@ -3,9 +3,12 @@ import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/
 import {
   adviseFootwear,
   getGarment,
+  getLook,
   getOutfit,
+  getOutfitOptions,
   searchEverything,
   searchGarments,
+  searchLooks,
   searchOutfits,
 } from "@myfit/application";
 import {
@@ -17,14 +20,20 @@ import {
   footwearComparisonOutputSchema,
   garmentFilterSchema,
   garmentListSchema,
+  lookFilterSchema,
+  lookListSchema,
   outfitFilterSchema,
   outfitListSchema,
+  outfitOptionsInputSchema,
+  outfitOptionsOutputSchema,
   profileSchema,
   searchInputSchema,
   searchOutputSchema,
   type Catalog,
   type Garment,
+  type Look,
   type Outfit,
+  type OutfitOptionsInput,
 } from "@myfit/contracts";
 
 import { footwearComparisonWidgetHtml } from "./footwear-comparison-widget.js";
@@ -71,7 +80,22 @@ function outfitText(outfit: Outfit, catalog: Catalog): string {
   ].join(" ");
 }
 
-function canonicalUrl(baseUrl: string, kind: "garments" | "outfits", id: string): string {
+function lookText(look: Look, catalog: Catalog): string {
+  const garmentIds = [...new Set(look.images.flatMap((image) => image.garmentIds))];
+  const names = garmentIds
+    .map((id) => getGarment(catalog, id)?.name)
+    .filter((name): name is string => Boolean(name));
+  return [
+    `${look.title}.`,
+    look.notes,
+    `Photographed wardrobe pieces: ${names.join(", ")}.`,
+    look.unindexedPieces.length > 0
+      ? `Unindexed visible pieces: ${look.unindexedPieces.join(", ")}.`
+      : "Every recorded piece in this look is indexed.",
+  ].join(" ");
+}
+
+function canonicalUrl(baseUrl: string, kind: "garments" | "looks" | "outfits", id: string): string {
   return new URL(`/${kind}/${id}`, baseUrl).toString();
 }
 
@@ -105,6 +129,80 @@ function garmentForAdvice(
       src: new URL(image.src, baseUrl).toString(),
     },
     styleProfile,
+  };
+}
+
+function lookWithPublicImages(look: Look, baseUrl: string) {
+  return {
+    ...look,
+    images: look.images.map((image) => ({
+      ...image,
+      src: new URL(image.src, baseUrl).toString(),
+    })),
+  };
+}
+
+function garmentForOutfitOptions(garment: Garment, baseUrl: string) {
+  const image = garment.images.find(({ role }) => role === "catalog") ?? garment.images[0];
+  if (!image) throw new Error(`Garment "${garment.id}" has no public image.`);
+  return {
+    id: garment.id,
+    name: garment.name,
+    brand: garment.brand,
+    category: garment.category,
+    subcategory: garment.subcategory,
+    colors: garment.colors,
+    silhouette: garment.silhouette,
+    fit: garment.fit,
+    warmth: garment.warmth,
+    seasons: garment.seasons,
+    occasions: garment.occasions,
+    stylingNotes: garment.stylingNotes,
+    image: { ...image, src: new URL(image.src, baseUrl).toString() },
+  };
+}
+
+function outfitOptionsResult(catalog: Catalog, target: OutfitOptionsInput, baseUrl: string) {
+  const ranked = getOutfitOptions(catalog, target);
+  const photographedLooks = ranked.photographedLooks.map(({ look, score, matchReasons }) => {
+    const garmentIds = [...new Set(look.images.flatMap((image) => image.garmentIds))];
+    const garments = garmentIds
+      .map((id) => getGarment(catalog, id))
+      .filter((garment): garment is Garment => Boolean(garment))
+      .map((garment) => garmentForOutfitOptions(garment, baseUrl));
+    return {
+      id: look.id,
+      title: look.title,
+      notes: look.notes,
+      occasions: look.occasions,
+      seasons: look.seasons,
+      tags: look.tags,
+      unindexedPieces: look.unindexedPieces,
+      privacyTreatment: look.privacyTreatment,
+      images: lookWithPublicImages(look, baseUrl).images,
+      score,
+      matchReasons,
+      garments,
+      url: canonicalUrl(baseUrl, "looks", look.id),
+    };
+  });
+  const candidatesByCategory = Object.fromEntries(
+    Object.entries(ranked.candidatesByCategory).map(([category, entries]) => [
+      category,
+      entries.map(({ garment, score, matchReasons }) => ({
+        ...garmentForOutfitOptions(garment, baseUrl),
+        score,
+        matchReasons,
+      })),
+    ]),
+  );
+  return {
+    strategy: "photographed-looks-first" as const,
+    context: target,
+    tier1: { photographedLooks, count: photographedLooks.length },
+    tier2: { candidatesByCategory },
+    guidance:
+      "Prefer a photographed look when its pieces and context genuinely fit. Otherwise assemble a new outfit from the tier-2 owned garments. Clearly label assembled combinations as suggestions, not photographed looks.",
   };
 }
 
@@ -153,6 +251,29 @@ export function createPublicApiHandler(catalog: Catalog) {
       const garment = getGarment(catalog, decodeURIComponent(path.slice("/garments/".length)));
       return garment ? json(garment) : json({ error: "Garment not found" }, { status: 404 });
     }
+    if (path === "/looks") {
+      const garmentIds = url.searchParams
+        .getAll("garmentId")
+        .flatMap((value) => value.split(","))
+        .filter(Boolean);
+      const parsed = lookFilterSchema.safeParse({
+        query: url.searchParams.get("query") ?? undefined,
+        garmentIds: garmentIds.length > 0 ? garmentIds : undefined,
+        match: url.searchParams.get("match") ?? undefined,
+        season: url.searchParams.get("season") ?? undefined,
+        occasion: url.searchParams.get("occasion") ?? undefined,
+      });
+      return parsed.success
+        ? json({
+            looks: searchLooks(catalog, parsed.data),
+            count: searchLooks(catalog, parsed.data).length,
+          })
+        : json({ error: "Invalid look filters", details: parsed.error.issues }, { status: 400 });
+    }
+    if (path.startsWith("/looks/")) {
+      const look = getLook(catalog, decodeURIComponent(path.slice("/looks/".length)));
+      return look ? json(look) : json({ error: "Look not found" }, { status: 404 });
+    }
     if (path === "/outfits") {
       const parsed = outfitFilterSchema.safeParse({
         query: url.searchParams.get("query") ?? undefined,
@@ -170,16 +291,51 @@ export function createPublicApiHandler(catalog: Catalog) {
       const outfit = getOutfit(catalog, decodeURIComponent(path.slice("/outfits/".length)));
       return outfit ? json(outfit) : json({ error: "Outfit not found" }, { status: 404 });
     }
+    if (path === "/outfit-options") {
+      const precipitation = url.searchParams.get("precipitationExpected");
+      const parsed = outfitOptionsInputSchema.safeParse({
+        request: url.searchParams.get("request") ?? undefined,
+        requiredGarmentIds: url.searchParams.getAll("requiredGarmentId"),
+        season: url.searchParams.get("season") ?? undefined,
+        occasion: url.searchParams.get("occasion") ?? undefined,
+        location: url.searchParams.get("location") ?? undefined,
+        date: url.searchParams.get("date") ?? undefined,
+        temperatureC:
+          url.searchParams.get("temperatureC") === null
+            ? undefined
+            : Number(url.searchParams.get("temperatureC")),
+        precipitationExpected:
+          precipitation === null
+            ? undefined
+            : precipitation === "true"
+              ? true
+              : precipitation === "false"
+                ? false
+                : precipitation,
+        weatherSummary: url.searchParams.get("weatherSummary") ?? undefined,
+        desiredMood: url.searchParams.get("desiredMood") ?? undefined,
+        limitPerCategory:
+          url.searchParams.get("limitPerCategory") === null
+            ? undefined
+            : Number(url.searchParams.get("limitPerCategory")),
+      });
+      return parsed.success
+        ? json(outfitOptionsResult(catalog, parsed.data, url.origin))
+        : json(
+            { error: "Invalid outfit-planning context", details: parsed.error.issues },
+            { status: 400 },
+          );
+    }
     return json({ error: "Not found" }, { status: 404 });
   };
 }
 
 export function createMcpServer(catalog: Catalog, baseUrl: string): McpServer {
   const server = new McpServer(
-    { name: "myfit-wardrobe", version: "1.2.0" },
+    { name: "myfit-wardrobe", version: "1.3.0" },
     {
       instructions:
-        "Use MyFit as the read-only source of the owner's wardrobe. Never imply that an uncatalogued item is owned. When the user asks which owned footwear works with trousers, or asks to compare or visualize those options, call advise_footwear directly. It searches, ranks, and renders every owned pair in one call. Do not call search_garments or render_footwear_comparison first. The widget renders a network-free generic trouser reference.",
+        "Use MyFit as the read-only source of the owner's wardrobe. Never imply that an uncatalogued item is owned. For a place, date, weather, activity, or general what-should-I-wear request, resolve relevant forecast context when available, then call get_outfit_options once. Prefer a suitable photographed tier-1 look; otherwise assemble a suggestion from tier-2 owned garments, and never describe an assembled suggestion as photographed. For footwear-only comparisons, call advise_footwear directly without searching first.",
     },
   );
   const publicOrigin = new URL(baseUrl).origin;
@@ -234,12 +390,19 @@ export function createMcpServer(catalog: Catalog, baseUrl: string): McpServer {
               text: garmentText(item),
               url: canonicalUrl(baseUrl, "garments", item.id),
             }
-          : {
-              id: item.id,
-              title: item.title,
-              text: outfitText(item, catalog),
-              url: canonicalUrl(baseUrl, "outfits", item.id),
-            },
+          : "images" in item
+            ? {
+                id: item.id,
+                title: item.title,
+                text: lookText(item, catalog),
+                url: canonicalUrl(baseUrl, "looks", item.id),
+              }
+            : {
+                id: item.id,
+                title: item.title,
+                text: outfitText(item, catalog),
+                url: canonicalUrl(baseUrl, "outfits", item.id),
+              },
       );
       const output = { results };
       return {
@@ -261,6 +424,7 @@ export function createMcpServer(catalog: Catalog, baseUrl: string): McpServer {
     },
     ({ id }) => {
       const garment = getGarment(catalog, id);
+      const look = getLook(catalog, id);
       const outfit = getOutfit(catalog, id);
       if (garment) {
         const output = {
@@ -272,6 +436,19 @@ export function createMcpServer(catalog: Catalog, baseUrl: string): McpServer {
             kind: "garment",
             ...garmentWithPublicImages(garment, baseUrl),
           },
+        };
+        return {
+          structuredContent: output,
+          content: [{ type: "text", text: JSON.stringify(output) }],
+        };
+      }
+      if (look) {
+        const output = {
+          id: look.id,
+          title: look.title,
+          text: lookText(look, catalog),
+          url: canonicalUrl(baseUrl, "looks", look.id),
+          metadata: { kind: "look", ...lookWithPublicImages(look, baseUrl) },
         };
         return {
           structuredContent: output,
@@ -321,6 +498,26 @@ export function createMcpServer(catalog: Catalog, baseUrl: string): McpServer {
   );
 
   server.registerTool(
+    "find_worn_looks",
+    {
+      title: "Find photographed looks",
+      description:
+        "Use this when the user asks for real photos of outfits containing one or more owned garments, or wants to browse combinations they have actually worn. garmentIds use AND semantics by default: every selected garment must appear in the same photographed look. Set match to exact only when no additional indexed garments may be present.",
+      inputSchema: lookFilterSchema,
+      outputSchema: lookListSchema,
+      annotations: readOnlyAnnotations,
+    },
+    (filter) => {
+      const looks = searchLooks(catalog, filter).map((look) => lookWithPublicImages(look, baseUrl));
+      const output = { looks, count: looks.length };
+      return {
+        structuredContent: output,
+        content: [{ type: "text", text: JSON.stringify(output) }],
+      };
+    },
+  );
+
+  server.registerTool(
     "search_outfits",
     {
       title: "Search saved outfit directions",
@@ -335,6 +532,30 @@ export function createMcpServer(catalog: Catalog, baseUrl: string): McpServer {
       return {
         structuredContent: output,
         content: [{ type: "text", text: JSON.stringify(output) }],
+      };
+    },
+  );
+
+  server.registerTool(
+    "get_outfit_options",
+    {
+      title: "Plan an outfit from the owned wardrobe",
+      description:
+        "Use this when the user asks what to wear for a place, date, forecast, activity, or occasion, optionally requiring specific garments. Resolve relevant external context such as tomorrow's forecast before calling when that capability is available. This single call searches real photographed looks as tier 1 and returns ranked individual owned garments as tier 2. Prefer a genuinely suitable tier-1 look; otherwise assemble a new suggestion from tier 2 and label it as unphotographed.",
+      inputSchema: outfitOptionsInputSchema,
+      outputSchema: outfitOptionsOutputSchema,
+      annotations: readOnlyAnnotations,
+    },
+    (target) => {
+      const output = outfitOptionsResult(catalog, target, baseUrl);
+      return {
+        structuredContent: output,
+        content: [
+          {
+            type: "text",
+            text: `Found ${output.tier1.count} photographed look${output.tier1.count === 1 ? "" : "s"} for tier 1 and returned ranked owned garments for tier 2. Prefer a context-appropriate photographed look; otherwise assemble and clearly label a new suggestion.`,
+          },
+        ],
       };
     },
   );

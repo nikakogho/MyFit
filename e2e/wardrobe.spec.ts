@@ -2,35 +2,51 @@ import { expect, test } from "@playwright/test";
 
 test("browses and filters the public wardrobe", async ({ page }) => {
   await page.goto("/");
+  const wardrobe = page.locator(".wardrobe-section");
   await expect(page.getByRole("heading", { name: /Dress with/ })).toBeVisible();
   await expect(page.getByLabel("Wardrobe highlights").getByText("21")).toBeVisible();
-  await expect(page.getByText("Nycra-R lightweight jacket")).toBeVisible();
-  await expect(page.locator('a[href^="/garments/"]')).toHaveCount(21);
-  await expect(page.locator(".item-number")).toHaveText(
+  await expect(wardrobe.getByRole("heading", { name: "Nycra-R lightweight jacket" })).toBeVisible();
+  await expect(wardrobe.locator('a[href^="/garments/"]')).toHaveCount(21);
+  await expect(wardrobe.locator(".item-number")).toHaveText(
     Array.from({ length: 21 }, (_, index) => String(index + 1).padStart(2, "0")),
   );
   await page.getByRole("button", { name: "shirts", exact: true }).click();
-  await expect(page.locator('a[href^="/garments/"]')).toHaveCount(6);
-  await expect(page.getByText("Teenage Mutant Ninja Turtles graphic T-shirt")).toBeVisible();
-  await expect(page.getByText("Nycra-R lightweight jacket")).toBeHidden();
+  await expect(wardrobe.locator('a[href^="/garments/"]')).toHaveCount(6);
+  await expect(
+    wardrobe.getByRole("heading", { name: "Teenage Mutant Ninja Turtles graphic T-shirt" }),
+  ).toBeVisible();
+  await expect(wardrobe.getByRole("heading", { name: "Nycra-R lightweight jacket" })).toBeHidden();
   await page.getByRole("button", { name: "trousers", exact: true }).click();
-  await expect(page.locator('a[href^="/garments/"]')).toHaveCount(2);
-  await expect(page.getByText("Blacksquad black utility cargo trousers")).toBeVisible();
-  await expect(page.getByText("Dark navy tactical cargo trousers")).toBeVisible();
-  await expect(page.getByText("Teenage Mutant Ninja Turtles graphic T-shirt")).toBeHidden();
+  await expect(wardrobe.locator('a[href^="/garments/"]')).toHaveCount(2);
+  await expect(
+    wardrobe.getByRole("heading", { name: "Blacksquad black utility cargo trousers" }),
+  ).toBeVisible();
+  await expect(
+    wardrobe.getByRole("heading", { name: "Dark navy tactical cargo trousers" }),
+  ).toBeVisible();
+  await expect(
+    wardrobe.getByRole("heading", { name: "Teenage Mutant Ninja Turtles graphic T-shirt" }),
+  ).toBeHidden();
   await page.getByRole("button", { name: "all", exact: true }).click();
   await page.getByRole("searchbox", { name: "Search wardrobe" }).fill("sneakers");
-  await expect(page.getByText("Blue, white, and orange sneakers")).toBeVisible();
-  await expect(page.getByText("Grey paneled sneakers")).toBeVisible();
-  await expect(page.getByText("Nycra-R lightweight jacket")).toBeHidden();
+  await expect(
+    wardrobe.getByRole("heading", { name: "Blue, white, and orange sneakers" }),
+  ).toBeVisible();
+  await expect(wardrobe.getByRole("heading", { name: "Grey paneled sneakers" })).toBeVisible();
+  await expect(wardrobe.getByRole("heading", { name: "Nycra-R lightweight jacket" })).toBeHidden();
   await page.getByRole("searchbox", { name: "Search wardrobe" }).fill("brogue");
-  await expect(page.getByText("Charcoal brogue hybrid shoes")).toBeVisible();
-  await expect(page.getByText("Grey paneled sneakers")).toBeHidden();
+  await expect(
+    wardrobe.getByRole("heading", { name: "Charcoal brogue hybrid shoes" }),
+  ).toBeVisible();
+  await expect(wardrobe.getByRole("heading", { name: "Grey paneled sneakers" })).toBeHidden();
 });
 
 test("opens a garment with styling context", async ({ page }) => {
   await page.goto("/");
-  await page.getByText("Nycra-R lightweight jacket").click();
+  await page
+    .locator(".wardrobe-section")
+    .getByRole("heading", { name: "Nycra-R lightweight jacket" })
+    .click();
   await expect(page).toHaveURL(/\/garments\/cp-company-nycra-r-jacket$/);
   await expect(page.getByRole("heading", { name: "Nycra-R lightweight jacket" })).toBeVisible();
   await expect(page.getByText("Styling notes")).toBeVisible();
@@ -104,4 +120,40 @@ test("opens the saved outfit direction", async ({ page }) => {
   await page.getByRole("heading", { name: "Soft utility, colour pop" }).click();
   await expect(page).toHaveURL(/\/outfits\/soft-utility-color-pop$/);
   await expect(page.getByText("Complete the look")).toBeVisible();
+});
+
+test("filters and opens photo-backed looks by garment combination", async ({ page }) => {
+  await page.goto("/#looks");
+  await expect(page.getByRole("heading", { name: "Photographed looks" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Black modular utility layers" })).toBeVisible();
+
+  const filter = page.getByLabel("Add garment to look filter");
+  await filter.selectOption("black-modular-pocket-hoodie");
+  await filter.selectOption("blacksquad-black-utility-cargo-trousers");
+  await expect(page.getByRole("heading", { name: "Black modular utility layers" })).toBeVisible();
+  await filter.selectOption("cp-company-nycra-r-jacket");
+  await expect(page.getByText(/No photographed look contains that combination yet/)).toBeVisible();
+  await page.getByRole("button", { name: "Clear garments" }).click();
+  await expect(page.getByRole("heading", { name: "Black modular utility layers" })).toBeVisible();
+
+  await page.getByRole("heading", { name: "Black modular utility layers" }).click();
+  await expect(page).toHaveURL(/\/looks\/black-modular-utility-look$/);
+  await expect(page.locator(".detail-gallery img")).toHaveCount(5);
+  await expect(page.getByText("Visible but not identified")).toBeVisible();
+
+  await page.getByRole("button", { name: "Open photo 1 of 5" }).click();
+  const lightbox = page.getByRole("dialog", {
+    name: "Black modular utility layers photo viewer",
+  });
+  await expect(lightbox.getByText("01 / 05", { exact: true })).toBeVisible();
+  await lightbox.getByRole("button", { name: "Previous image" }).click();
+  await expect(lightbox.getByText("05 / 05", { exact: true })).toBeVisible();
+});
+
+test("links garments back to photographed looks", async ({ page }) => {
+  await page.goto("/garments/black-modular-pocket-hoodie");
+  await expect(
+    page.getByRole("heading", { name: "Photographed looks with this piece" }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Black modular utility layers" })).toBeVisible();
 });

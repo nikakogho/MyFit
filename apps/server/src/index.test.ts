@@ -51,6 +51,29 @@ const catalog: Catalog = {
       addedAt: "2026-07-29T12:00:00.000Z",
     },
   ],
+  looks: [
+    {
+      id: "brown-look",
+      title: "Brown casual look",
+      images: [
+        {
+          src: "/media/look.jpg",
+          alt: "Brown casual look",
+          role: "worn",
+          width: 10,
+          height: 20,
+          garmentIds: ["brown-jacket"],
+        },
+      ],
+      unindexedPieces: [],
+      notes: "A photographed casual look.",
+      occasions: ["city visit"],
+      seasons: ["spring"],
+      tags: ["casual"],
+      privacyTreatment: "as-is",
+      addedAt: "2026-08-02T12:00:00.000Z",
+    },
+  ],
   outfits: [],
 };
 
@@ -60,6 +83,28 @@ describe("public API", () => {
     const response = handler(new Request("https://example.com/api/garments?query=overshirt"));
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toMatchObject({ count: 1 });
+  });
+
+  it("filters photographed looks and returns tiered outfit options", async () => {
+    const handler = createPublicApiHandler(catalog);
+    const looksResponse = handler(
+      new Request("https://example.com/api/looks?garmentId=brown-jacket&match=contains"),
+    );
+    await expect(looksResponse.json()).resolves.toMatchObject({
+      count: 1,
+      looks: [{ id: "brown-look" }],
+    });
+
+    const optionsResponse = handler(
+      new Request(
+        "https://example.com/api/outfit-options?request=Cambridge%20tomorrow&occasion=city%20visit&season=spring",
+      ),
+    );
+    await expect(optionsResponse.json()).resolves.toMatchObject({
+      strategy: "photographed-looks-first",
+      tier1: { count: 1, photographedLooks: [{ id: "brown-look" }] },
+      tier2: { candidatesByCategory: { footwear: [{ id: "brown-jacket" }] } },
+    });
   });
 });
 
@@ -76,9 +121,24 @@ describe("MCP server", () => {
     expect(tools.tools.map(({ name }) => name)).toContain("search");
     expect(tools.tools.map(({ name }) => name)).toContain("advise_footwear");
     expect(tools.tools.map(({ name }) => name)).toContain("render_footwear_comparison");
+    expect(tools.tools.map(({ name }) => name)).toContain("find_worn_looks");
+    expect(tools.tools.map(({ name }) => name)).toContain("get_outfit_options");
     const result = await client.callTool({ name: "search", arguments: { query: "brown" } });
     expect(result.structuredContent).toMatchObject({
-      results: [{ id: "brown-jacket" }],
+      results: expect.arrayContaining([
+        {
+          id: "brown-jacket",
+          title: expect.any(String),
+          text: expect.any(String),
+          url: expect.any(String),
+        },
+        {
+          id: "brown-look",
+          title: expect.any(String),
+          text: expect.any(String),
+          url: expect.any(String),
+        },
+      ]),
     });
 
     const garmentResult = await client.callTool({
@@ -93,6 +153,34 @@ describe("MCP server", () => {
         },
       ],
       count: 1,
+    });
+
+    const lookResult = await client.callTool({
+      name: "find_worn_looks",
+      arguments: { garmentIds: ["brown-jacket"] },
+    });
+    expect(lookResult.structuredContent).toMatchObject({
+      count: 1,
+      looks: [
+        {
+          id: "brown-look",
+          images: [{ src: "https://example.com/media/look.jpg" }],
+        },
+      ],
+    });
+
+    const optionsResult = await client.callTool({
+      name: "get_outfit_options",
+      arguments: {
+        request: "What should I wear for a Cambridge city visit tomorrow?",
+        season: "spring",
+        occasion: "city visit",
+      },
+    });
+    expect(optionsResult.structuredContent).toMatchObject({
+      strategy: "photographed-looks-first",
+      tier1: { count: 1, photographedLooks: [{ id: "brown-look" }] },
+      guidance: expect.stringContaining("tier-2"),
     });
 
     const comparisonResult = await client.callTool({

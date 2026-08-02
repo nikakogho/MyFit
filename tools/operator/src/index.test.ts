@@ -66,6 +66,7 @@ function catalog(
         addedAt: "2026-07-29T12:00:00.000Z",
       },
     ],
+    looks: [],
     outfits: [],
   };
 }
@@ -178,7 +179,7 @@ describe("Codex publication workflow", () => {
     expect(report.errors).toEqual(
       expect.arrayContaining([
         'Assets "one.png" and "unused.png" contain identical image bytes.',
-        'New asset "unused.png" is not referenced by any catalog garment.',
+        'New asset "unused.png" is not referenced by any catalog record.',
         'Catalog image "/media/missing.png" is missing from both public media and the manifest.',
       ]),
     );

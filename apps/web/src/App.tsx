@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate, Route, Routes, useParams } from "react-router-dom";
-import type { Catalog, Garment, Outfit } from "@myfit/contracts";
+import type { Catalog, Garment, Look, Outfit } from "@myfit/contracts";
 
 const categories = [
   { value: "all", label: "all" },
@@ -24,7 +24,8 @@ function Header() {
       <Brand />
       <nav aria-label="Main navigation">
         <a href="/#wardrobe">Wardrobe</a>
-        <a href="/#outfits">Outfits</a>
+        <a href="/#looks">Looks</a>
+        <a href="/#outfits">Ideas</a>
         <a href="/#profile">Fit profile</a>
       </nav>
       <div className="public-pill">
@@ -235,6 +236,170 @@ function OutfitFeature({ outfit, catalog }: { outfit: Outfit; catalog: Catalog }
   );
 }
 
+function garmentIdsForLook(look: Look) {
+  return Array.from(new Set(look.images.flatMap((image) => image.garmentIds)));
+}
+
+function LookCard({
+  look,
+  catalog,
+  selectedGarmentIds = [],
+}: {
+  look: Look;
+  catalog: Catalog;
+  selectedGarmentIds?: string[];
+}) {
+  const image =
+    look.images.find((candidate) =>
+      selectedGarmentIds.every((garmentId) => candidate.garmentIds.includes(garmentId)),
+    ) ?? look.images[0];
+  const pieces = garmentIdsForLook(look)
+    .map((id) => catalog.garments.find((garment) => garment.id === id))
+    .filter((garment): garment is Garment => Boolean(garment));
+
+  if (!image) return null;
+
+  return (
+    <article className="look-card">
+      <Link className="look-card-image" to={`/looks/${look.id}`}>
+        <img src={image.src} alt={image.alt} width={image.width} height={image.height} />
+        <span>{look.images.length} real-life photos</span>
+      </Link>
+      <div className="look-card-copy">
+        <p className="eyebrow">Photographed look</p>
+        <h3>
+          <Link to={`/looks/${look.id}`}>{look.title}</Link>
+        </h3>
+        <p>{look.notes}</p>
+        <div className="look-garments" aria-label="Indexed pieces in this look">
+          {pieces.map((piece) => (
+            <Link key={piece.id} to={`/garments/${piece.id}`}>
+              {piece.name}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function LooksSection({ catalog }: { catalog: Catalog }) {
+  const [selectedGarmentIds, setSelectedGarmentIds] = useState<string[]>([]);
+  const [query, setQuery] = useState("");
+  const availableGarments = useMemo(
+    () =>
+      catalog.garments
+        .filter((garment) => !selectedGarmentIds.includes(garment.id))
+        .toSorted((left, right) => left.name.localeCompare(right.name)),
+    [catalog.garments, selectedGarmentIds],
+  );
+  const looks = useMemo(() => {
+    const normalizedQuery = query.trim().toLocaleLowerCase();
+    return catalog.looks.filter((look) => {
+      const containsSelectedCombination = look.images.some((image) =>
+        selectedGarmentIds.every((garmentId) => image.garmentIds.includes(garmentId)),
+      );
+      const linkedNames = garmentIdsForLook(look)
+        .map((id) => catalog.garments.find((garment) => garment.id === id)?.name ?? "")
+        .join(" ");
+      const searchableText = [
+        look.title,
+        look.notes,
+        look.occasions.join(" "),
+        look.tags.join(" "),
+        linkedNames,
+      ]
+        .join(" ")
+        .toLocaleLowerCase();
+      return containsSelectedCombination && searchableText.includes(normalizedQuery);
+    });
+  }, [catalog.garments, catalog.looks, query, selectedGarmentIds]);
+
+  const removeGarment = (garmentId: string) => {
+    setSelectedGarmentIds((current) => current.filter((id) => id !== garmentId));
+  };
+
+  return (
+    <section className="looks-section" id="looks">
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">Worn in real life</p>
+          <h2>Photographed looks</h2>
+        </div>
+        <p>
+          Find photos containing one piece, or keep adding pieces to require the exact combination.
+        </p>
+      </div>
+      <div className="look-filter-panel">
+        <label>
+          <span>Filter by garment combination</span>
+          <select
+            aria-label="Add garment to look filter"
+            value=""
+            onChange={(event) => {
+              const garmentId = event.target.value;
+              if (garmentId) setSelectedGarmentIds((current) => [...current, garmentId]);
+            }}
+          >
+            <option value="">Add a garment...</option>
+            {availableGarments.map((garment) => (
+              <option value={garment.id} key={garment.id}>
+                {garment.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="look-query">
+          <span>Search occasion or mood</span>
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="e.g. casual, utility, evening"
+            aria-label="Search photographed looks"
+          />
+        </label>
+      </div>
+      {selectedGarmentIds.length > 0 ? (
+        <div className="selected-look-filters" aria-label="Required garment filters">
+          {selectedGarmentIds.map((garmentId) => {
+            const garment = catalog.garments.find((item) => item.id === garmentId);
+            return garment ? (
+              <button type="button" key={garmentId} onClick={() => removeGarment(garmentId)}>
+                {garment.name} <span aria-hidden="true">x</span>
+              </button>
+            ) : null;
+          })}
+          <button
+            className="clear-look-filters"
+            type="button"
+            onClick={() => setSelectedGarmentIds([])}
+          >
+            Clear garments
+          </button>
+        </div>
+      ) : null}
+      {looks.length > 0 ? (
+        <div className="look-grid">
+          {looks.map((look) => (
+            <LookCard
+              key={look.id}
+              look={look}
+              catalog={catalog}
+              selectedGarmentIds={selectedGarmentIds}
+            />
+          ))}
+        </div>
+      ) : (
+        <p className="empty-state">
+          No photographed look contains that combination yet. ChatGPT can still build a new option
+          from the individual wardrobe pieces.
+        </p>
+      )}
+    </section>
+  );
+}
+
 function Home({ catalog }: { catalog: Catalog }) {
   const [category, setCategory] = useState<(typeof categories)[number]["value"]>("all");
   const [query, setQuery] = useState("");
@@ -339,14 +504,17 @@ function Home({ catalog }: { catalog: Catalog }) {
           )}
         </section>
 
+        <LooksSection catalog={catalog} />
+
         <section className="outfits-section" id="outfits">
           <div className="section-heading light">
             <div>
-              <p className="eyebrow">Put it together</p>
-              <h2>Outfit directions</h2>
+              <p className="eyebrow">New combinations</p>
+              <h2>Outfit ideas</h2>
             </div>
             <p>
-              Built from pieces that are actually here, with honest notes about what is missing.
+              Suggested combinations built from indexed pieces. These are ideas, not claims that the
+              full combination has been photographed.
             </p>
           </div>
           {catalog.outfits.map((outfit) => (
@@ -387,6 +555,9 @@ function Home({ catalog }: { catalog: Catalog }) {
 function GarmentDetail({ catalog }: { catalog: Catalog }) {
   const { id } = useParams();
   const garment = catalog.garments.find((item) => item.id === id);
+  const wornLooks = catalog.looks.filter((look) =>
+    look.images.some((image) => image.garmentIds.includes(id ?? "")),
+  );
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const imageTriggerRef = useRef<HTMLButtonElement | null>(null);
   if (!garment) return <Navigate to="/" replace />;
@@ -463,11 +634,137 @@ function GarmentDetail({ catalog }: { catalog: Catalog }) {
             </div>
           </aside>
         </div>
+        {wornLooks.length > 0 ? (
+          <section className="garment-look-links">
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">See it worn</p>
+                <h2>Photographed looks with this piece</h2>
+              </div>
+            </div>
+            <div className="mini-look-grid">
+              {wornLooks.map((look) => (
+                <LookCard
+                  key={look.id}
+                  look={look}
+                  catalog={catalog}
+                  selectedGarmentIds={[garment.id]}
+                />
+              ))}
+            </div>
+          </section>
+        ) : null}
       </main>
       {selectedImageIndex !== null ? (
         <ImageLightbox
           garmentName={garment.name}
           images={garment.images}
+          index={selectedImageIndex}
+          onChange={setSelectedImageIndex}
+          onClose={closeLightbox}
+        />
+      ) : null}
+    </>
+  );
+}
+
+function LookDetail({ catalog }: { catalog: Catalog }) {
+  const { id } = useParams();
+  const look = catalog.looks.find((item) => item.id === id);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const imageTriggerRef = useRef<HTMLButtonElement | null>(null);
+  if (!look) return <Navigate to="/" replace />;
+
+  const pieces = garmentIdsForLook(look)
+    .map((garmentId) => catalog.garments.find((item) => item.id === garmentId))
+    .filter((garment): garment is Garment => Boolean(garment));
+  const closeLightbox = () => {
+    setSelectedImageIndex(null);
+    window.setTimeout(() => imageTriggerRef.current?.focus(), 0);
+  };
+
+  return (
+    <>
+      <main className="detail-page look-detail">
+        <Link className="back-link" to="/#looks">
+          Back to photographed looks
+        </Link>
+        <div className="detail-layout">
+          <div className="detail-gallery">
+            {look.images.map((image, index) => (
+              <button
+                className="gallery-image-button"
+                type="button"
+                key={image.src}
+                aria-label={`Open photo ${index + 1} of ${look.images.length}`}
+                onClick={(event) => {
+                  imageTriggerRef.current = event.currentTarget;
+                  setSelectedImageIndex(index);
+                }}
+              >
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  width={image.width}
+                  height={image.height}
+                  loading={index > 1 ? "lazy" : "eager"}
+                />
+                <span aria-hidden="true">View larger</span>
+              </button>
+            ))}
+          </div>
+          <aside className="detail-copy">
+            <p className="eyebrow">Photographed look / {look.images.length} photos</p>
+            <h1>{look.title}</h1>
+            <p className="detail-lede">{look.notes}</p>
+            <dl className="detail-list">
+              <div>
+                <dt>Best seasons</dt>
+                <dd>{look.seasons.join(", ")}</dd>
+              </div>
+              <div>
+                <dt>Occasions</dt>
+                <dd>{look.occasions.join(", ")}</dd>
+              </div>
+              <div>
+                <dt>Photo handling</dt>
+                <dd>
+                  {look.privacyTreatment === "as-is"
+                    ? "Published as photographed"
+                    : look.privacyTreatment}
+                </dd>
+              </div>
+            </dl>
+            {look.unindexedPieces.length > 0 ? (
+              <div className="look-unindexed">
+                <p className="eyebrow">Visible but not identified</p>
+                <ul>
+                  {look.unindexedPieces.map((piece) => (
+                    <li key={piece}>{piece}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </aside>
+        </div>
+        <section className="look-piece-section">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Exact indexed pieces</p>
+              <h2>What is in this look</h2>
+            </div>
+          </div>
+          <div className="garment-grid">
+            {pieces.map((piece, index) => (
+              <GarmentCard key={piece.id} garment={piece} index={index} />
+            ))}
+          </div>
+        </section>
+      </main>
+      {selectedImageIndex !== null ? (
+        <ImageLightbox
+          garmentName={look.title}
+          images={look.images}
           index={selectedImageIndex}
           onChange={setSelectedImageIndex}
           onClose={closeLightbox}
@@ -519,6 +816,7 @@ export function App({ catalog }: { catalog: Catalog }) {
       <Routes>
         <Route path="/" element={<Home catalog={catalog} />} />
         <Route path="/garments/:id" element={<GarmentDetail catalog={catalog} />} />
+        <Route path="/looks/:id" element={<LookDetail catalog={catalog} />} />
         <Route path="/outfits/:id" element={<OutfitDetail catalog={catalog} />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

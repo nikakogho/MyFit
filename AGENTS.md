@@ -14,6 +14,16 @@ construction details as `front`, `back`, `worn`, or `detail` images. Do not sile
 to a curated subset. Exclude a photo only when it is unreadable, an accidental unrelated image, an
 exact duplicate, or would make the public presentation misleading.
 
+Treat deliberately submitted full-outfit photos as photographed `look` evidence in addition to
+ordinary garment imagery. Inventory every visible clothing item. Automatically link only clear
+catalogue matches; ask one grouped confirmation for ambiguous matches. If the user confirms a piece
+is new, ingest it as a garment first and connect its ID to every relevant look image. Garment IDs are
+recorded per photo because layers or shoes can differ across photos. Never guess an exact identity;
+use `unindexedPieces` temporarily or hold the look when that ambiguity would be misleading.
+
+For the current owner-only phase, outfit photos are intentionally public and published as-is. Face
+and background redaction is a future default-on service feature, not part of current intake.
+
 Use common sense before asking questions. Infer ordinary visual facts such as category, colour,
 silhouette, likely materials, seasons, occasions, search terms, and styling notes when the images
 support them. Mark uncertain material claims as inferred. `brand`, `fit`, and `warmth` are nullable

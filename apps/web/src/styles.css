@@ -28,7 +28,8 @@ a {
   text-decoration: none;
 }
 button,
-input {
+input,
+select {
   font: inherit;
 }
 img {
@@ -265,6 +266,7 @@ nav a:hover {
 }
 
 .wardrobe-section,
+.looks-section,
 .outfits-section,
 .profile-section,
 .detail-page {
@@ -414,6 +416,134 @@ nav a:hover {
 .empty-state {
   padding: 80px 0;
   border-top: 1px solid var(--line);
+}
+
+.looks-section {
+  padding: 100px 5vw;
+  background: #e2ded2;
+}
+.look-filter-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.look-filter-panel label {
+  display: grid;
+  gap: 9px;
+  font: 10px "DM Mono";
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.look-filter-panel select,
+.look-filter-panel input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  padding: 0 14px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 12px "Manrope";
+}
+.selected-look-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 0 0;
+}
+.selected-look-filters button,
+.look-garments a {
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 8px 12px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 9px "DM Mono";
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.selected-look-filters button {
+  cursor: pointer;
+}
+.selected-look-filters button:not(.clear-look-filters) {
+  background: var(--ink);
+  color: white;
+}
+.selected-look-filters button:hover,
+.selected-look-filters button:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+.clear-look-filters {
+  margin-left: auto;
+}
+.look-grid,
+.mini-look-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+  margin-top: 34px;
+}
+.look-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  min-height: 490px;
+  background: var(--paper);
+}
+.look-card-image {
+  position: relative;
+  overflow: hidden;
+  background: #cdc8bb;
+}
+.look-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 300ms ease;
+}
+.look-card:hover .look-card-image img {
+  transform: scale(1.02);
+}
+.look-card-image span {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  padding: 8px 10px;
+  background: var(--lime);
+  color: var(--ink);
+  font: 9px "DM Mono";
+  text-transform: uppercase;
+}
+.look-card-copy {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+.look-card-copy h3 {
+  margin: 14px 0 20px;
+  font-size: clamp(30px, 3vw, 48px);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  font-weight: 500;
+}
+.look-card-copy > p:not(.eyebrow) {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.look-garments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: auto;
+  padding-top: 24px;
+}
+.look-garments a:hover {
+  border-color: var(--orange);
 }
 
 .outfits-section {
@@ -781,6 +911,34 @@ footer > a:not(.brand) {
   border-bottom: 1px solid var(--line);
   font-size: 13px;
 }
+.garment-look-links,
+.look-piece-section {
+  margin-top: 100px;
+  padding-top: 65px;
+  border-top: 1px solid var(--line);
+}
+.garment-look-links .section-heading h2,
+.look-piece-section .section-heading h2 {
+  max-width: 900px;
+  font-size: clamp(36px, 4.5vw, 62px);
+}
+.garment-look-links .look-card {
+  min-height: 390px;
+}
+.look-unindexed {
+  margin-top: 30px;
+  padding: 24px;
+  background: #e2ded2;
+}
+.look-unindexed ul {
+  padding-left: 18px;
+  margin: 15px 0 0;
+}
+.look-unindexed li {
+  margin: 7px 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
 
 @media (max-width: 800px) {
   .site-header {
@@ -835,6 +993,7 @@ footer > a:not(.brand) {
     margin-left: auto;
   }
   .wardrobe-section,
+  .looks-section,
   .outfits-section,
   .profile-section,
   .detail-page {
@@ -849,6 +1008,25 @@ footer > a:not(.brand) {
   }
   .garment-grid {
     grid-template-columns: 1fr;
+  }
+  .look-filter-panel,
+  .look-grid,
+  .mini-look-grid {
+    grid-template-columns: 1fr;
+  }
+  .look-card {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .look-card-image {
+    aspect-ratio: 0.82;
+  }
+  .look-card-copy {
+    min-height: 340px;
+    padding: 25px;
+  }
+  .clear-look-filters {
+    margin-left: 0;
   }
   .view-item {
     transform: none;
