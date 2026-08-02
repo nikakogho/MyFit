@@ -535,6 +535,13 @@ nav a:hover {
   font-size: 12px;
   line-height: 1.7;
 }
+.look-card-copy > .look-card-variant {
+  margin: 14px 0 0;
+  color: var(--orange);
+  font: 9px "DM Mono";
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 .look-garments {
   display: flex;
   flex-wrap: wrap;
@@ -722,6 +729,25 @@ footer > a:not(.brand) {
   cursor: zoom-in;
   overflow: hidden;
 }
+.look-gallery-item {
+  min-width: 0;
+  margin: 0;
+}
+.look-gallery-item .gallery-image-button {
+  width: 100%;
+}
+.look-gallery-item figcaption {
+  display: grid;
+  gap: 6px;
+  padding: 12px 2px 4px;
+  font: 9px/1.5 "DM Mono";
+  color: #5b5a54;
+}
+.look-gallery-item figcaption strong {
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
 .detail-gallery img {
   display: block;
   width: 100%;
@@ -832,6 +858,10 @@ footer > a:not(.brand) {
   object-fit: contain;
 }
 .lightbox-stage figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 18px;
   font: 10px "DM Mono";
   letter-spacing: 0.1em;
   color: rgba(255, 255, 255, 0.72);

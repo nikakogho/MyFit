@@ -216,8 +216,10 @@ Unique `(source_asset_id, name, transformation_spec_hash)`.
 The current repository JSON has a top-level `looks` collection for real photographed combinations.
 Each look has an ID, title, notes, occasions, seasons, tags, `unindexedPieces`, a `privacyTreatment`,
 and one or more images. Each image extends the normal public image record with a non-empty
-`garmentIds` array. This per-photo association is deliberate: opened/closed layers and swapped
-footwear can change between images in the same look. All IDs must reference existing garments.
+`garmentIds` array, nullable `variantLabel`, and its own `unindexedPieces`. This per-photo association
+is deliberate: opened/closed layers, unresolved pieces, and swapped footwear can change between
+images in the same look. The look-level `unindexedPieces` is a validated union used for summary
+display; the image-level values are authoritative. All garment IDs must reference existing garments.
 
 `privacyTreatment="as-is"` is the current owner-only policy. A future multi-user intake surface must
 offer default-on face and background redaction before this becomes a service feature.

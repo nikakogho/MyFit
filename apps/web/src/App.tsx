@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
 import type { Catalog, Garment, Look, Outfit } from "@myfit/contracts";
 
+type GalleryImage = Garment["images"][number] | Look["images"][number];
+
 const categories = [
   { value: "all", label: "all" },
   { value: "outerwear", label: "outerwear" },
@@ -65,7 +67,7 @@ function ImageLightbox({
   onClose,
 }: {
   garmentName: string;
-  images: Garment["images"];
+  images: GalleryImage[];
   index: number;
   onChange: (index: number) => void;
   onClose: () => void;
@@ -166,7 +168,10 @@ function ImageLightbox({
       <figure className="lightbox-stage">
         <img src={image.src} alt={image.alt} width={image.width} height={image.height} />
         <figcaption aria-live="polite">
-          {String(index + 1).padStart(2, "0")} / {String(imageCount).padStart(2, "0")}
+          <span>
+            {String(index + 1).padStart(2, "0")} / {String(imageCount).padStart(2, "0")}
+          </span>
+          {"variantLabel" in image && image.variantLabel ? <span>{image.variantLabel}</span> : null}
         </figcaption>
       </figure>
       {imageCount > 1 ? (
@@ -277,6 +282,7 @@ function LookCard({
       </Link>
       <div className="look-card-copy">
         <p className="eyebrow">Photographed look</p>
+        {image.variantLabel ? <p className="look-card-variant">{image.variantLabel}</p> : null}
         <h3>
           <Link to={`/looks/${look.id}`}>{look.title}</Link>
         </h3>
@@ -701,27 +707,40 @@ function LookDetail({ catalog }: { catalog: Catalog }) {
         </Link>
         <div className="detail-layout">
           <div className="detail-gallery">
-            {look.images.map((image, index) => (
-              <button
-                className="gallery-image-button"
-                type="button"
-                key={image.src}
-                aria-label={`Open photo ${index + 1} of ${look.images.length}`}
-                onClick={(event) => {
-                  imageTriggerRef.current = event.currentTarget;
-                  setSelectedImageIndex(index);
-                }}
-              >
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  width={image.width}
-                  height={image.height}
-                  loading={index > 1 ? "lazy" : "eager"}
-                />
-                <span aria-hidden="true">View larger</span>
-              </button>
-            ))}
+            {look.images.map((image, index) => {
+              const indexedPieces = image.garmentIds
+                .map((garmentId) => catalog.garments.find((item) => item.id === garmentId)?.name)
+                .filter((name): name is string => Boolean(name));
+              return (
+                <figure className="look-gallery-item" key={image.src}>
+                  <button
+                    className="gallery-image-button"
+                    type="button"
+                    aria-label={`Open photo ${index + 1} of ${look.images.length}`}
+                    onClick={(event) => {
+                      imageTriggerRef.current = event.currentTarget;
+                      setSelectedImageIndex(index);
+                    }}
+                  >
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      width={image.width}
+                      height={image.height}
+                      loading={index > 1 ? "lazy" : "eager"}
+                    />
+                    <span aria-hidden="true">View larger</span>
+                  </button>
+                  <figcaption>
+                    <strong>{image.variantLabel ?? `Photo ${index + 1}`}</strong>
+                    <span>Indexed: {indexedPieces.join(", ")}</span>
+                    {image.unindexedPieces.length > 0 ? (
+                      <span>Also visible: {image.unindexedPieces.join("; ")}</span>
+                    ) : null}
+                  </figcaption>
+                </figure>
+              );
+            })}
           </div>
           <aside className="detail-copy">
             <p className="eyebrow">Photographed look / {look.images.length} photos</p>

@@ -6,6 +6,7 @@ import {
   getLook,
   getOutfit,
   getOutfitOptions,
+  matchingLookImages,
   searchEverything,
   searchGarments,
   searchLooks,
@@ -32,6 +33,7 @@ import {
   type Catalog,
   type Garment,
   type Look,
+  type LookFilter,
   type Outfit,
   type OutfitOptionsInput,
 } from "@myfit/contracts";
@@ -142,6 +144,17 @@ function lookWithPublicImages(look: Look, baseUrl: string) {
   };
 }
 
+function lookMatchWithPublicImages(look: Look, filter: LookFilter, baseUrl: string) {
+  const publicLook = lookWithPublicImages(look, baseUrl);
+  const matchingSources = new Set(matchingLookImages(look, filter).map(({ src }) => src));
+  return {
+    ...publicLook,
+    matchingImages: publicLook.images.filter(({ src }) =>
+      matchingSources.has(new URL(src).pathname),
+    ),
+  };
+}
+
 function garmentForOutfitOptions(garment: Garment, baseUrl: string) {
   const image = garment.images.find(({ role }) => role === "catalog") ?? garment.images[0];
   if (!image) throw new Error(`Garment "${garment.id}" has no public image.`);
@@ -164,28 +177,35 @@ function garmentForOutfitOptions(garment: Garment, baseUrl: string) {
 
 function outfitOptionsResult(catalog: Catalog, target: OutfitOptionsInput, baseUrl: string) {
   const ranked = getOutfitOptions(catalog, target);
-  const photographedLooks = ranked.photographedLooks.map(({ look, score, matchReasons }) => {
-    const garmentIds = [...new Set(look.images.flatMap((image) => image.garmentIds))];
-    const garments = garmentIds
-      .map((id) => getGarment(catalog, id))
-      .filter((garment): garment is Garment => Boolean(garment))
-      .map((garment) => garmentForOutfitOptions(garment, baseUrl));
-    return {
-      id: look.id,
-      title: look.title,
-      notes: look.notes,
-      occasions: look.occasions,
-      seasons: look.seasons,
-      tags: look.tags,
-      unindexedPieces: look.unindexedPieces,
-      privacyTreatment: look.privacyTreatment,
-      images: lookWithPublicImages(look, baseUrl).images,
-      score,
-      matchReasons,
-      garments,
-      url: canonicalUrl(baseUrl, "looks", look.id),
-    };
-  });
+  const photographedLooks = ranked.photographedLooks.map(
+    ({ look, matchingImages, score, matchReasons }) => {
+      const garmentIds = [...new Set(look.images.flatMap((image) => image.garmentIds))];
+      const garments = garmentIds
+        .map((id) => getGarment(catalog, id))
+        .filter((garment): garment is Garment => Boolean(garment))
+        .map((garment) => garmentForOutfitOptions(garment, baseUrl));
+      const publicLook = lookWithPublicImages(look, baseUrl);
+      const matchingSources = new Set(matchingImages.map(({ src }) => src));
+      return {
+        id: look.id,
+        title: look.title,
+        notes: look.notes,
+        occasions: look.occasions,
+        seasons: look.seasons,
+        tags: look.tags,
+        unindexedPieces: look.unindexedPieces,
+        privacyTreatment: look.privacyTreatment,
+        images: publicLook.images,
+        matchingImages: publicLook.images.filter(({ src }) =>
+          matchingSources.has(new URL(src).pathname),
+        ),
+        score,
+        matchReasons,
+        garments,
+        url: canonicalUrl(baseUrl, "looks", look.id),
+      };
+    },
+  );
   const candidatesByCategory = Object.fromEntries(
     Object.entries(ranked.candidatesByCategory).map(([category, entries]) => [
       category,
@@ -263,12 +283,14 @@ export function createPublicApiHandler(catalog: Catalog) {
         season: url.searchParams.get("season") ?? undefined,
         occasion: url.searchParams.get("occasion") ?? undefined,
       });
-      return parsed.success
-        ? json({
-            looks: searchLooks(catalog, parsed.data),
-            count: searchLooks(catalog, parsed.data).length,
-          })
-        : json({ error: "Invalid look filters", details: parsed.error.issues }, { status: 400 });
+      if (parsed.success) {
+        const looks = searchLooks(catalog, parsed.data).map((look) => ({
+          ...look,
+          matchingImages: matchingLookImages(look, parsed.data),
+        }));
+        return json({ looks, count: looks.length });
+      }
+      return json({ error: "Invalid look filters", details: parsed.error.issues }, { status: 400 });
     }
     if (path.startsWith("/looks/")) {
       const look = getLook(catalog, decodeURIComponent(path.slice("/looks/".length)));
@@ -332,7 +354,7 @@ export function createPublicApiHandler(catalog: Catalog) {
 
 export function createMcpServer(catalog: Catalog, baseUrl: string): McpServer {
   const server = new McpServer(
-    { name: "myfit-wardrobe", version: "1.3.0" },
+    { name: "myfit-wardrobe", version: "1.4.0" },
     {
       instructions:
         "Use MyFit as the read-only source of the owner's wardrobe. Never imply that an uncatalogued item is owned. For a place, date, weather, activity, or general what-should-I-wear request, resolve relevant forecast context when available, then call get_outfit_options once. Prefer a suitable photographed tier-1 look; otherwise assemble a suggestion from tier-2 owned garments, and never describe an assembled suggestion as photographed. For footwear-only comparisons, call advise_footwear directly without searching first.",
@@ -502,13 +524,15 @@ export function createMcpServer(catalog: Catalog, baseUrl: string): McpServer {
     {
       title: "Find photographed looks",
       description:
-        "Use this when the user asks for real photos of outfits containing one or more owned garments, or wants to browse combinations they have actually worn. garmentIds use AND semantics by default: every selected garment must appear in the same photographed look. Set match to exact only when no additional indexed garments may be present.",
+        "Use this when the user asks for real photos of outfits containing one or more owned garments, or wants to browse combinations they have actually worn. garmentIds use AND semantics by default: every selected garment must appear in the same individual photo. Each result's matchingImages are the authoritative matching photos; images contains the complete related look family. Set match to exact only when no additional indexed garments may be present.",
       inputSchema: lookFilterSchema,
       outputSchema: lookListSchema,
       annotations: readOnlyAnnotations,
     },
     (filter) => {
-      const looks = searchLooks(catalog, filter).map((look) => lookWithPublicImages(look, baseUrl));
+      const looks = searchLooks(catalog, filter).map((look) =>
+        lookMatchWithPublicImages(look, filter, baseUrl),
+      );
       const output = { looks, count: looks.length };
       return {
         structuredContent: output,
@@ -541,7 +565,7 @@ export function createMcpServer(catalog: Catalog, baseUrl: string): McpServer {
     {
       title: "Plan an outfit from the owned wardrobe",
       description:
-        "Use this when the user asks what to wear for a place, date, forecast, activity, or occasion, optionally requiring specific garments. Resolve relevant external context such as tomorrow's forecast before calling when that capability is available. This single call searches real photographed looks as tier 1 and returns ranked individual owned garments as tier 2. Prefer a genuinely suitable tier-1 look; otherwise assemble a new suggestion from tier 2 and label it as unphotographed.",
+        "Use this when the user asks what to wear for a place, date, forecast, activity, or occasion, optionally requiring specific garments. Resolve relevant external context such as tomorrow's forecast before calling when that capability is available. This single call searches real photographed looks as tier 1 and returns ranked individual owned garments as tier 2. In tier 1, matchingImages are the exact photos containing every required garment while images is the complete related look family. Prefer a genuinely suitable tier-1 look; otherwise assemble a new suggestion from tier 2 and label it as unphotographed.",
       inputSchema: outfitOptionsInputSchema,
       outputSchema: outfitOptionsOutputSchema,
       annotations: readOnlyAnnotations,

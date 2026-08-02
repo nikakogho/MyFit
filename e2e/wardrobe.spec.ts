@@ -130,6 +130,14 @@ test("filters and opens photo-backed looks by garment combination", async ({ pag
   const filter = page.getByLabel("Add garment to look filter");
   await filter.selectOption("black-modular-pocket-hoodie");
   await expect(page.getByRole("heading", { name: "Black modular utility layers" })).toBeVisible();
+  await filter.selectOption("distressed-black-zip-high-tops");
+  await expect(page.getByRole("heading", { name: "Black modular utility layers" })).toBeVisible();
+  await expect(page.locator(".look-card-image img")).toHaveAttribute(
+    "src",
+    "/media/black-modular-pocket-hoodie-worn-front.jpg",
+  );
+  await page.getByRole("button", { name: "Clear garments" }).click();
+  await filter.selectOption("black-modular-pocket-hoodie");
   await filter.selectOption("blacksquad-black-utility-cargo-trousers");
   await expect(page.getByText(/No photographed look contains that combination yet/)).toBeVisible();
   await page.getByRole("button", { name: "Clear garments" }).click();
@@ -140,6 +148,8 @@ test("filters and opens photo-backed looks by garment combination", async ({ pag
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
   await expect(page.locator(".detail-gallery img")).toHaveCount(5);
   await expect(page.getByText("Visible but not identified")).toBeVisible();
+  await expect(page.getByText("Uncatalogued boots variant", { exact: true })).toHaveCount(3);
+  await expect(page.getByText("Distressed zip high-tops variant", { exact: true })).toHaveCount(2);
 
   await page.getByRole("button", { name: "Open photo 1 of 5" }).click();
   const lightbox = page.getByRole("dialog", {
@@ -152,6 +162,12 @@ test("filters and opens photo-backed looks by garment combination", async ({ pag
 
 test("links garments back to photographed looks", async ({ page }) => {
   await page.goto("/garments/black-modular-pocket-hoodie");
+  await expect(
+    page.getByRole("heading", { name: "Photographed looks with this piece" }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Black modular utility layers" })).toBeVisible();
+
+  await page.goto("/garments/distressed-black-zip-high-tops");
   await expect(
     page.getByRole("heading", { name: "Photographed looks with this piece" }),
   ).toBeVisible();

@@ -38,6 +38,7 @@ export interface OutfitOptionsTarget {
 
 export interface RankedLookOption {
   look: Look;
+  matchingImages: Look["images"];
   score: number;
   matchReasons: string[];
 }
@@ -232,6 +233,18 @@ function imageMatchesGarments(
   );
 }
 
+export function matchingLookImages(
+  look: Look,
+  filter: Pick<LookFilter, "garmentIds" | "match"> = {},
+): Look["images"] {
+  const requiredGarmentIds = filter.garmentIds ?? [];
+  if (requiredGarmentIds.length === 0) return look.images;
+  const match = filter.match ?? "contains";
+  return look.images.filter((image) =>
+    imageMatchesGarments(image.garmentIds, requiredGarmentIds, match),
+  );
+}
+
 export function searchGarments(catalog: Catalog, filter: GarmentFilter = {}): Garment[] {
   return catalog.garments.filter(
     (garment) =>
@@ -263,9 +276,7 @@ export function searchLooks(catalog: Catalog, filter: LookFilter = {}): Look[] {
       (!filter.occasion ||
         look.occasions.some((occasion) => includes(occasion, filter.occasion))) &&
       (requiredGarmentIds.length === 0 ||
-        look.images.some((image) =>
-          imageMatchesGarments(image.garmentIds, requiredGarmentIds, match),
-        )) &&
+        matchingLookImages(look, { garmentIds: requiredGarmentIds, match }).length > 0) &&
       includes(lookSearchText(look, catalog), filter.query),
   );
 }
@@ -349,7 +360,11 @@ function occasionMatches(occasions: string[], targetOccasion: string): boolean {
   });
 }
 
-function rankLook(catalog: Catalog, look: Look, target: OutfitOptionsTarget): RankedLookOption {
+function rankLook(
+  catalog: Catalog,
+  look: Look,
+  target: OutfitOptionsTarget,
+): Omit<RankedLookOption, "matchingImages"> {
   let score = 45;
   const matchReasons: string[] = [];
   const required = target.requiredGarmentIds ?? [];
@@ -452,7 +467,10 @@ export function getOutfitOptions(catalog: Catalog, target: OutfitOptionsTarget) 
         required.length === 0 ||
         look.images.some((image) => imageMatchesGarments(image.garmentIds, required, "contains")),
     )
-    .map((look) => rankLook(catalog, look, target))
+    .map((look) => ({
+      ...rankLook(catalog, look, target),
+      matchingImages: matchingLookImages(look, { garmentIds: required }),
+    }))
     .sort((left, right) => right.score - left.score || left.look.id.localeCompare(right.look.id));
 
   const limit = target.limitPerCategory ?? 5;

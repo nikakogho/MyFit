@@ -1,7 +1,13 @@
 import { describe, expect, it } from "vitest";
 import type { Catalog } from "@myfit/domain";
 
-import { adviseFootwear, getOutfitOptions, searchGarments, searchLooks } from "./index.js";
+import {
+  adviseFootwear,
+  getOutfitOptions,
+  matchingLookImages,
+  searchGarments,
+  searchLooks,
+} from "./index.js";
 
 const jacket: Catalog["garments"][number] = {
   id: "test-jacket",
@@ -84,6 +90,8 @@ describe("photographed looks", () => {
         width: 10,
         height: 20,
         garmentIds: [jacket.id, trousers.id],
+        variantLabel: "Jacket and trousers",
+        unindexedPieces: [],
       },
     ],
     unindexedPieces: [],
@@ -102,6 +110,22 @@ describe("photographed looks", () => {
     expect(searchLooks(lookCatalog, { query: "city visit" })).toEqual([look]);
   });
 
+  it("returns only the individual photos that contain the requested combination", () => {
+    const combinedImage = look.images[0];
+    if (!combinedImage) throw new Error("Expected the look fixture to contain one image.");
+    const jacketOnlyImage = {
+      ...combinedImage,
+      src: "/media/jacket-only.jpg",
+      garmentIds: [jacket.id],
+      variantLabel: "Jacket only",
+    };
+    const variedLook = { ...look, images: [jacketOnlyImage, ...look.images] };
+
+    expect(matchingLookImages(variedLook, { garmentIds: [jacket.id, trousers.id] })).toEqual([
+      combinedImage,
+    ]);
+  });
+
   it("returns photographed looks first and ranked owned garments second", () => {
     const result = getOutfitOptions(lookCatalog, {
       request: "Suggest an outfit for a city visit tomorrow",
@@ -114,6 +138,7 @@ describe("photographed looks", () => {
 
     expect(result.photographedLooks[0]).toMatchObject({
       look: { id: "utility-look" },
+      matchingImages: [{ src: "/media/look.jpg" }],
       matchReasons: expect.arrayContaining(["Contains every required garment."]),
     });
     expect(result.candidatesByCategory.bottoms[0]).toMatchObject({

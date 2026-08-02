@@ -95,13 +95,17 @@ export const publicLookSchema = lookSchema.extend({
   images: z.array(publicLookImageSchema).min(1),
 });
 
+export const publicLookMatchSchema = publicLookSchema.extend({
+  matchingImages: z.array(publicLookImageSchema).min(1),
+});
+
 export const garmentListSchema = z.object({
   garments: z.array(publicGarmentSchema),
   count: z.number().int().nonnegative(),
 });
 
 export const lookListSchema = z.object({
-  looks: z.array(publicLookSchema),
+  looks: z.array(publicLookMatchSchema),
   count: z.number().int().nonnegative(),
 });
 
@@ -149,6 +153,7 @@ export const photographedLookMatchSchema = z.object({
   score: z.number().int().min(0).max(100),
   matchReasons: z.array(z.string()),
   images: z.array(publicLookImageSchema),
+  matchingImages: z.array(publicLookImageSchema).min(1),
   garments: z.array(outfitCandidateGarmentSchema.omit({ score: true, matchReasons: true })),
   url: z.string().url(),
 });

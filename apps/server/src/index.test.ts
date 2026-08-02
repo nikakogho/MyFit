@@ -63,6 +63,8 @@ const catalog: Catalog = {
           width: 10,
           height: 20,
           garmentIds: ["brown-jacket"],
+          variantLabel: "Brown jacket variant",
+          unindexedPieces: [],
         },
       ],
       unindexedPieces: [],
@@ -92,7 +94,7 @@ describe("public API", () => {
     );
     await expect(looksResponse.json()).resolves.toMatchObject({
       count: 1,
-      looks: [{ id: "brown-look" }],
+      looks: [{ id: "brown-look", matchingImages: [{ src: "/media/look.jpg" }] }],
     });
 
     const optionsResponse = handler(
@@ -165,6 +167,7 @@ describe("MCP server", () => {
         {
           id: "brown-look",
           images: [{ src: "https://example.com/media/look.jpg" }],
+          matchingImages: [{ src: "https://example.com/media/look.jpg" }],
         },
       ],
     });
@@ -179,7 +182,15 @@ describe("MCP server", () => {
     });
     expect(optionsResult.structuredContent).toMatchObject({
       strategy: "photographed-looks-first",
-      tier1: { count: 1, photographedLooks: [{ id: "brown-look" }] },
+      tier1: {
+        count: 1,
+        photographedLooks: [
+          {
+            id: "brown-look",
+            matchingImages: [{ src: "https://example.com/media/look.jpg" }],
+          },
+        ],
+      },
       guidance: expect.stringContaining("tier-2"),
     });
 

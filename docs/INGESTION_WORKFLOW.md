@@ -142,6 +142,9 @@ For every deliberately submitted full-outfit photo:
    in `unindexedPieces`; the look must not imply that the piece is an indexed or owned garment.
 6. Record garment membership per image, not only per look. If a layer is removed or footwear
    changes between photos, those photos have different `garmentIds` even if they remain one look.
+   Give each photo an honest `variantLabel` when that makes the change legible, and record unresolved
+   visible pieces in that image's `unindexedPieces`. The look-level unresolved list is the union of
+   those per-photo lists, not a claim that every unresolved piece appears in every photo.
 
 A multi-garment look is ready when every visible piece is either linked to a confirmed catalogued
 garment or honestly recorded as unresolved. If the unresolved identity would materially affect the

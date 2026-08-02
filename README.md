@@ -52,10 +52,12 @@ The live deployment supports:
 - `GET /api/garments` supports `query`, `category`, `color`, `season`, and `occasion`.
 - `GET /api/garments/:id` returns one garment.
 - `GET /api/looks` supports `query`, repeatable `garmentId`, `match=contains|exact`, `season`, and
-  `occasion`. Repeated garment IDs use AND semantics within the same photo.
+  `occasion`. Repeated garment IDs use AND semantics within the same photo. Results include the full
+  `images` family plus the exact `matchingImages` subset for the requested combination.
 - `GET /api/looks/:id` returns one photographed look.
-- `GET /api/outfit-options` returns tier 1 photographed looks and tier 2 ranked owned garments for
-  supplied request, date, weather, occasion, mood, and required-garment context.
+- `GET /api/outfit-options` returns tier 1 photographed looks (including exact `matchingImages`) and
+  tier 2 ranked owned garments for supplied request, date, weather, occasion, mood, and
+  required-garment context.
 - `GET /api/outfits` supports `query`, `season`, and `occasion`.
 - `GET /api/outfits/:id` returns one saved outfit direction.
 - `/mcp` is the Streamable HTTP MCP endpoint to connect from a ChatGPT app.

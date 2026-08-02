@@ -68,6 +68,8 @@ describe("catalog schema", () => {
                 width: 10,
                 height: 20,
                 garmentIds: ["missing"],
+                variantLabel: null,
+                unindexedPieces: [],
               },
             ],
             unindexedPieces: [],

@@ -68,6 +68,8 @@ export const outfitSchema = z.object({
 
 export const lookImageSchema = imageSchema.extend({
   garmentIds: z.array(slug).min(1),
+  variantLabel: z.string().min(1).max(120).nullable(),
+  unindexedPieces: z.array(z.string().min(1)),
 });
 
 export const lookSchema = z.object({
@@ -135,6 +137,21 @@ export const catalogSchema = z
             });
           }
         }
+      }
+
+      const imageLevelUnindexedPieces = [
+        ...new Set(look.images.flatMap((image) => image.unindexedPieces)),
+      ].toSorted();
+      const lookLevelUnindexedPieces = [...new Set(look.unindexedPieces)].toSorted();
+      if (
+        imageLevelUnindexedPieces.length !== lookLevelUnindexedPieces.length ||
+        imageLevelUnindexedPieces.some((piece, index) => piece !== lookLevelUnindexedPieces[index])
+      ) {
+        context.addIssue({
+          code: "custom",
+          message: `Look ${look.id} unindexedPieces must equal the union of its image-level unindexedPieces`,
+          path: ["looks", catalog.looks.indexOf(look), "unindexedPieces"],
+        });
       }
     }
   });

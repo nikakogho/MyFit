@@ -17,11 +17,18 @@ photo's indexed garment set to be identical. `GET /api/outfit-options` accepts r
 optional required garments, season, occasion, location, date, temperature, precipitation, forecast
 summary, and mood.
 
+Filtered look results return both `images` and `matchingImages`. `images` is the complete related
+look family; `matchingImages` is the authoritative subset in which every requested garment occurs
+in that individual photo. Each image also carries its `variantLabel` and image-specific
+`unindexedPieces`, so ChatGPT can distinguish photographed variants without implying that a piece
+appears in all photos.
+
 The current MCP adds `find_worn_looks` and `get_outfit_options`. The latter is the normal one-call
 tool for “what should I wear?” requests: tier 1 returns ranked photographed looks; tier 2 returns
 ranked individual owned garments by category. ChatGPT should obtain current external context such as
 the requested date's forecast when available, pass it to the tool, prefer a genuinely suitable tier
-1 result, and otherwise assemble and explicitly label an unphotographed tier 2 suggestion.
+1 result, use its `matchingImages` as evidence for required-garment claims, and otherwise assemble
+and explicitly label an unphotographed tier 2 suggestion.
 
 The remainder of this document is the future authenticated/database design and is not a statement
 that those routes or persistence services are currently deployed.
