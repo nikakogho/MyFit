@@ -3,20 +3,28 @@ import { expect, test } from "@playwright/test";
 test("browses and filters the public wardrobe", async ({ page }) => {
   await page.goto("/");
   const wardrobe = page.locator(".wardrobe-section");
-  await expect(page.getByRole("heading", { name: /Dress with/ })).toBeVisible();
-  await expect(page.getByLabel("Wardrobe highlights").getByText("21")).toBeVisible();
+  const launchpad = page.getByLabel("Wardrobe launchpad");
+  await expect(page.getByRole("heading", { name: /Start with/ })).toBeVisible();
+  await expect(launchpad.getByText("21 matches", { exact: true })).toBeVisible();
+  await expect(launchpad.locator('a[href^="/garments/"]')).toHaveCount(3);
+  await page
+    .getByRole("searchbox", { name: "Search wardrobe from the landing panel" })
+    .fill("brogue");
+  await expect(launchpad.getByText("1 match", { exact: true })).toBeVisible();
+  await expect(launchpad.getByText("Charcoal brogue hybrid shoes", { exact: true })).toBeVisible();
+  await page.getByRole("searchbox", { name: "Search wardrobe from the landing panel" }).fill("");
   await expect(wardrobe.getByRole("heading", { name: "Nycra-R lightweight jacket" })).toBeVisible();
   await expect(wardrobe.locator('a[href^="/garments/"]')).toHaveCount(21);
   await expect(wardrobe.locator(".item-number")).toHaveText(
     Array.from({ length: 21 }, (_, index) => String(index + 1).padStart(2, "0")),
   );
-  await page.getByRole("button", { name: "shirts", exact: true }).click();
+  await wardrobe.getByRole("button", { name: "shirts", exact: true }).click();
   await expect(wardrobe.locator('a[href^="/garments/"]')).toHaveCount(6);
   await expect(
     wardrobe.getByRole("heading", { name: "Teenage Mutant Ninja Turtles graphic T-shirt" }),
   ).toBeVisible();
   await expect(wardrobe.getByRole("heading", { name: "Nycra-R lightweight jacket" })).toBeHidden();
-  await page.getByRole("button", { name: "trousers", exact: true }).click();
+  await wardrobe.getByRole("button", { name: "trousers", exact: true }).click();
   await expect(wardrobe.locator('a[href^="/garments/"]')).toHaveCount(2);
   await expect(
     wardrobe.getByRole("heading", { name: "Blacksquad black utility cargo trousers" }),
@@ -27,14 +35,14 @@ test("browses and filters the public wardrobe", async ({ page }) => {
   await expect(
     wardrobe.getByRole("heading", { name: "Teenage Mutant Ninja Turtles graphic T-shirt" }),
   ).toBeHidden();
-  await page.getByRole("button", { name: "all", exact: true }).click();
-  await page.getByRole("searchbox", { name: "Search wardrobe" }).fill("sneakers");
+  await wardrobe.getByRole("button", { name: "all", exact: true }).click();
+  await wardrobe.getByRole("searchbox", { name: "Search wardrobe", exact: true }).fill("sneakers");
   await expect(
     wardrobe.getByRole("heading", { name: "Blue, white, and orange sneakers" }),
   ).toBeVisible();
   await expect(wardrobe.getByRole("heading", { name: "Grey paneled sneakers" })).toBeVisible();
   await expect(wardrobe.getByRole("heading", { name: "Nycra-R lightweight jacket" })).toBeHidden();
-  await page.getByRole("searchbox", { name: "Search wardrobe" }).fill("brogue");
+  await wardrobe.getByRole("searchbox", { name: "Search wardrobe", exact: true }).fill("brogue");
   await expect(
     wardrobe.getByRole("heading", { name: "Charcoal brogue hybrid shoes" }),
   ).toBeVisible();

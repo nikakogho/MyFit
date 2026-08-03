@@ -435,48 +435,98 @@ function Home({ catalog }: { catalog: Catalog }) {
       }),
     [catalog.garments, category, query],
   );
-  const jacket = catalog.garments[0]?.images[0];
-  const sneaker = catalog.garments[1]?.images[0];
+  const defaultPreviewIds = [
+    "black-modular-pocket-hoodie",
+    "brown-field-jacket",
+    "hermes-grey-paneled-sneakers",
+  ];
+  const heroGarments =
+    category === "all" && query.trim() === ""
+      ? defaultPreviewIds
+          .map((id) => catalog.garments.find((garment) => garment.id === id))
+          .filter((garment): garment is Garment => Boolean(garment))
+      : garments.slice(0, 3);
 
   return (
     <>
       <main>
         <section className="hero">
           <div className="hero-copy">
-            <p className="kicker">A wardrobe with context</p>
+            <p className="kicker">
+              {catalog.garments.length} pieces · {catalog.looks.length} photographed look
+            </p>
             <h1>
-              Dress with
+              Start with
               <br />
               <em>what you own.</em>
             </h1>
             <p className="intro">
-              A small, public inventory built to help an AI stylist suggest outfits from real
-              clothes—not an imaginary closet.
+              Search the actual wardrobe, inspect how pieces look together, or give ChatGPT the
+              context it needs to suggest something grounded in real clothes.
             </p>
-            <a className="primary-link" href="#wardrobe">
-              Explore the wardrobe <span>↓</span>
-            </a>
-          </div>
-          <div className="hero-art" aria-label="Wardrobe highlights">
-            <div className="shape shape-one" />
-            <div className="shape shape-two" />
-            {jacket ? <img className="hero-jacket" src={jacket.src} alt={jacket.alt} /> : null}
-            {sneaker ? <img className="hero-sneaker" src={sneaker.src} alt={sneaker.alt} /> : null}
-            <div className="context-note">
-              <b>{String(catalog.garments.length).padStart(2, "0")}</b>
-              <span>Pieces indexed with fit, colour &amp; styling context</span>
+            <div className="hero-destinations">
+              <a href="#looks">
+                Photographed looks <span>↘</span>
+              </a>
+              <a href="#outfits">
+                Outfit ideas <span>↘</span>
+              </a>
             </div>
           </div>
-        </section>
-
-        <section className="manifesto">
-          <p>THE IDEA</p>
-          <blockquote>
-            “Outfit advice gets better when the stylist knows the <em>actual wardrobe.</em>”
-          </blockquote>
-          <div className="manifesto-note">
-            <span>↳</span>
-            <p>Every piece is described, searchable, and openly available to ChatGPT.</p>
+          <div className="hero-browser" aria-label="Wardrobe launchpad">
+            <div className="hero-browser-heading">
+              <p className="eyebrow">Find a piece</p>
+              <p aria-live="polite">
+                {garments.length} {garments.length === 1 ? "match" : "matches"}
+              </p>
+            </div>
+            <label className="hero-search">
+              <span aria-hidden="true">⌕</span>
+              <input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search colour, item, brand…"
+                aria-label="Search wardrobe from the landing panel"
+              />
+            </label>
+            <div className="hero-filter-row" aria-label="Quick filter wardrobe">
+              {categories.map((item) => (
+                <button
+                  className={item.value === category ? "active" : ""}
+                  type="button"
+                  key={item.value}
+                  aria-label={`Show ${item.label} wardrobe pieces`}
+                  onClick={() => setCategory(item.value)}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+            {heroGarments.length > 0 ? (
+              <div className="hero-preview-grid" aria-label="Matching wardrobe preview">
+                {heroGarments.map((garment) => {
+                  const image = garment.images[0];
+                  return image ? (
+                    <Link to={`/garments/${garment.id}`} key={garment.id}>
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        width={image.width}
+                        height={image.height}
+                      />
+                      <span>{garment.name}</span>
+                    </Link>
+                  ) : null;
+                })}
+              </div>
+            ) : (
+              <p className="hero-empty">No matching pieces yet.</p>
+            )}
+            <a className="hero-results-link" href="#wardrobe">
+              Browse {garments.length} matching {garments.length === 1 ? "piece" : "pieces"}
+              <span>↓</span>
+            </a>
           </div>
         </section>
 
