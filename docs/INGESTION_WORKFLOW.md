@@ -13,10 +13,11 @@ Codex should:
    visual continuity, and garment features.
 3. Compare the proposed garments and source-image hashes with the existing public catalogue.
 4. Classify every proposed garment as `ready` or `blocked`.
-5. Prepare every usable supplied photo and the metadata for every ready garment, selecting one
-   strong catalogue thumbnail without discarding the other angles or worn views. When a photo is
-   deliberately a full outfit, also prepare a photographed-look record with the exact garments
-   visible in that individual image.
+5. Preserve every usable supplied photo as an untouched original, then prepare a transparent
+   presentation derivative and the metadata for every ready garment. Select one strong catalogue
+   thumbnail without discarding the other angles or worn views. When a photo is deliberately a
+   full outfit, also prepare a photographed-look record with the exact garments visible in that
+   individual image.
 6. Run the publication dry-run and resolve code/data errors.
 7. Publish, validate, commit, push, deploy, and live-check the ready subset.
 8. Leave blocked files untouched and ask one grouped follow-up covering only those garments.
@@ -150,9 +151,10 @@ A multi-garment look is ready when every visible piece is either linked to a con
 garment or honestly recorded as unresolved. If the unresolved identity would materially affect the
 purpose of the look, publish the ready garments and hold the look until the user's grouped answer.
 
-The current private-owner phase publishes submitted look photos as-is, including face and visible
-background. If MyFit becomes a multi-user service, add face/background redaction as a default-on
-upload option before accepting other users; that future policy is not active now.
+The current owner-only phase keeps the person and complete visible outfit in worn and photographed
+look images, but removes the room, floor, and other background. Non-worn catalogue photos retain
+only the garment or footwear. Face redaction remains a future default-on option if MyFit becomes a
+multi-user service; it is not active now.
 
 ## 7. Partial-batch ledger
 
@@ -168,8 +170,21 @@ placeholder records and do not prevent the ready subset from shipping.
 
 ## 8. Publication gate
 
-Raw intake remains ignored under `uploads/`, `samples/`, or `content/private/`. Only reviewed
-presentation assets are copied to `apps/web/public/media/`.
+Raw intake remains ignored under `uploads/`, `samples/`, or `content/private/`. Before publication,
+copy each accepted full photograph into `source-media/originals/` without editing or recompressing
+it. Only reviewed transparent presentation assets are copied to `apps/web/public/media/`.
+
+Background-removal rules:
+
+- use lossless WebP with a real alpha channel; never publish a pink, green, or other chroma matte;
+- for a non-worn product photo, retain the garment or footwear and remove the surroundings;
+- for a worn garment or photographed look, retain the person and complete outfit while removing
+  the room, floor, and background;
+- do not generate, redraw, or reconstruct foreground pixels as part of masking;
+- review each derivative composited over both the site paper colour and a deliberately contrasting
+  colour so transparent gaps and retained background fragments are visible;
+- if a mask would make the garment misleading, keep the original untouched and hold only that
+  derivative for manual review.
 
 Run:
 

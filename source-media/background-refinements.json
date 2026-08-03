@@ -1,0 +1,12 @@
+[
+  {
+    "filename": "brown-field-jacket-front.webp",
+    "removeNeutralBeddingBelow": 880,
+    "clearBelow": 1200
+  },
+  {
+    "filename": "brown-field-jacket-back.webp",
+    "removeNeutralBeddingBelow": 880,
+    "clearBelow": 1260
+  }
+]
