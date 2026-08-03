@@ -38,10 +38,6 @@ function Header() {
           <a href="/#wardrobe">Wardrobe</a>
           <a href="/#looks">Looks</a>
         </nav>
-        <div className="public-pill">
-          <i aria-hidden="true" />
-          Public wardrobe
-        </div>
       </header>
     </div>
   );

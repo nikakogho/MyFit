@@ -53,6 +53,7 @@ test("keeps wardrobe and looks navigation visible while scrolling", async ({ pag
   const header = page.locator(".site-header");
   const navigation = header.getByRole("navigation", { name: "Main navigation" });
 
+  await expect(header.getByText("Public wardrobe", { exact: true })).toHaveCount(0);
   await expect(navigation.getByRole("link", { name: "Wardrobe", exact: true })).toBeVisible();
   await expect(navigation.getByRole("link", { name: "Looks", exact: true })).toBeVisible();
   await expect(navigation.getByRole("link")).toHaveCount(2);
