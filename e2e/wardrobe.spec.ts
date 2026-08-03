@@ -60,6 +60,7 @@ test("keeps wardrobe and looks navigation visible while scrolling", async ({ pag
   await expect(header).toBeInViewport();
   await expect(navigation.getByRole("link", { name: "Wardrobe", exact: true })).toBeVisible();
   await expect(navigation.getByRole("link", { name: "Looks", exact: true })).toBeVisible();
+  await expect(header).toHaveClass(/pinned/);
   await expect(header).toHaveCSS("position", "fixed");
 });
 

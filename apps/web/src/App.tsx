@@ -21,18 +21,29 @@ function Brand() {
 }
 
 function Header() {
+  const [isPinned, setIsPinned] = useState(false);
+
+  useEffect(() => {
+    const updatePinnedState = () => setIsPinned(window.scrollY > 0);
+    updatePinnedState();
+    window.addEventListener("scroll", updatePinnedState, { passive: true });
+    return () => window.removeEventListener("scroll", updatePinnedState);
+  }, []);
+
   return (
-    <header className="site-header">
-      <Brand />
-      <nav aria-label="Main navigation">
-        <a href="/#wardrobe">Wardrobe</a>
-        <a href="/#looks">Looks</a>
-      </nav>
-      <div className="public-pill">
-        <i aria-hidden="true" />
-        Public wardrobe
-      </div>
-    </header>
+    <div className="header-slot">
+      <header className={`site-header${isPinned ? " pinned" : ""}`}>
+        <Brand />
+        <nav aria-label="Main navigation">
+          <a href="/#wardrobe">Wardrobe</a>
+          <a href="/#looks">Looks</a>
+        </nav>
+        <div className="public-pill">
+          <i aria-hidden="true" />
+          Public wardrobe
+        </div>
+      </header>
+    </div>
   );
 }
 
