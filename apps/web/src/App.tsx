@@ -473,7 +473,7 @@ function Home({ catalog }: { catalog: Catalog }) {
               </a>
             </div>
           </div>
-          <div className="hero-browser" aria-label="Wardrobe launchpad">
+          <div className="hero-browser" id="wardrobe-launchpad" aria-label="Wardrobe launchpad">
             <div className="hero-browser-heading">
               <p className="eyebrow">Find a piece</p>
               <p aria-live="polite">
@@ -531,33 +531,16 @@ function Home({ catalog }: { catalog: Catalog }) {
         </section>
 
         <section className="wardrobe-section" id="wardrobe">
-          <div className="section-heading">
+          <div className="section-heading wardrobe-heading">
             <div>
-              <p className="eyebrow">The wardrobe</p>
+              <p className="eyebrow" aria-live="polite">
+                {garments.length} {garments.length === 1 ? "piece" : "pieces"} in view
+              </p>
               <h2>Current pieces</h2>
             </div>
-            <label className="search">
-              <span>⌕</span>
-              <input
-                type="search"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search colour, item, brand…"
-                aria-label="Search wardrobe"
-              />
-            </label>
-          </div>
-          <div className="filter-row" aria-label="Filter by category">
-            {categories.map((item) => (
-              <button
-                className={item.value === category ? "active" : ""}
-                type="button"
-                key={item.value}
-                onClick={() => setCategory(item.value)}
-              >
-                {item.label}
-              </button>
-            ))}
+            <a className="refine-link" href="#wardrobe-launchpad">
+              Search or filter <span>↑</span>
+            </a>
           </div>
           {garments.length > 0 ? (
             <div className="garment-grid">

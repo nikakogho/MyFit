@@ -5,6 +5,10 @@ test("browses and filters the public wardrobe", async ({ page }) => {
   const wardrobe = page.locator(".wardrobe-section");
   const launchpad = page.getByLabel("Wardrobe launchpad");
   await expect(page.getByRole("heading", { name: /Start with/ })).toBeVisible();
+  await expect(page.getByRole("searchbox")).toHaveCount(2);
+  await expect(page.getByRole("searchbox", { name: "Search wardrobe", exact: true })).toHaveCount(
+    0,
+  );
   await expect(launchpad.getByText("21 matches", { exact: true })).toBeVisible();
   await expect(launchpad.locator('a[href^="/garments/"]')).toHaveCount(3);
   await page
@@ -18,13 +22,13 @@ test("browses and filters the public wardrobe", async ({ page }) => {
   await expect(wardrobe.locator(".item-number")).toHaveText(
     Array.from({ length: 21 }, (_, index) => String(index + 1).padStart(2, "0")),
   );
-  await wardrobe.getByRole("button", { name: "shirts", exact: true }).click();
+  await launchpad.getByRole("button", { name: "Show shirts wardrobe pieces" }).click();
   await expect(wardrobe.locator('a[href^="/garments/"]')).toHaveCount(6);
   await expect(
     wardrobe.getByRole("heading", { name: "Teenage Mutant Ninja Turtles graphic T-shirt" }),
   ).toBeVisible();
   await expect(wardrobe.getByRole("heading", { name: "Nycra-R lightweight jacket" })).toBeHidden();
-  await wardrobe.getByRole("button", { name: "trousers", exact: true }).click();
+  await launchpad.getByRole("button", { name: "Show trousers wardrobe pieces" }).click();
   await expect(wardrobe.locator('a[href^="/garments/"]')).toHaveCount(2);
   await expect(
     wardrobe.getByRole("heading", { name: "Blacksquad black utility cargo trousers" }),
@@ -35,14 +39,18 @@ test("browses and filters the public wardrobe", async ({ page }) => {
   await expect(
     wardrobe.getByRole("heading", { name: "Teenage Mutant Ninja Turtles graphic T-shirt" }),
   ).toBeHidden();
-  await wardrobe.getByRole("button", { name: "all", exact: true }).click();
-  await wardrobe.getByRole("searchbox", { name: "Search wardrobe", exact: true }).fill("sneakers");
+  await launchpad.getByRole("button", { name: "Show all wardrobe pieces" }).click();
+  await launchpad
+    .getByRole("searchbox", { name: "Search wardrobe from the landing panel" })
+    .fill("sneakers");
   await expect(
     wardrobe.getByRole("heading", { name: "Blue, white, and orange sneakers" }),
   ).toBeVisible();
   await expect(wardrobe.getByRole("heading", { name: "Grey paneled sneakers" })).toBeVisible();
   await expect(wardrobe.getByRole("heading", { name: "Nycra-R lightweight jacket" })).toBeHidden();
-  await wardrobe.getByRole("searchbox", { name: "Search wardrobe", exact: true }).fill("brogue");
+  await launchpad
+    .getByRole("searchbox", { name: "Search wardrobe from the landing panel" })
+    .fill("brogue");
   await expect(
     wardrobe.getByRole("heading", { name: "Charcoal brogue hybrid shoes" }),
   ).toBeVisible();

@@ -319,31 +319,21 @@ nav a:hover {
   font-size: 13px;
   line-height: 1.7;
 }
-.search {
-  display: flex;
+.refine-link {
+  display: inline-flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 38px;
+  min-width: 210px;
+  padding: 13px 0;
   border-bottom: 1px solid var(--ink);
-  min-width: 280px;
-  padding: 10px 0;
+  font: 10px "DM Mono";
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
 }
-.search span {
-  font-size: 23px;
-  margin-right: 10px;
+.refine-link span {
+  font-size: 17px;
 }
-.search input {
-  background: none;
-  border: 0;
-  outline: 0;
-  width: 100%;
-  font-size: 12px;
-}
-.filter-row {
-  display: flex;
-  gap: 8px;
-  padding: 20px 0 35px;
-  border-top: 1px solid var(--line);
-}
-.filter-row button,
 .outfit-tags span,
 .color-row span {
   border: 1px solid var(--line);
@@ -353,14 +343,6 @@ nav a:hover {
   font: 10px "DM Mono";
   text-transform: uppercase;
   letter-spacing: 0.06em;
-}
-.filter-row button {
-  cursor: pointer;
-}
-.filter-row button.active,
-.filter-row button:hover {
-  background: var(--ink);
-  color: white;
 }
 .garment-grid {
   display: grid;
@@ -1063,9 +1045,10 @@ footer > a:not(.brand) {
   .section-heading {
     display: block;
   }
-  .search {
+  .refine-link {
     margin-top: 25px;
-    width: 100%;
+    min-width: 0;
+    width: min(100%, 260px);
   }
   .garment-grid {
     grid-template-columns: 1fr;
