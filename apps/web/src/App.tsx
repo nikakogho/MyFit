@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
-import type { Catalog, Garment, Look, Outfit } from "@myfit/contracts";
+import type { Catalog, Garment, Look } from "@myfit/contracts";
 
 type GalleryImage = Garment["images"][number] | Look["images"][number];
 
@@ -27,8 +27,6 @@ function Header() {
       <nav aria-label="Main navigation">
         <a href="/#wardrobe">Wardrobe</a>
         <a href="/#looks">Looks</a>
-        <a href="/#outfits">Ideas</a>
-        <a href="/#profile">Fit profile</a>
       </nav>
       <div className="public-pill">
         <i aria-hidden="true" />
@@ -209,43 +207,6 @@ function GarmentCard({ garment, index }: { garment: Garment; index: number }) {
         {garment.colors.map((color) => (
           <span key={color}>{color}</span>
         ))}
-      </div>
-    </Link>
-  );
-}
-
-function OutfitFeature({ outfit, catalog }: { outfit: Outfit; catalog: Catalog }) {
-  const pieces = outfit.garmentIds
-    .map((id) => catalog.garments.find((garment) => garment.id === id))
-    .filter((garment): garment is Garment => Boolean(garment));
-  return (
-    <Link className="outfit-feature" to={`/outfits/${outfit.id}`}>
-      <div className="outfit-images">
-        {pieces.map((piece, index) => {
-          const image = piece.images[0];
-          return image ? (
-            <img
-              key={piece.id}
-              className={`outfit-image outfit-image-${index + 1}`}
-              src={image.src}
-              alt={image.alt}
-            />
-          ) : null;
-        })}
-        <span className="plus-mark">+</span>
-      </div>
-      <div className="outfit-copy">
-        <p className="eyebrow">Saved direction · 001</p>
-        <h2>{outfit.title}</h2>
-        <p>{outfit.rationale}</p>
-        <div className="outfit-tags">
-          {outfit.tags.slice(0, 3).map((tag) => (
-            <span key={tag}>{tag}</span>
-          ))}
-        </div>
-        <strong>
-          Open the outfit direction <span>↗</span>
-        </strong>
       </div>
     </Link>
   );
@@ -435,112 +396,39 @@ function Home({ catalog }: { catalog: Catalog }) {
       }),
     [catalog.garments, category, query],
   );
-  const defaultPreviewIds = [
-    "black-modular-pocket-hoodie",
-    "brown-field-jacket",
-    "hermes-grey-paneled-sneakers",
-  ];
-  const heroGarments =
-    category === "all" && query.trim() === ""
-      ? defaultPreviewIds
-          .map((id) => catalog.garments.find((garment) => garment.id === id))
-          .filter((garment): garment is Garment => Boolean(garment))
-      : garments.slice(0, 3);
-
   return (
     <>
       <main>
-        <section className="hero">
-          <div className="hero-copy">
-            <p className="kicker">
-              {catalog.garments.length} pieces · {catalog.looks.length} photographed look
-            </p>
-            <h1>
-              Start with
-              <br />
-              <em>what you own.</em>
-            </h1>
-            <p className="intro">
-              Search the actual wardrobe, inspect how pieces look together, or give ChatGPT the
-              context it needs to suggest something grounded in real clothes.
-            </p>
-            <div className="hero-destinations">
-              <a href="#looks">
-                Photographed looks <span>↘</span>
-              </a>
-              <a href="#outfits">
-                Outfit ideas <span>↘</span>
-              </a>
-            </div>
-          </div>
-          <div className="hero-browser" id="wardrobe-launchpad" aria-label="Wardrobe launchpad">
-            <div className="hero-browser-heading">
-              <p className="eyebrow">Find a piece</p>
-              <p aria-live="polite">
-                {garments.length} {garments.length === 1 ? "match" : "matches"}
-              </p>
-            </div>
-            <label className="hero-search">
-              <span aria-hidden="true">⌕</span>
-              <input
-                type="search"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search colour, item, brand…"
-                aria-label="Search wardrobe from the landing panel"
-              />
-            </label>
-            <div className="hero-filter-row" aria-label="Quick filter wardrobe">
-              {categories.map((item) => (
-                <button
-                  className={item.value === category ? "active" : ""}
-                  type="button"
-                  key={item.value}
-                  aria-label={`Show ${item.label} wardrobe pieces`}
-                  onClick={() => setCategory(item.value)}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-            {heroGarments.length > 0 ? (
-              <div className="hero-preview-grid" aria-label="Matching wardrobe preview">
-                {heroGarments.map((garment) => {
-                  const image = garment.images[0];
-                  return image ? (
-                    <Link to={`/garments/${garment.id}`} key={garment.id}>
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        width={image.width}
-                        height={image.height}
-                      />
-                      <span>{garment.name}</span>
-                    </Link>
-                  ) : null;
-                })}
-              </div>
-            ) : (
-              <p className="hero-empty">No matching pieces yet.</p>
-            )}
-            <a className="hero-results-link" href="#wardrobe">
-              Browse {garments.length} matching {garments.length === 1 ? "piece" : "pieces"}
-              <span>↓</span>
-            </a>
-          </div>
-        </section>
-
         <section className="wardrobe-section" id="wardrobe">
           <div className="section-heading wardrobe-heading">
             <div>
               <p className="eyebrow" aria-live="polite">
                 {garments.length} {garments.length === 1 ? "piece" : "pieces"} in view
               </p>
-              <h2>Current pieces</h2>
+              <h1>Current pieces</h1>
             </div>
-            <a className="refine-link" href="#wardrobe-launchpad">
-              Search or filter <span>↑</span>
-            </a>
+            <label className="wardrobe-search">
+              <span aria-hidden="true">⌕</span>
+              <input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search colour, item, brand…"
+                aria-label="Search wardrobe"
+              />
+            </label>
+          </div>
+          <div className="wardrobe-filter-row" aria-label="Filter wardrobe by category">
+            {categories.map((item) => (
+              <button
+                className={item.value === category ? "active" : ""}
+                type="button"
+                key={item.value}
+                onClick={() => setCategory(item.value)}
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
           {garments.length > 0 ? (
             <div className="garment-grid">
@@ -554,48 +442,6 @@ function Home({ catalog }: { catalog: Catalog }) {
         </section>
 
         <LooksSection catalog={catalog} />
-
-        <section className="outfits-section" id="outfits">
-          <div className="section-heading light">
-            <div>
-              <p className="eyebrow">New combinations</p>
-              <h2>Outfit ideas</h2>
-            </div>
-            <p>
-              Suggested combinations built from indexed pieces. These are ideas, not claims that the
-              full combination has been photographed.
-            </p>
-          </div>
-          {catalog.outfits.map((outfit) => (
-            <OutfitFeature key={outfit.id} outfit={outfit} catalog={catalog} />
-          ))}
-        </section>
-
-        <section className="profile-section" id="profile">
-          <div>
-            <p className="eyebrow">The fit profile</p>
-            <h2>Context, not commandments.</h2>
-            <p>{catalog.profile.publicNotice}</p>
-          </div>
-          <dl>
-            <div>
-              <dt>Clothing</dt>
-              <dd>{catalog.profile.typicalClothingSize}</dd>
-            </div>
-            <div>
-              <dt>Shoes</dt>
-              <dd>{catalog.profile.shoeSize}</dd>
-            </div>
-            <div>
-              <dt>Height</dt>
-              <dd>≈ {catalog.profile.heightCmApprox} cm</dd>
-            </div>
-            <div>
-              <dt>Context</dt>
-              <dd>{catalog.profile.locationContext}</dd>
-            </div>
-          </dl>
-        </section>
       </main>
     </>
   );
