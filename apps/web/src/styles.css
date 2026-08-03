@@ -63,18 +63,13 @@ img {
   top: 25px;
   left: 4vw;
 }
-.site-header.pinned > nav {
-  position: fixed;
-  top: 33px;
-  left: 50%;
-  transform: translateX(-50%);
-}
 .site-header.pinned > .public-pill {
   position: fixed;
   top: 23px;
   right: 4vw;
 }
-.site-header > * {
+.site-header > .brand,
+.site-header > .public-pill {
   position: relative;
   z-index: 1;
 }
@@ -90,6 +85,11 @@ img {
 nav {
   display: flex;
   gap: 38px;
+  position: fixed;
+  top: 33px;
+  left: 50%;
+  z-index: 101;
+  transform: translateX(-50%);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -737,6 +737,10 @@ footer > a:not(.brand) {
   nav {
     justify-self: end;
     gap: 18px;
+    top: 28px;
+    right: 5vw;
+    left: auto;
+    transform: none;
     font-size: 10px;
   }
   .public-pill {
@@ -745,12 +749,6 @@ footer > a:not(.brand) {
   .site-header.pinned > .brand {
     top: 21px;
     left: 5vw;
-  }
-  .site-header.pinned > nav {
-    top: 28px;
-    right: 5vw;
-    left: auto;
-    transform: none;
   }
   .wardrobe-section,
   .looks-section,
