@@ -73,7 +73,12 @@ def main() -> None:
             pixels[refinement["clearBelow"] :, :, 3] = 0
 
         pixels[pixels[:, :, 3] == 0, :3] = 0
-        Image.fromarray(pixels, "RGBA").save(path, "WEBP", lossless=True, method=6)
+        Image.fromarray(pixels, "RGBA").save(
+            path,
+            "PNG",
+            optimize=True,
+            compress_level=9,
+        )
 
         report_entry = report_by_output[path.name]
         alpha_image = Image.fromarray(pixels[:, :, 3], "L")

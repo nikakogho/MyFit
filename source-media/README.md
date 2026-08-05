@@ -13,7 +13,7 @@ references pointed either at the derived media or at a restored copy of the corr
 ## Background-free derivatives
 
 Run `scripts/remove-backgrounds.py` from an environment containing the pinned packages in
-`requirements-background-removal.txt`. The production derivatives are lossless WebPs with true
+`requirements-background-removal.txt`. The production derivatives are lossless PNGs with true
 transparency; coloured diagnostic backdrops are QA-only and must never be published.
 
 For product photos the subject is the garment. For worn and photographed-look images the subject is

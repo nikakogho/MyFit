@@ -157,7 +157,7 @@ test("filters and opens photo-backed looks by garment combination", async ({ pag
   await expect(page.getByRole("heading", { name: "Black modular utility layers" })).toBeVisible();
   await expect(page.locator(".look-card-image img")).toHaveAttribute(
     "src",
-    "/media/black-modular-pocket-hoodie-worn-front.webp",
+    "/media/black-modular-pocket-hoodie-worn-front.png",
   );
   await page.getByRole("button", { name: "Clear garments" }).click();
   await filter.selectOption("black-modular-pocket-hoodie");

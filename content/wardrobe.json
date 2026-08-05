@@ -52,14 +52,14 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/cp-company-jacket-front.webp",
+          "src": "/media/cp-company-jacket-front.png",
           "alt": "C.P. Company brown-grey lightweight jacket laid flat, front view",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/cp-company-jacket-back.webp",
+          "src": "/media/cp-company-jacket-back.png",
           "alt": "C.P. Company brown-grey lightweight jacket laid flat, back view",
           "role": "back",
           "width": 1152,
@@ -102,14 +102,14 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/hermes-sneakers-front.webp",
+          "src": "/media/hermes-sneakers-front.png",
           "alt": "Blue, white, and orange Hermès sneakers worn with light trousers, front view",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/hermes-sneakers-side.webp",
+          "src": "/media/hermes-sneakers-side.png",
           "alt": "Blue, white, and orange Hermès sneakers worn with light trousers, side detail",
           "role": "detail",
           "width": 1152,
@@ -158,21 +158,21 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/black-distressed-high-top-front.webp",
+          "src": "/media/black-distressed-high-top-front.png",
           "alt": "Distressed black high-top sneaker with twin side zips, three-quarter front view",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/black-distressed-high-top-side.webp",
+          "src": "/media/black-distressed-high-top-side.png",
           "alt": "Distressed black high-top sneaker showing its side profile and zips",
           "role": "detail",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/black-distressed-high-top-rear.webp",
+          "src": "/media/black-distressed-high-top-rear.png",
           "alt": "Distressed black zip high-top sneaker from the rear showing the padded collar and heel construction",
           "role": "detail",
           "width": 1152,
@@ -222,21 +222,21 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/charcoal-brogue-sneaker-top.webp",
+          "src": "/media/charcoal-brogue-sneaker-top.png",
           "alt": "Charcoal grey-green brogue-inspired hybrid shoe viewed from above",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/charcoal-brogue-sneaker-side.webp",
+          "src": "/media/charcoal-brogue-sneaker-side.png",
           "alt": "Charcoal brogue-inspired hybrid shoe showing paneling and a black lug sole",
           "role": "detail",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/charcoal-brogue-sneaker-rear.webp",
+          "src": "/media/charcoal-brogue-sneaker-rear.png",
           "alt": "Charcoal brogue hybrid shoe from a rear three-quarter angle showing the heel, red lining, and side panels",
           "role": "detail",
           "width": 1152,
@@ -286,28 +286,28 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/hermes-grey-sneakers-pair.webp",
+          "src": "/media/hermes-grey-sneakers-pair.png",
           "alt": "Pair of grey Hermès low-top sneakers with white laces and segmented soles",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/hermes-grey-sneaker-front.webp",
+          "src": "/media/hermes-grey-sneaker-front.png",
           "alt": "Grey Hermès sneaker showing its layered front panels and white lacing",
           "role": "detail",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/hermes-grey-sneaker-side.webp",
+          "src": "/media/hermes-grey-sneaker-side.png",
           "alt": "Grey paneled Hermès sneaker side and heel view showing the pull tab and ridged sole profile",
           "role": "detail",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/hermes-grey-sneaker-outer-profile.webp",
+          "src": "/media/hermes-grey-sneaker-outer-profile.png",
           "alt": "Grey paneled Hermès sneaker in full outer-side profile showing the large H sole insert and layered upper",
           "role": "detail",
           "width": 1152,
@@ -357,21 +357,21 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/hermes-cream-brown-sneaker-front.webp",
+          "src": "/media/hermes-cream-brown-sneaker-front.png",
           "alt": "Cream and brown Hermès low-top sneaker viewed from the front",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/hermes-cream-brown-sneaker-side.webp",
+          "src": "/media/hermes-cream-brown-sneaker-side.png",
           "alt": "Cream and brown Hermès sneaker showing its side paneling and segmented sole",
           "role": "detail",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/hermes-cream-brown-sneaker-outer-profile.webp",
+          "src": "/media/hermes-cream-brown-sneaker-outer-profile.png",
           "alt": "Cream and brown Hermès sneaker in outer-side profile showing the orange heel insert, leather overlays, and ridged sole",
           "role": "detail",
           "width": 1152,
@@ -415,7 +415,7 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/black-lightweight-sport-jacket-worn.webp",
+          "src": "/media/black-lightweight-sport-jacket-worn.png",
           "alt": "Black lightweight sport jacket worn zipped, front mirror view",
           "role": "catalog",
           "width": 1152,
@@ -459,35 +459,35 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/brown-field-jacket-front.webp",
+          "src": "/media/brown-field-jacket-front.png",
           "alt": "Warm brown field-style jacket laid flat, front view",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/brown-field-jacket-back.webp",
+          "src": "/media/brown-field-jacket-back.png",
           "alt": "Warm brown field-style jacket laid flat, back view",
           "role": "back",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/brown-field-jacket-hanging.webp",
+          "src": "/media/brown-field-jacket-hanging.png",
           "alt": "Warm brown field jacket hanging to show its drape and rear construction",
           "role": "detail",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/brown-field-jacket-construction-detail.webp",
+          "src": "/media/brown-field-jacket-construction-detail.png",
           "alt": "Warm brown field jacket close view showing its fabric, lining, and construction",
           "role": "detail",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/brown-field-jacket-worn.webp",
+          "src": "/media/brown-field-jacket-worn.png",
           "alt": "Warm brown field jacket worn buttoned, front mirror view",
           "role": "worn",
           "width": 1152,
@@ -531,7 +531,7 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/black-tonal-graphic-tshirt-worn.webp",
+          "src": "/media/black-tonal-graphic-tshirt-worn.png",
           "alt": "Relaxed black T-shirt with a tonal charcoal chest graphic, worn front view",
           "role": "catalog",
           "width": 1152,
@@ -575,28 +575,28 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/taupe-lightweight-zip-jacket-worn.webp",
+          "src": "/media/taupe-lightweight-zip-jacket-worn.png",
           "alt": "Taupe lightweight collared zip jacket worn closed, front mirror view",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/taupe-lightweight-zip-jacket-back.webp",
+          "src": "/media/taupe-lightweight-zip-jacket-back.png",
           "alt": "Taupe lightweight collared zip jacket laid flat, back view",
           "role": "back",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/taupe-lightweight-zip-jacket-inside.webp",
+          "src": "/media/taupe-lightweight-zip-jacket-inside.png",
           "alt": "Taupe lightweight zip jacket laid open to show its interior and construction",
           "role": "detail",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/taupe-lightweight-zip-jacket-open.webp",
+          "src": "/media/taupe-lightweight-zip-jacket-open.png",
           "alt": "Taupe lightweight zip jacket worn open over a black top",
           "role": "worn",
           "width": 1152,
@@ -640,21 +640,21 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/tmnt-graphic-tshirt-front.webp",
+          "src": "/media/tmnt-graphic-tshirt-front.png",
           "alt": "Black Teenage Mutant Ninja Turtles T-shirt worn from the front with a small chest logo",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/tmnt-graphic-tshirt-back.webp",
+          "src": "/media/tmnt-graphic-tshirt-back.png",
           "alt": "Black Teenage Mutant Ninja Turtles T-shirt laid flat showing the large colourful back graphic",
           "role": "back",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/tmnt-graphic-tshirt-worn-back.webp",
+          "src": "/media/tmnt-graphic-tshirt-worn-back.png",
           "alt": "Black Teenage Mutant Ninja Turtles T-shirt worn from the back to show the full graphic",
           "role": "worn",
           "width": 452,
@@ -698,14 +698,14 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/anime-eyes-tshirt-front.webp",
+          "src": "/media/anime-eyes-tshirt-front.png",
           "alt": "Black T-shirt laid flat showing red Sharingan and purple Rinnegan eye motifs on the chest",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/anime-eyes-tshirt-worn.webp",
+          "src": "/media/anime-eyes-tshirt-worn.png",
           "alt": "Black Sharingan and Rinnegan eyes T-shirt worn from the front",
           "role": "worn",
           "width": 1152,
@@ -750,35 +750,35 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/black-graphic-rain-parka-front.webp",
+          "src": "/media/black-graphic-rain-parka-front.png",
           "alt": "Black hooded graphic rain parka worn from the front with the hood down",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/black-graphic-rain-parka-hood.webp",
+          "src": "/media/black-graphic-rain-parka-hood.png",
           "alt": "Black graphic rain parka worn from the front with the hood up",
           "role": "worn",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/black-graphic-rain-parka-back.webp",
+          "src": "/media/black-graphic-rain-parka-back.png",
           "alt": "Black rain parka laid flat showing its large orange and white back graphic",
           "role": "back",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/black-graphic-rain-parka-pocket-detail.webp",
+          "src": "/media/black-graphic-rain-parka-pocket-detail.png",
           "alt": "Black rain parka close view showing an outlined utility pocket and snap closure",
           "role": "detail",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/black-graphic-rain-parka-graphic-detail.webp",
+          "src": "/media/black-graphic-rain-parka-graphic-detail.png",
           "alt": "Black rain parka close view showing the orange graphic, lettering, and lower utility pocket",
           "role": "detail",
           "width": 1152,
@@ -825,42 +825,42 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/black-modular-pocket-hoodie-front.webp",
+          "src": "/media/black-modular-pocket-hoodie-front.png",
           "alt": "Black modular pocket hoodie worn from the front, showing its stacked utility pockets and horizontal zips",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/black-modular-pocket-hoodie-full-outfit.webp",
+          "src": "/media/black-modular-pocket-hoodie-full-outfit.png",
           "alt": "Black modular pocket hoodie worn in a full dark technical outfit",
           "role": "worn",
           "width": 1152,
           "height": 2837
         },
         {
-          "src": "/media/black-modular-pocket-hoodie-three-quarter.webp",
+          "src": "/media/black-modular-pocket-hoodie-three-quarter.png",
           "alt": "Black modular pocket hoodie worn from a three-quarter angle with the high hood and longline hem visible",
           "role": "worn",
           "width": 1152,
           "height": 2410
         },
         {
-          "src": "/media/black-modular-pocket-hoodie-worn-front.webp",
+          "src": "/media/black-modular-pocket-hoodie-worn-front.png",
           "alt": "Black modular pocket hoodie worn from the front in a second full-length outfit view",
           "role": "worn",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/black-modular-pocket-hoodie-worn-relaxed.webp",
+          "src": "/media/black-modular-pocket-hoodie-worn-relaxed.png",
           "alt": "Black modular pocket hoodie worn in a relaxed front stance showing its volume and pocket placement",
           "role": "worn",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/black-modular-pocket-hoodie-worn-side.webp",
+          "src": "/media/black-modular-pocket-hoodie-worn-side.png",
           "alt": "Black modular pocket hoodie worn from the side showing the raised hood and projecting utility pockets",
           "role": "worn",
           "width": 371,
@@ -904,21 +904,21 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/black-hooded-tech-coat-worn-open.webp",
+          "src": "/media/black-hooded-tech-coat-worn-open.png",
           "alt": "Black hooded technical coat worn open from the front, showing its mid-thigh length and layered construction",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/black-hooded-tech-coat-worn-hood-up.webp",
+          "src": "/media/black-hooded-tech-coat-worn-hood-up.png",
           "alt": "Black hooded technical coat worn open with the hood up",
           "role": "worn",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/black-hooded-tech-coat-laid-interior.webp",
+          "src": "/media/black-hooded-tech-coat-laid-interior.png",
           "alt": "Black hooded technical coat laid open to show its interior, hood, and pocket construction",
           "role": "detail",
           "width": 1152,
@@ -965,14 +965,14 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/blacksquad-black-cargo-trousers-worn-front.webp",
+          "src": "/media/blacksquad-black-cargo-trousers-worn-front.png",
           "alt": "Blacksquad black utility cargo trousers worn from the front, showing their thigh pockets, straps, and white branding",
           "role": "catalog",
           "width": 489,
           "height": 1396
         },
         {
-          "src": "/media/blacksquad-black-cargo-trousers-worn-detail.webp",
+          "src": "/media/blacksquad-black-cargo-trousers-worn-detail.png",
           "alt": "Blacksquad black utility cargo trousers worn in a closer front view showing the articulated pockets and piping",
           "role": "worn",
           "width": 887,
@@ -1016,14 +1016,14 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/navy-tactical-cargo-trousers-front.webp",
+          "src": "/media/navy-tactical-cargo-trousers-front.png",
           "alt": "Dark navy tactical cargo trousers laid flat from the front, showing their straight legs and articulated pockets",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/navy-tactical-cargo-trousers-back.webp",
+          "src": "/media/navy-tactical-cargo-trousers-back.png",
           "alt": "Dark navy tactical cargo trousers laid flat from the back, showing their rear pocket and leg construction",
           "role": "back",
           "width": 1152,
@@ -1067,35 +1067,35 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/grey-distressed-hooded-coat-worn-open.webp",
+          "src": "/media/grey-distressed-hooded-coat-worn-open.png",
           "alt": "Grey distressed hooded coat worn open with the hood down, showing its long asymmetric front and utility pocket",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/grey-distressed-hooded-coat-worn-layered.webp",
+          "src": "/media/grey-distressed-hooded-coat-worn-layered.png",
           "alt": "Grey distressed hooded coat worn open in a layered outfit with the hood up",
           "role": "worn",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/grey-distressed-hooded-coat-worn-hood-open.webp",
+          "src": "/media/grey-distressed-hooded-coat-worn-hood-open.png",
           "alt": "Grey distressed hooded coat worn open with the hood up",
           "role": "worn",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/grey-distressed-hooded-coat-worn-hood-closed.webp",
+          "src": "/media/grey-distressed-hooded-coat-worn-hood-closed.png",
           "alt": "Grey distressed hooded coat worn buttoned with the hood up",
           "role": "worn",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/grey-distressed-hooded-coat-worn-full.webp",
+          "src": "/media/grey-distressed-hooded-coat-worn-full.png",
           "alt": "Grey distressed hooded coat worn from the front in a full-length view with the hood down",
           "role": "worn",
           "width": 1152,
@@ -1139,49 +1139,49 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/white-skull-graphic-long-sleeve-worn-front.webp",
+          "src": "/media/white-skull-graphic-long-sleeve-worn-front.png",
           "alt": "White skull-collage graphic long-sleeve T-shirt worn from the front, showing its central artwork and printed sleeves",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/white-skull-graphic-long-sleeve-front.webp",
+          "src": "/media/white-skull-graphic-long-sleeve-front.png",
           "alt": "White skull-collage long-sleeve T-shirt laid flat from the front showing the full print arrangement",
           "role": "front",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/white-skull-graphic-long-sleeve-back.webp",
+          "src": "/media/white-skull-graphic-long-sleeve-back.png",
           "alt": "White skull-collage long-sleeve T-shirt laid flat from the back showing its large skeleton graphic",
           "role": "back",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/white-skull-graphic-long-sleeve-print-detail.webp",
+          "src": "/media/white-skull-graphic-long-sleeve-print-detail.png",
           "alt": "White skull-collage long-sleeve T-shirt close view showing the front face graphic, text, and sleeve prints",
           "role": "detail",
           "width": 1152,
           "height": 1391
         },
         {
-          "src": "/media/white-skull-graphic-long-sleeve-layered-1.webp",
+          "src": "/media/white-skull-graphic-long-sleeve-layered-1.png",
           "alt": "White skull-collage long-sleeve T-shirt worn beneath an open black coat in a layered outfit",
           "role": "worn",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/white-skull-graphic-long-sleeve-layered-2.webp",
+          "src": "/media/white-skull-graphic-long-sleeve-layered-2.png",
           "alt": "White skull-collage long-sleeve T-shirt shown in a second full layered outfit view",
           "role": "worn",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/white-skull-graphic-long-sleeve-layered-3.webp",
+          "src": "/media/white-skull-graphic-long-sleeve-layered-3.png",
           "alt": "White skull-collage long-sleeve T-shirt shown in a close layered outfit view beneath black outerwear",
           "role": "worn",
           "width": 1152,
@@ -1228,21 +1228,21 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/black-utility-pocket-tshirt-front.webp",
+          "src": "/media/black-utility-pocket-tshirt-front.png",
           "alt": "Black utility-pocket T-shirt laid flat from the front showing its asymmetric flap pocket, text, buttons, and D-ring",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/black-utility-pocket-tshirt-back.webp",
+          "src": "/media/black-utility-pocket-tshirt-back.png",
           "alt": "Black utility-pocket T-shirt laid flat from the back showing the large rear panel and D-ring",
           "role": "back",
           "width": 1152,
           "height": 864
         },
         {
-          "src": "/media/black-utility-pocket-tshirt-worn.webp",
+          "src": "/media/black-utility-pocket-tshirt-worn.png",
           "alt": "Black utility-pocket T-shirt worn from the front showing its relaxed fit and low-contrast waist detail",
           "role": "worn",
           "width": 1152,
@@ -1286,21 +1286,21 @@
       "status": "available",
       "images": [
         {
-          "src": "/media/white-high-neck-top-worn-front.webp",
+          "src": "/media/white-high-neck-top-worn-front.png",
           "alt": "White snap-collar high-neck top worn from the front, showing its clean body and tall funnel collar",
           "role": "catalog",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/white-high-neck-top-collar-detail.webp",
+          "src": "/media/white-high-neck-top-collar-detail.png",
           "alt": "White high-neck top close view showing the sculpted funnel collar and silver snap details",
           "role": "detail",
           "width": 1152,
           "height": 1536
         },
         {
-          "src": "/media/white-high-neck-top-worn-three-quarter.webp",
+          "src": "/media/white-high-neck-top-worn-three-quarter.png",
           "alt": "White snap-collar high-neck top worn from a three-quarter angle showing its regular fit and extended collar",
           "role": "worn",
           "width": 1152,
@@ -1316,7 +1316,7 @@
       "title": "Black modular utility layers",
       "images": [
         {
-          "src": "/media/black-modular-pocket-hoodie-front.webp",
+          "src": "/media/black-modular-pocket-hoodie-front.png",
           "alt": "Black modular pocket hoodie worn with separate black strapped utility trousers in a full-length mirror view",
           "role": "catalog",
           "width": 1152,
@@ -1329,7 +1329,7 @@
           ]
         },
         {
-          "src": "/media/black-modular-pocket-hoodie-full-outfit.webp",
+          "src": "/media/black-modular-pocket-hoodie-full-outfit.png",
           "alt": "Long full-body view of the black modular hoodie with separate uncatalogued utility trousers and high-top footwear",
           "role": "worn",
           "width": 1152,
@@ -1342,7 +1342,7 @@
           ]
         },
         {
-          "src": "/media/black-modular-pocket-hoodie-three-quarter.webp",
+          "src": "/media/black-modular-pocket-hoodie-three-quarter.png",
           "alt": "Three-quarter full-body view of the black modular hoodie with separate strapped utility trousers",
           "role": "worn",
           "width": 1152,
@@ -1355,7 +1355,7 @@
           ]
         },
         {
-          "src": "/media/black-modular-pocket-hoodie-worn-front.webp",
+          "src": "/media/black-modular-pocket-hoodie-worn-front.png",
           "alt": "Front mirror view of the black modular hoodie with separate uncatalogued black trousers and catalogued distressed black zip high-tops",
           "role": "worn",
           "width": 1152,
@@ -1367,7 +1367,7 @@
           ]
         },
         {
-          "src": "/media/black-modular-pocket-hoodie-worn-relaxed.webp",
+          "src": "/media/black-modular-pocket-hoodie-worn-relaxed.png",
           "alt": "Relaxed stance wearing the black modular hoodie with separate uncatalogued black trousers and catalogued distressed black zip high-tops",
           "role": "worn",
           "width": 1152,

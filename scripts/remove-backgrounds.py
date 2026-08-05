@@ -92,8 +92,8 @@ def main() -> None:
         pixels[pixels[:, :, 3] == 0, :3] = 0
         rgba = Image.fromarray(pixels, "RGBA")
 
-        output_path = args.output_dir / f"{input_path.stem}.webp"
-        rgba.save(output_path, "WEBP", lossless=True, method=6, exact=False)
+        output_path = args.output_dir / f"{input_path.stem}.png"
+        rgba.save(output_path, "PNG", optimize=True, compress_level=9)
 
         stats = alpha_stats(alpha)
         if stats["transparentFraction"] < 0.01:

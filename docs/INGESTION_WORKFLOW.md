@@ -176,7 +176,7 @@ it. Only reviewed transparent presentation assets are copied to `apps/web/public
 
 Background-removal rules:
 
-- use lossless WebP with a real alpha channel; never publish a pink, green, or other chroma matte;
+- use lossless PNG with a real alpha channel; never publish a pink, green, or other chroma matte;
 - for a non-worn product photo, retain the garment or footwear and remove the surroundings;
 - for a worn garment or photographed look, retain the person and complete outfit while removing
   the room, floor, and background;

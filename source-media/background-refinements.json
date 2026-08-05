@@ -1,11 +1,11 @@
 [
   {
-    "filename": "brown-field-jacket-front.webp",
+    "filename": "brown-field-jacket-front.png",
     "removeNeutralBeddingBelow": 880,
     "clearBelow": 1200
   },
   {
-    "filename": "brown-field-jacket-back.webp",
+    "filename": "brown-field-jacket-back.png",
     "removeNeutralBeddingBelow": 880,
     "clearBelow": 1260
   }
